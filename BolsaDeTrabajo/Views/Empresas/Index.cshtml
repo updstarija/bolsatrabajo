@@ -1,0 +1,129 @@
+﻿
+@{
+    ViewBag.Title = "Registrar";
+    Layout = "~/Views/Shared/_LayoutCuenta.cshtml";
+}
+
+<div class="container shadow-lg p-3 bg-white rounded pl-5 pr-5 pb-5 mt-4">
+    <h1 class="text-center">Registro de Empresa</h1>
+    <form id="formRegistrarEmpresa" class="needs-validation" enctype="multipart/form-data" novalidate>
+        <h4 class="mt-2 mb-2">Perfil:</h4>
+        <div class="form-row">
+            <div class="col-12 col-md-9">
+                <label for="nombre_empresa">Nombre:</label>
+                <input type="text" class="form-control" id="nombre_empresa" name="nombre_empresa" required>
+                <input type="hidden" id="id_empresa" name="id_empresa" value="-1">
+                <div class="invalid-feedback">¡Campo Vacio!</div>
+            </div>
+            <div class="col-12 col-md-3">
+                <label for="NIT_empresa">NIT:</label>
+                <input type="text" class="form-control" id="NIT_empresa" name="NIT_empresa" required>
+                <div class="invalid-feedback">¡Campo Vacio!</div>
+            </div>
+        </div>
+        <div class="form-row">
+            <div class="col-12 col-md-9">
+                <label for="nombre_persona_empresa">Nombre Persona Responsable:</label>
+                <input type="text" class="form-control" id="nombre_persona_empresa" name="nombre_persona_empresa" required>
+                <div class="invalid-feedback">¡Campo Vacio!</div>
+            </div>
+            <div class="col-12 col-md-3">
+                <label for="pais_empresa">Pais:</label>
+                <input type="text" class="form-control" id="pais_empresa" name="pais_empresa" disabled value="Bolivia" required>
+                <div class="invalid-feedback">¡Campo Vacio!</div>
+            </div>
+        </div>
+        <div class="form-row">
+            <div class="col-12 col-md-3">
+                <label for="estadoregion">Departamento:</label>
+                <select class="custom-select" id="estadoregion" name="estadoregion" required>
+                    <option selected disabled value="">Seleccionar Departamento...</option>
+                    @foreach (var item in ViewBag.tDepartamentos)
+                    {
+                        <option value="@item.Nombre">@item.Nombre</option>
+                    }
+                </select>
+                <div class="invalid-feedback">¡Campo Vacio!</div>
+            </div>
+            <div class="col-12 col-md-3">
+                <label for="ciudad_empresa">Ciudad:</label>
+                <input type="text" class="form-control" id="ciudad_empresa" name="ciudad_empresa" required>
+                <div class="invalid-feedback">¡Campo Vacio!</div>
+            </div>
+            <div class="col-12 col-md-6">
+                <label for="direccion_empresa">Direccion:</label>
+                <input type="text" class="form-control" id="direccion_empresa" name="direccion_empresa" required>
+                <div class="invalid-feedback">¡Campo Vacio!</div>
+            </div>
+        </div>
+        <div class="form-row">
+            <div class="col-12 col-md-6">
+                <label for="sitio_web_empresa">Sitio Web:</label>
+                <input type="text" class="form-control" id="sitio_web_empresa" name="sitio_web_empresa">
+                <div class="invalid-feedback">¡Campo Vacio!</div>
+            </div>
+            <div class="col-12 col-md-3">
+                <label for="telefonoCelular">Tel.Celular:</label>
+                <input type="text" class="form-control" id="telefonoCelular" name="telefonoCelular">
+            </div>
+            <div class="col-12 col-md-3">
+                <label for="telefonoFijo">Tel.Fijo:</label>
+                <input type="text" class="form-control" id="telefonoFijo" name="telefonoFijo">
+            </div>
+        </div>
+        <div class="form-row">
+            <div class="col-md-9">
+                <label for="descripcion_empresa">Descripcion:</label>
+                <textarea class="form-control" id="descripcion_empresa" name="descripcion_empresa" minlength="10" maxlength="500" style="resize: none; height: 200px;" required onkeyup="ContarCaracteres($(this).val(),'500',$(this))"></textarea>
+                <p id="CaracteresDispEmpresa" class="text-left"></p>
+                <div class="invalid-feedback">¡Campo Vacio!</div>
+            </div>
+            <div class="col-md-3">
+                <label for="imagen">Imagen:</label>
+                <div id="contImg" class="border border-secondary" style="height:168px;"></div>
+                <img id="foto" class="img-fluid" style="max-height: 168px; min-height: 168px; height: 168px; width:100%" src="" alt="" hidden="hidden">
+                <div id="div_file_new">
+                    <label id="palabras" for="imagen">Seleccionar Imagen</label>
+                    <input type="file" name="imagen" id="imagen" class="form-control-file" onchange="showImg()" />
+                    <div class="invalid-feedback">¡Campo Vacio!</div>
+                </div>
+            </div>
+        </div>
+
+        @*<div class="form-row py-1">
+            <div class="col-12 col-sm-6">
+                <label for="imagen">Imagen:</label>
+                <input type="file" name="imagen" id="imagen" class="form-control-file" onchange="showImg()"
+                       placeholder="Selecione una imagen" required>
+                <div class="invalid-feedback">¡Campo Vacio!</div>
+            </div>
+            <div class="col-12 col-sm-6 mt-1 mt-sm-0">
+                <div class="d-flex justify-content-center align-items-center h-100">
+                    <img id="foto" class="img-fluid" style="max-height: 150px;border-radius:10px;" src="" alt="">
+                </div>
+            </div>
+        </div>*@
+        <hr>
+        <h4 class="mt-2 mb-2">Cuenta:</h4>
+        <div class="form-row">
+            <div class="col-12 col-sm-6">
+                <label for="correo_empresa">Correo:</label>
+                <input type="email" class="form-control" id="correo_empresa" name="correo_empresa" required>
+                <div class="invalid-feedback">¡Campo Vacio!</div>
+            </div>
+            <div class="col-12 col-sm-6">
+                <label for="clave">Contraseña</label>
+                <input type="password" class="form-control" id="clave" name="clave" required>
+                <div class="invalid-feedback">¡Campo Vacio!</div>
+            </div>
+        </div>
+        <div class="form-group d-flex justify-content-center py-3 mt-5">
+            <button id="btnRegistrarEmpresa" type="submit" class="btn btnBlueR">
+                Registrar
+                Empresa
+            </button>
+        </div>
+    </form>
+</div>
+<br />
+<br />

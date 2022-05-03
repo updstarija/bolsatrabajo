@@ -1,0 +1,28 @@
+﻿
+@{
+    ViewBag.Title = "Postulacion";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="container">
+    <div id="loadPostulacion" class="text-center mt-3">
+        <div class="spinner-border text-primary" role="status">
+            <span class="sr-only">Loading...</span>
+        </div>
+    </div>
+    <div id="contentPostulacion" class="py-2 mt-3">
+        <input type="hidden" name="IdPostulante" id="IdPostulante" value="@ViewBag.IdPostulante" />
+        <div id="divPostulacion" class="border-1">
+
+        </div>
+        <div id="divMensajeEmpresa" class="border-1">
+
+        </div>
+        <div id="DetalleEmpleo" class="border-1 pl-2 pr-2">
+
+        </div>
+        <div id="divCurriculum" class="border-1">
+
+        </div>
+    </div>
+</div>

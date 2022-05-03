@@ -1,0 +1,942 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="SAADSTJModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Carrera">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="smallint" Nullable="false" />
+          <Property Name="Nombre" Type="varchar" MaxLength="100" />
+          <Property Name="Abreviacion" Type="varchar" MaxLength="50" />
+          <Property Name="FechaCreacion" Type="date" />
+          <Property Name="IdDireccionArea" Type="smallint" />
+          <Property Name="FechaRegistro" Type="datetime" />
+          <Property Name="Resolucion" Type="varchar" MaxLength="100" />
+          <Property Name="IdEstado" Type="smallint" />
+          <Property Name="IdNivelEstudio" Type="smallint" />
+          <Property Name="IdInstitucionProfecional" Type="int" />
+          <Property Name="IdCentroCosto" Type="varchar" MaxLength="15" />
+          <Property Name="IdCentroCostoNovus" Type="varchar" MaxLength="15" />
+        </EntityType>
+        <EntityType Name="Ciudad">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="smallint" Nullable="false" />
+          <Property Name="Nombre" Type="varchar" MaxLength="100" />
+          <Property Name="IdProvincia" Type="smallint" />
+        </EntityType>
+        <EntityType Name="Departamento">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="smallint" Nullable="false" />
+          <Property Name="Nombre" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="Abreviacion" Type="varchar" MaxLength="10" />
+          <Property Name="IdPais" Type="smallint" />
+        </EntityType>
+        <EntityType Name="Estudiante">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" Nullable="false" />
+          <Property Name="AnioEgresoBachiller" Type="smallint" />
+          <Property Name="NroTitulo" Type="varchar" MaxLength="30" />
+          <Property Name="NroFolio" Type="int" Nullable="false" />
+          <Property Name="NroFolioPostGrado" Type="varchar" MaxLength="50" />
+          <Property Name="Pin" Type="varchar" MaxLength="30" />
+          <Property Name="FechaRegistro" Type="datetime" />
+          <Property Name="IdColegio" Type="smallint" />
+          <Property Name="IdTutor" Type="int" />
+          <Property Name="IdCondicionLaboral" Type="smallint" />
+          <Property Name="IdTurnoBachiller" Type="smallint" />
+          <Property Name="IdSede" Type="smallint" />
+          <Property Name="IdParentesco" Type="smallint" />
+          <Property Name="FechaTituloBachiller" Type="date" />
+          <Property Name="IdUniversidad" Type="smallint" />
+          <Property Name="IdGrupoDocumento" Type="int" />
+          <Property Name="PersonaReferencia" Type="varchar" MaxLength="200" />
+          <Property Name="TelefonoReferencia" Type="varchar" MaxLength="50" />
+          <Property Name="IdIdiomaMaterno" Type="smallint" />
+          <Property Name="Discapacidad" Type="nvarchar" MaxLength="500" />
+          <Property Name="IdMoodleUsuario" Type="bigint" />
+          <Property Name="EmailOffice365" Type="nvarchar" MaxLength="255" />
+        </EntityType>
+        <EntityType Name="Idioma">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="smallint" Nullable="false" />
+          <Property Name="Nombre" Type="varchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="InscripcionCarrera">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" Nullable="false" />
+          <Property Name="Fecha" Type="datetime" />
+          <Property Name="IdPlanEstudio" Type="smallint" Nullable="false" />
+          <Property Name="IdEstudiante" Type="int" Nullable="false" />
+          <Property Name="IdUsuario" Type="int" />
+          <Property Name="IdTipoBeneficio" Type="smallint" />
+          <Property Name="IdSistemaEstudio" Type="smallint" />
+          <Property Name="IdTurno" Type="smallint" />
+          <Property Name="IdFormaPago" Type="smallint" />
+          <Property Name="IdTipoIngreso" Type="smallint" />
+          <Property Name="IdEstado" Type="smallint" />
+          <Property Name="IdSistemaEnsenanza" Type="smallint" />
+          <Property Name="IdTipoEstudiante" Type="int" />
+          <Property Name="Recargo" Type="int" />
+          <Property Name="NroCertificadoEgreso" Type="varchar" MaxLength="50" />
+          <Property Name="Regular" Type="bit" />
+          <Property Name="NroFolio" Type="varchar" MaxLength="50" />
+          <Property Name="NroHabilitacion" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="Pais">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="smallint" Nullable="false" />
+          <Property Name="Nombre" Type="varchar" MaxLength="100" />
+          <Property Name="Nacionalidad" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="Persona">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" Nullable="false" />
+          <Property Name="Nombre" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="ApellidoPaterno" Type="varchar" MaxLength="50" />
+          <Property Name="ApellidoMaterno" Type="varchar" MaxLength="50" />
+          <Property Name="IdTipoDocumento" Type="smallint" />
+          <Property Name="DocumentoIdentidad" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="IdCiudadDocumentoIdentidad" Type="smallint" />
+          <Property Name="Direccion" Type="varchar" MaxLength="100" />
+          <Property Name="TelefonoDomicilio" Type="varchar" MaxLength="15" />
+          <Property Name="Celular" Type="varchar" MaxLength="15" />
+          <Property Name="FechaNacimiento" Type="date" Nullable="false" />
+          <Property Name="Email1" Type="varchar" MaxLength="100" />
+          <Property Name="Email2" Type="varchar" MaxLength="100" />
+          <Property Name="SitioWeb" Type="varchar" MaxLength="50" />
+          <Property Name="Facebook" Type="varchar" MaxLength="50" />
+          <Property Name="InstitucionTrabajo" Type="varchar" MaxLength="50" />
+          <Property Name="DireccionTrabajo" Type="varchar" MaxLength="100" />
+          <Property Name="TelefonoTrabajo" Type="varchar" MaxLength="15" />
+          <Property Name="IdSexo" Type="smallint" />
+          <Property Name="NIT" Type="int" />
+          <Property Name="Observacion" Type="varchar" MaxLength="50" />
+          <Property Name="Fax" Type="varchar" MaxLength="15" />
+          <Property Name="Foto" Type="varchar" MaxLength="100" />
+          <Property Name="IdEstadoCivil" Type="smallint" />
+          <Property Name="IdTipoSangre" Type="smallint" />
+          <Property Name="IdCiudad" Type="smallint" />
+          <Property Name="IdNacionalidad" Type="smallint" />
+          <Property Name="Imagen" Type="varbinary(max)" />
+          <Property Name="TieneFoto" Type="bit" />
+          <Property Name="IdRN" Type="int" />
+        </EntityType>
+        <EntityType Name="PlanEstudio">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="smallint" Nullable="false" />
+          <Property Name="Nombre" Type="varchar" MaxLength="50" />
+          <Property Name="Sigla" Type="varchar" MaxLength="50" />
+          <Property Name="Duracion" Type="smallint" />
+          <Property Name="IdPeriodicidad" Type="smallint" />
+          <Property Name="FechaCreacion" Type="datetime" />
+          <Property Name="IdEstadoPlan" Type="smallint" />
+          <Property Name="IdCarrera" Type="smallint" />
+          <Property Name="CantidadMaterias" Type="smallint" />
+          <Property Name="CantidadElectivas" Type="smallint" />
+          <Property Name="TotalHorasTeoricas" Type="smallint" />
+          <Property Name="TotalHorasPracticas" Type="smallint" />
+          <Property Name="TotalHorasAutonomas" Type="smallint" />
+          <Property Name="TotalHorasTeoricasVirtuales" Type="smallint" />
+          <Property Name="TotalHorasPracticasVirtuales" Type="smallint" />
+          <Property Name="PeriodicidadInicialElectivas" Type="tinyint" />
+          <Property Name="PeriodoRequeridoPractica" Type="int" />
+          <Property Name="ResolucionMinisterial" Type="varchar" MaxLength="50" />
+          <Property Name="IdUsuario" Type="int" />
+          <Property Name="Precio" Type="decimal" Precision="18" Scale="2" />
+          <Property Name="PanelesDeGrado" Type="varchar" MaxLength="250" />
+          <Property Name="CitePlanEstudio" Type="varchar" MaxLength="50" />
+          <Property Name="fechaAprovacion" Type="datetime" />
+          <Property Name="RegimenComplementario" Type="int" />
+          <Property Name="HorasPracticasProfesional" Type="int" />
+          <Property Name="HorasMDG" Type="int" />
+          <Property Name="IdModeloEstudio" Type="int" />
+          <Property Name="IdTipoPlanEstudio" Type="int" />
+          <Property Name="IdSistemaEstudio" Type="smallint" />
+        </EntityType>
+        <EntityType Name="Provincia">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="smallint" Nullable="false" />
+          <Property Name="Nombre" Type="varchar" MaxLength="100" />
+          <Property Name="IdDepartamento" Type="smallint" />
+        </EntityType>
+        <Association Name="FK__Ciudad__IdProvin__44EA3301">
+          <End Role="Provincia" Type="Self.Provincia" Multiplicity="0..1" />
+          <End Role="Ciudad" Type="Self.Ciudad" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Provincia">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Ciudad">
+              <PropertyRef Name="IdProvincia" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Departame__IdPai__60924D76">
+          <End Role="Pais" Type="Self.Pais" Multiplicity="0..1" />
+          <End Role="Departamento" Type="Self.Departamento" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Pais">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Departamento">
+              <PropertyRef Name="IdPais" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Estudiante__Id__08B54D69">
+          <End Role="Persona" Type="Self.Persona" Multiplicity="1" />
+          <End Role="Estudiante" Type="Self.Estudiante" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="Persona">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Estudiante">
+              <PropertyRef Name="Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Inscripci__IdEst__3F115E1A">
+          <End Role="Estudiante" Type="Self.Estudiante" Multiplicity="1" />
+          <End Role="InscripcionCarrera" Type="Self.InscripcionCarrera" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Estudiante">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="InscripcionCarrera">
+              <PropertyRef Name="IdEstudiante" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Inscripci__IdPla__3E1D39E1">
+          <End Role="PlanEstudio" Type="Self.PlanEstudio" Multiplicity="1" />
+          <End Role="InscripcionCarrera" Type="Self.InscripcionCarrera" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PlanEstudio">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="InscripcionCarrera">
+              <PropertyRef Name="IdPlanEstudio" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Persona__IdCiuda__787EE5A0">
+          <End Role="Ciudad" Type="Self.Ciudad" Multiplicity="0..1" />
+          <End Role="Persona" Type="Self.Persona" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Ciudad">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Persona">
+              <PropertyRef Name="IdCiudad" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__PlanEstud__IdCar__2645B050">
+          <End Role="Carrera" Type="Self.Carrera" Multiplicity="0..1" />
+          <End Role="PlanEstudio" Type="Self.PlanEstudio" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Carrera">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="PlanEstudio">
+              <PropertyRef Name="IdCarrera" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Provincia__IdDep__335592AB">
+          <End Role="Departamento" Type="Self.Departamento" Multiplicity="0..1" />
+          <End Role="Provincia" Type="Self.Provincia" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Departamento">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Provincia">
+              <PropertyRef Name="IdDepartamento" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Estudiante_Idioma">
+          <End Role="Idioma" Type="Self.Idioma" Multiplicity="0..1" />
+          <End Role="Estudiante" Type="Self.Estudiante" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Idioma">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Estudiante">
+              <PropertyRef Name="IdIdiomaMaterno" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Persona_Pais">
+          <End Role="Pais" Type="Self.Pais" Multiplicity="0..1" />
+          <End Role="Persona" Type="Self.Persona" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Pais">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Persona">
+              <PropertyRef Name="IdNacionalidad" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="SAADSTJModelStoreContainer">
+          <EntitySet Name="Carrera" EntityType="Self.Carrera" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Ciudad" EntityType="Self.Ciudad" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Departamento" EntityType="Self.Departamento" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Estudiante" EntityType="Self.Estudiante" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Idioma" EntityType="Self.Idioma" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="InscripcionCarrera" EntityType="Self.InscripcionCarrera" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Pais" EntityType="Self.Pais" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Persona" EntityType="Self.Persona" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="PlanEstudio" EntityType="Self.PlanEstudio" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Provincia" EntityType="Self.Provincia" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK__Ciudad__IdProvin__44EA3301" Association="Self.FK__Ciudad__IdProvin__44EA3301">
+            <End Role="Provincia" EntitySet="Provincia" />
+            <End Role="Ciudad" EntitySet="Ciudad" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Departame__IdPai__60924D76" Association="Self.FK__Departame__IdPai__60924D76">
+            <End Role="Pais" EntitySet="Pais" />
+            <End Role="Departamento" EntitySet="Departamento" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Estudiante__Id__08B54D69" Association="Self.FK__Estudiante__Id__08B54D69">
+            <End Role="Persona" EntitySet="Persona" />
+            <End Role="Estudiante" EntitySet="Estudiante" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Inscripci__IdEst__3F115E1A" Association="Self.FK__Inscripci__IdEst__3F115E1A">
+            <End Role="Estudiante" EntitySet="Estudiante" />
+            <End Role="InscripcionCarrera" EntitySet="InscripcionCarrera" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Inscripci__IdPla__3E1D39E1" Association="Self.FK__Inscripci__IdPla__3E1D39E1">
+            <End Role="PlanEstudio" EntitySet="PlanEstudio" />
+            <End Role="InscripcionCarrera" EntitySet="InscripcionCarrera" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Persona__IdCiuda__787EE5A0" Association="Self.FK__Persona__IdCiuda__787EE5A0">
+            <End Role="Ciudad" EntitySet="Ciudad" />
+            <End Role="Persona" EntitySet="Persona" />
+          </AssociationSet>
+          <AssociationSet Name="FK__PlanEstud__IdCar__2645B050" Association="Self.FK__PlanEstud__IdCar__2645B050">
+            <End Role="Carrera" EntitySet="Carrera" />
+            <End Role="PlanEstudio" EntitySet="PlanEstudio" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Provincia__IdDep__335592AB" Association="Self.FK__Provincia__IdDep__335592AB">
+            <End Role="Departamento" EntitySet="Departamento" />
+            <End Role="Provincia" EntitySet="Provincia" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Estudiante_Idioma" Association="Self.FK_Estudiante_Idioma">
+            <End Role="Idioma" EntitySet="Idioma" />
+            <End Role="Estudiante" EntitySet="Estudiante" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Persona_Pais" Association="Self.FK_Persona_Pais">
+            <End Role="Pais" EntitySet="Pais" />
+            <End Role="Persona" EntitySet="Persona" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="SAADSTJModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Estudiante">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" />
+          <Property Name="AnioEgresoBachiller" Type="Int16" />
+          <Property Name="NroTitulo" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="NroFolio" Type="Int32" Nullable="false" />
+          <Property Name="NroFolioPostGrado" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Pin" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="FechaRegistro" Type="DateTime" Precision="3" />
+          <Property Name="IdColegio" Type="Int16" />
+          <Property Name="IdTutor" Type="Int32" />
+          <Property Name="IdCondicionLaboral" Type="Int16" />
+          <Property Name="IdTurnoBachiller" Type="Int16" />
+          <Property Name="IdSede" Type="Int16" />
+          <Property Name="IdParentesco" Type="Int16" />
+          <Property Name="FechaTituloBachiller" Type="DateTime" Precision="0" />
+          <Property Name="IdUniversidad" Type="Int16" />
+          <Property Name="IdGrupoDocumento" Type="Int32" />
+          <Property Name="PersonaReferencia" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="TelefonoReferencia" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="IdIdiomaMaterno" Type="Int16" />
+          <Property Name="Discapacidad" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="IdMoodleUsuario" Type="Int64" />
+          <Property Name="EmailOffice365" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Persona" Relationship="Self.FK__Estudiante__Id__08B54D69" FromRole="Estudiante" ToRole="Persona" />
+          <NavigationProperty Name="InscripcionCarrera" Relationship="Self.FK__Inscripci__IdEst__3F115E1A" FromRole="Estudiante" ToRole="InscripcionCarrera" />
+        </EntityType>
+        <EntityType Name="Idioma">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int16" Nullable="false" />
+          <Property Name="Nombre" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="Estudiante" Relationship="Self.FK_Estudiante_Idioma" FromRole="Idioma" ToRole="Estudiante" />
+        </EntityType>
+        <EntityType Name="InscripcionCarrera">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" />
+          <Property Name="Fecha" Type="DateTime" Precision="3" />
+          <Property Name="IdPlanEstudio" Type="Int16" Nullable="false" />
+          <Property Name="IdEstudiante" Type="Int32" Nullable="false" />
+          <Property Name="IdUsuario" Type="Int32" />
+          <Property Name="IdTipoBeneficio" Type="Int16" />
+          <Property Name="IdSistemaEstudio" Type="Int16" />
+          <Property Name="IdTurno" Type="Int16" />
+          <Property Name="IdFormaPago" Type="Int16" />
+          <Property Name="IdTipoIngreso" Type="Int16" />
+          <Property Name="IdEstado" Type="Int16" />
+          <Property Name="IdSistemaEnsenanza" Type="Int16" />
+          <Property Name="IdTipoEstudiante" Type="Int32" />
+          <Property Name="Recargo" Type="Int32" />
+          <Property Name="NroCertificadoEgreso" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Regular" Type="Boolean" />
+          <Property Name="NroFolio" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="NroHabilitacion" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Estudiante" Relationship="Self.FK__Inscripci__IdEst__3F115E1A" FromRole="InscripcionCarrera" ToRole="Estudiante" />
+          <NavigationProperty Name="PlanEstudio" Relationship="Self.FK__Inscripci__IdPla__3E1D39E1" FromRole="InscripcionCarrera" ToRole="PlanEstudio" />
+        </EntityType>
+        <EntityType Name="Pais">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int16" Nullable="false" />
+          <Property Name="Nombre" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="Nacionalidad" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Persona" Relationship="Self.FK_Persona_Pais" FromRole="Pais" ToRole="Persona" />
+          <NavigationProperty Name="Departamento" Relationship="SAADSTJModel.FK__Departame__IdPai__60924D76" FromRole="Pais" ToRole="Departamento" />
+        </EntityType>
+        <EntityType Name="Persona">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" />
+          <Property Name="Nombre" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="ApellidoPaterno" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="ApellidoMaterno" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="IdTipoDocumento" Type="Int16" />
+          <Property Name="DocumentoIdentidad" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="IdCiudadDocumentoIdentidad" Type="Int16" />
+          <Property Name="Direccion" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="TelefonoDomicilio" Type="String" MaxLength="15" FixedLength="false" Unicode="false" />
+          <Property Name="Celular" Type="String" MaxLength="15" FixedLength="false" Unicode="false" />
+          <Property Name="FechaNacimiento" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="Email1" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="Email2" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="SitioWeb" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Facebook" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="InstitucionTrabajo" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="DireccionTrabajo" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="TelefonoTrabajo" Type="String" MaxLength="15" FixedLength="false" Unicode="false" />
+          <Property Name="IdSexo" Type="Int16" />
+          <Property Name="NIT" Type="Int32" />
+          <Property Name="Observacion" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Fax" Type="String" MaxLength="15" FixedLength="false" Unicode="false" />
+          <Property Name="Foto" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="IdEstadoCivil" Type="Int16" />
+          <Property Name="IdTipoSangre" Type="Int16" />
+          <Property Name="IdCiudad" Type="Int16" />
+          <Property Name="IdNacionalidad" Type="Int16" />
+          <Property Name="Imagen" Type="Binary" MaxLength="Max" FixedLength="false" />
+          <Property Name="TieneFoto" Type="Boolean" />
+          <Property Name="IdRN" Type="Int32" />
+          <NavigationProperty Name="Estudiante" Relationship="Self.FK__Estudiante__Id__08B54D69" FromRole="Persona" ToRole="Estudiante" />
+          <NavigationProperty Name="Pais" Relationship="Self.FK_Persona_Pais" FromRole="Persona" ToRole="Pais" />
+          <NavigationProperty Name="Ciudad" Relationship="SAADSTJModel.FK__Persona__IdCiuda__787EE5A0" FromRole="Persona" ToRole="Ciudad" />
+        </EntityType>
+        <EntityType Name="PlanEstudio">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int16" Nullable="false" />
+          <Property Name="Nombre" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Sigla" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Duracion" Type="Int16" />
+          <Property Name="IdPeriodicidad" Type="Int16" />
+          <Property Name="FechaCreacion" Type="DateTime" Precision="3" />
+          <Property Name="IdEstadoPlan" Type="Int16" />
+          <Property Name="IdCarrera" Type="Int16" />
+          <Property Name="CantidadMaterias" Type="Int16" />
+          <Property Name="CantidadElectivas" Type="Int16" />
+          <Property Name="TotalHorasTeoricas" Type="Int16" />
+          <Property Name="TotalHorasPracticas" Type="Int16" />
+          <Property Name="TotalHorasAutonomas" Type="Int16" />
+          <Property Name="TotalHorasTeoricasVirtuales" Type="Int16" />
+          <Property Name="TotalHorasPracticasVirtuales" Type="Int16" />
+          <Property Name="PeriodicidadInicialElectivas" Type="Byte" />
+          <Property Name="PeriodoRequeridoPractica" Type="Int32" />
+          <Property Name="ResolucionMinisterial" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="IdUsuario" Type="Int32" />
+          <Property Name="Precio" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="PanelesDeGrado" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
+          <Property Name="CitePlanEstudio" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="fechaAprovacion" Type="DateTime" Precision="3" />
+          <Property Name="RegimenComplementario" Type="Int32" />
+          <Property Name="HorasPracticasProfesional" Type="Int32" />
+          <Property Name="HorasMDG" Type="Int32" />
+          <Property Name="IdModeloEstudio" Type="Int32" />
+          <Property Name="IdTipoPlanEstudio" Type="Int32" />
+          <Property Name="IdSistemaEstudio" Type="Int16" />
+          <NavigationProperty Name="InscripcionCarrera" Relationship="Self.FK__Inscripci__IdPla__3E1D39E1" FromRole="PlanEstudio" ToRole="InscripcionCarrera" />
+          <NavigationProperty Name="Carrera" Relationship="SAADSTJModel.FK__PlanEstud__IdCar__2645B050" FromRole="PlanEstudio" ToRole="Carrera" />
+        </EntityType>
+        <Association Name="FK__Estudiante__Id__08B54D69">
+          <End Role="Persona" Type="Self.Persona" Multiplicity="1" />
+          <End Role="Estudiante" Type="Self.Estudiante" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="Persona">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Estudiante">
+              <PropertyRef Name="Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Inscripci__IdEst__3F115E1A">
+          <End Role="Estudiante" Type="Self.Estudiante" Multiplicity="1" />
+          <End Role="InscripcionCarrera" Type="Self.InscripcionCarrera" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Estudiante">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="InscripcionCarrera">
+              <PropertyRef Name="IdEstudiante" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Estudiante_Idioma">
+          <End Role="Idioma" Type="Self.Idioma" Multiplicity="0..1" />
+          <End Role="Estudiante" Type="Self.Estudiante" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Idioma">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Estudiante">
+              <PropertyRef Name="IdIdiomaMaterno" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Inscripci__IdPla__3E1D39E1">
+          <End Role="PlanEstudio" Type="Self.PlanEstudio" Multiplicity="1" />
+          <End Role="InscripcionCarrera" Type="Self.InscripcionCarrera" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PlanEstudio">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="InscripcionCarrera">
+              <PropertyRef Name="IdPlanEstudio" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Persona_Pais">
+          <End Role="Pais" Type="Self.Pais" Multiplicity="0..1" />
+          <End Role="Persona" Type="Self.Persona" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Pais">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Persona">
+              <PropertyRef Name="IdNacionalidad" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="SAADSTJEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Estudiante" EntityType="Self.Estudiante" />
+          <EntitySet Name="Idioma" EntityType="Self.Idioma" />
+          <EntitySet Name="InscripcionCarrera" EntityType="Self.InscripcionCarrera" />
+          <EntitySet Name="Pais" EntityType="Self.Pais" />
+          <EntitySet Name="Persona" EntityType="Self.Persona" />
+          <EntitySet Name="PlanEstudio" EntityType="Self.PlanEstudio" />
+          <AssociationSet Name="FK__Estudiante__Id__08B54D69" Association="Self.FK__Estudiante__Id__08B54D69">
+            <End Role="Persona" EntitySet="Persona" />
+            <End Role="Estudiante" EntitySet="Estudiante" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Inscripci__IdEst__3F115E1A" Association="Self.FK__Inscripci__IdEst__3F115E1A">
+            <End Role="Estudiante" EntitySet="Estudiante" />
+            <End Role="InscripcionCarrera" EntitySet="InscripcionCarrera" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Estudiante_Idioma" Association="Self.FK_Estudiante_Idioma">
+            <End Role="Idioma" EntitySet="Idioma" />
+            <End Role="Estudiante" EntitySet="Estudiante" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Inscripci__IdPla__3E1D39E1" Association="Self.FK__Inscripci__IdPla__3E1D39E1">
+            <End Role="PlanEstudio" EntitySet="PlanEstudio" />
+            <End Role="InscripcionCarrera" EntitySet="InscripcionCarrera" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Persona_Pais" Association="Self.FK_Persona_Pais">
+            <End Role="Pais" EntitySet="Pais" />
+            <End Role="Persona" EntitySet="Persona" />
+          </AssociationSet>
+          <EntitySet Name="Carrera" EntityType="SAADSTJModel.Carrera" />
+          <EntitySet Name="Ciudad" EntityType="SAADSTJModel.Ciudad" />
+          <AssociationSet Name="FK__PlanEstud__IdCar__2645B050" Association="SAADSTJModel.FK__PlanEstud__IdCar__2645B050">
+            <End Role="Carrera" EntitySet="Carrera" />
+            <End Role="PlanEstudio" EntitySet="PlanEstudio" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Persona__IdCiuda__787EE5A0" Association="SAADSTJModel.FK__Persona__IdCiuda__787EE5A0">
+            <End Role="Ciudad" EntitySet="Ciudad" />
+            <End Role="Persona" EntitySet="Persona" />
+          </AssociationSet>
+          <EntitySet Name="Provincia" EntityType="SAADSTJModel.Provincia" />
+          <AssociationSet Name="FK__Ciudad__IdProvin__44EA3301" Association="SAADSTJModel.FK__Ciudad__IdProvin__44EA3301">
+            <End Role="Provincia" EntitySet="Provincia" />
+            <End Role="Ciudad" EntitySet="Ciudad" />
+          </AssociationSet>
+          <EntitySet Name="Departamento" EntityType="SAADSTJModel.Departamento" />
+          <AssociationSet Name="FK__Departame__IdPai__60924D76" Association="SAADSTJModel.FK__Departame__IdPai__60924D76">
+            <End Role="Pais" EntitySet="Pais" />
+            <End Role="Departamento" EntitySet="Departamento" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Provincia__IdDep__335592AB" Association="SAADSTJModel.FK__Provincia__IdDep__335592AB">
+            <End Role="Departamento" EntitySet="Departamento" />
+            <End Role="Provincia" EntitySet="Provincia" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="Carrera">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int16" Nullable="false" />
+          <Property Name="Nombre" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="Abreviacion" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="FechaCreacion" Type="DateTime" Precision="0" />
+          <Property Name="IdDireccionArea" Type="Int16" />
+          <Property Name="FechaRegistro" Type="DateTime" Precision="3" />
+          <Property Name="Resolucion" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="IdEstado" Type="Int16" />
+          <Property Name="IdNivelEstudio" Type="Int16" />
+          <Property Name="IdInstitucionProfecional" Type="Int32" />
+          <Property Name="IdCentroCosto" Type="String" MaxLength="15" FixedLength="false" Unicode="false" />
+          <Property Name="IdCentroCostoNovus" Type="String" MaxLength="15" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="PlanEstudio" Relationship="SAADSTJModel.FK__PlanEstud__IdCar__2645B050" FromRole="Carrera" ToRole="PlanEstudio" />
+        </EntityType>
+        <EntityType Name="Ciudad">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int16" Nullable="false" />
+          <Property Name="Nombre" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="IdProvincia" Type="Int16" />
+          <NavigationProperty Name="Persona" Relationship="SAADSTJModel.FK__Persona__IdCiuda__787EE5A0" FromRole="Ciudad" ToRole="Persona" />
+          <NavigationProperty Name="Provincia" Relationship="SAADSTJModel.FK__Ciudad__IdProvin__44EA3301" FromRole="Ciudad" ToRole="Provincia" />
+        </EntityType>
+        <Association Name="FK__PlanEstud__IdCar__2645B050">
+          <End Type="SAADSTJModel.Carrera" Role="Carrera" Multiplicity="0..1" />
+          <End Type="SAADSTJModel.PlanEstudio" Role="PlanEstudio" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Carrera">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="PlanEstudio">
+              <PropertyRef Name="IdCarrera" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Persona__IdCiuda__787EE5A0">
+          <End Type="SAADSTJModel.Ciudad" Role="Ciudad" Multiplicity="0..1" />
+          <End Type="SAADSTJModel.Persona" Role="Persona" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Ciudad">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Persona">
+              <PropertyRef Name="IdCiudad" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="Provincia">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int16" Nullable="false" />
+          <Property Name="Nombre" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="IdDepartamento" Type="Int16" />
+          <NavigationProperty Name="Ciudad" Relationship="SAADSTJModel.FK__Ciudad__IdProvin__44EA3301" FromRole="Provincia" ToRole="Ciudad" />
+          <NavigationProperty Name="Departamento" Relationship="SAADSTJModel.FK__Provincia__IdDep__335592AB" FromRole="Provincia" ToRole="Departamento" />
+        </EntityType>
+        <Association Name="FK__Ciudad__IdProvin__44EA3301">
+          <End Type="SAADSTJModel.Provincia" Role="Provincia" Multiplicity="0..1" />
+          <End Type="SAADSTJModel.Ciudad" Role="Ciudad" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Provincia">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Ciudad">
+              <PropertyRef Name="IdProvincia" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="Departamento">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int16" Nullable="false" />
+          <Property Name="Nombre" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="Abreviacion" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="IdPais" Type="Int16" />
+          <NavigationProperty Name="Pais" Relationship="SAADSTJModel.FK__Departame__IdPai__60924D76" FromRole="Departamento" ToRole="Pais" />
+          <NavigationProperty Name="Provincia" Relationship="SAADSTJModel.FK__Provincia__IdDep__335592AB" FromRole="Departamento" ToRole="Provincia" />
+        </EntityType>
+        <Association Name="FK__Departame__IdPai__60924D76">
+          <End Type="SAADSTJModel.Pais" Role="Pais" Multiplicity="0..1" />
+          <End Type="SAADSTJModel.Departamento" Role="Departamento" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Pais">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Departamento">
+              <PropertyRef Name="IdPais" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Provincia__IdDep__335592AB">
+          <End Type="SAADSTJModel.Departamento" Role="Departamento" Multiplicity="0..1" />
+          <End Type="SAADSTJModel.Provincia" Role="Provincia" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Departamento">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Provincia">
+              <PropertyRef Name="IdDepartamento" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="SAADSTJModelStoreContainer" CdmEntityContainer="SAADSTJEntities">
+          <EntitySetMapping Name="Estudiante">
+            <EntityTypeMapping TypeName="SAADSTJModel.Estudiante">
+              <MappingFragment StoreEntitySet="Estudiante">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="AnioEgresoBachiller" ColumnName="AnioEgresoBachiller" />
+                <ScalarProperty Name="NroTitulo" ColumnName="NroTitulo" />
+                <ScalarProperty Name="NroFolio" ColumnName="NroFolio" />
+                <ScalarProperty Name="NroFolioPostGrado" ColumnName="NroFolioPostGrado" />
+                <ScalarProperty Name="Pin" ColumnName="Pin" />
+                <ScalarProperty Name="FechaRegistro" ColumnName="FechaRegistro" />
+                <ScalarProperty Name="IdColegio" ColumnName="IdColegio" />
+                <ScalarProperty Name="IdTutor" ColumnName="IdTutor" />
+                <ScalarProperty Name="IdCondicionLaboral" ColumnName="IdCondicionLaboral" />
+                <ScalarProperty Name="IdTurnoBachiller" ColumnName="IdTurnoBachiller" />
+                <ScalarProperty Name="IdSede" ColumnName="IdSede" />
+                <ScalarProperty Name="IdParentesco" ColumnName="IdParentesco" />
+                <ScalarProperty Name="FechaTituloBachiller" ColumnName="FechaTituloBachiller" />
+                <ScalarProperty Name="IdUniversidad" ColumnName="IdUniversidad" />
+                <ScalarProperty Name="IdGrupoDocumento" ColumnName="IdGrupoDocumento" />
+                <ScalarProperty Name="PersonaReferencia" ColumnName="PersonaReferencia" />
+                <ScalarProperty Name="TelefonoReferencia" ColumnName="TelefonoReferencia" />
+                <ScalarProperty Name="IdIdiomaMaterno" ColumnName="IdIdiomaMaterno" />
+                <ScalarProperty Name="Discapacidad" ColumnName="Discapacidad" />
+                <ScalarProperty Name="IdMoodleUsuario" ColumnName="IdMoodleUsuario" />
+                <ScalarProperty Name="EmailOffice365" ColumnName="EmailOffice365" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Idioma">
+            <EntityTypeMapping TypeName="SAADSTJModel.Idioma">
+              <MappingFragment StoreEntitySet="Idioma">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="InscripcionCarrera">
+            <EntityTypeMapping TypeName="SAADSTJModel.InscripcionCarrera">
+              <MappingFragment StoreEntitySet="InscripcionCarrera">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Fecha" ColumnName="Fecha" />
+                <ScalarProperty Name="IdPlanEstudio" ColumnName="IdPlanEstudio" />
+                <ScalarProperty Name="IdEstudiante" ColumnName="IdEstudiante" />
+                <ScalarProperty Name="IdUsuario" ColumnName="IdUsuario" />
+                <ScalarProperty Name="IdTipoBeneficio" ColumnName="IdTipoBeneficio" />
+                <ScalarProperty Name="IdSistemaEstudio" ColumnName="IdSistemaEstudio" />
+                <ScalarProperty Name="IdTurno" ColumnName="IdTurno" />
+                <ScalarProperty Name="IdFormaPago" ColumnName="IdFormaPago" />
+                <ScalarProperty Name="IdTipoIngreso" ColumnName="IdTipoIngreso" />
+                <ScalarProperty Name="IdEstado" ColumnName="IdEstado" />
+                <ScalarProperty Name="IdSistemaEnsenanza" ColumnName="IdSistemaEnsenanza" />
+                <ScalarProperty Name="IdTipoEstudiante" ColumnName="IdTipoEstudiante" />
+                <ScalarProperty Name="Recargo" ColumnName="Recargo" />
+                <ScalarProperty Name="NroCertificadoEgreso" ColumnName="NroCertificadoEgreso" />
+                <ScalarProperty Name="Regular" ColumnName="Regular" />
+                <ScalarProperty Name="NroFolio" ColumnName="NroFolio" />
+                <ScalarProperty Name="NroHabilitacion" ColumnName="NroHabilitacion" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Pais">
+            <EntityTypeMapping TypeName="SAADSTJModel.Pais">
+              <MappingFragment StoreEntitySet="Pais">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+                <ScalarProperty Name="Nacionalidad" ColumnName="Nacionalidad" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Persona">
+            <EntityTypeMapping TypeName="SAADSTJModel.Persona">
+              <MappingFragment StoreEntitySet="Persona">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+                <ScalarProperty Name="ApellidoPaterno" ColumnName="ApellidoPaterno" />
+                <ScalarProperty Name="ApellidoMaterno" ColumnName="ApellidoMaterno" />
+                <ScalarProperty Name="IdTipoDocumento" ColumnName="IdTipoDocumento" />
+                <ScalarProperty Name="DocumentoIdentidad" ColumnName="DocumentoIdentidad" />
+                <ScalarProperty Name="IdCiudadDocumentoIdentidad" ColumnName="IdCiudadDocumentoIdentidad" />
+                <ScalarProperty Name="Direccion" ColumnName="Direccion" />
+                <ScalarProperty Name="TelefonoDomicilio" ColumnName="TelefonoDomicilio" />
+                <ScalarProperty Name="Celular" ColumnName="Celular" />
+                <ScalarProperty Name="FechaNacimiento" ColumnName="FechaNacimiento" />
+                <ScalarProperty Name="Email1" ColumnName="Email1" />
+                <ScalarProperty Name="Email2" ColumnName="Email2" />
+                <ScalarProperty Name="SitioWeb" ColumnName="SitioWeb" />
+                <ScalarProperty Name="Facebook" ColumnName="Facebook" />
+                <ScalarProperty Name="InstitucionTrabajo" ColumnName="InstitucionTrabajo" />
+                <ScalarProperty Name="DireccionTrabajo" ColumnName="DireccionTrabajo" />
+                <ScalarProperty Name="TelefonoTrabajo" ColumnName="TelefonoTrabajo" />
+                <ScalarProperty Name="IdSexo" ColumnName="IdSexo" />
+                <ScalarProperty Name="NIT" ColumnName="NIT" />
+                <ScalarProperty Name="Observacion" ColumnName="Observacion" />
+                <ScalarProperty Name="Fax" ColumnName="Fax" />
+                <ScalarProperty Name="Foto" ColumnName="Foto" />
+                <ScalarProperty Name="IdEstadoCivil" ColumnName="IdEstadoCivil" />
+                <ScalarProperty Name="IdTipoSangre" ColumnName="IdTipoSangre" />
+                <ScalarProperty Name="IdCiudad" ColumnName="IdCiudad" />
+                <ScalarProperty Name="IdNacionalidad" ColumnName="IdNacionalidad" />
+                <ScalarProperty Name="Imagen" ColumnName="Imagen" />
+                <ScalarProperty Name="TieneFoto" ColumnName="TieneFoto" />
+                <ScalarProperty Name="IdRN" ColumnName="IdRN" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="PlanEstudio">
+            <EntityTypeMapping TypeName="SAADSTJModel.PlanEstudio">
+              <MappingFragment StoreEntitySet="PlanEstudio">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+                <ScalarProperty Name="Sigla" ColumnName="Sigla" />
+                <ScalarProperty Name="Duracion" ColumnName="Duracion" />
+                <ScalarProperty Name="IdPeriodicidad" ColumnName="IdPeriodicidad" />
+                <ScalarProperty Name="FechaCreacion" ColumnName="FechaCreacion" />
+                <ScalarProperty Name="IdEstadoPlan" ColumnName="IdEstadoPlan" />
+                <ScalarProperty Name="IdCarrera" ColumnName="IdCarrera" />
+                <ScalarProperty Name="CantidadMaterias" ColumnName="CantidadMaterias" />
+                <ScalarProperty Name="CantidadElectivas" ColumnName="CantidadElectivas" />
+                <ScalarProperty Name="TotalHorasTeoricas" ColumnName="TotalHorasTeoricas" />
+                <ScalarProperty Name="TotalHorasPracticas" ColumnName="TotalHorasPracticas" />
+                <ScalarProperty Name="TotalHorasAutonomas" ColumnName="TotalHorasAutonomas" />
+                <ScalarProperty Name="TotalHorasTeoricasVirtuales" ColumnName="TotalHorasTeoricasVirtuales" />
+                <ScalarProperty Name="TotalHorasPracticasVirtuales" ColumnName="TotalHorasPracticasVirtuales" />
+                <ScalarProperty Name="PeriodicidadInicialElectivas" ColumnName="PeriodicidadInicialElectivas" />
+                <ScalarProperty Name="PeriodoRequeridoPractica" ColumnName="PeriodoRequeridoPractica" />
+                <ScalarProperty Name="ResolucionMinisterial" ColumnName="ResolucionMinisterial" />
+                <ScalarProperty Name="IdUsuario" ColumnName="IdUsuario" />
+                <ScalarProperty Name="Precio" ColumnName="Precio" />
+                <ScalarProperty Name="PanelesDeGrado" ColumnName="PanelesDeGrado" />
+                <ScalarProperty Name="CitePlanEstudio" ColumnName="CitePlanEstudio" />
+                <ScalarProperty Name="fechaAprovacion" ColumnName="fechaAprovacion" />
+                <ScalarProperty Name="RegimenComplementario" ColumnName="RegimenComplementario" />
+                <ScalarProperty Name="HorasPracticasProfesional" ColumnName="HorasPracticasProfesional" />
+                <ScalarProperty Name="HorasMDG" ColumnName="HorasMDG" />
+                <ScalarProperty Name="IdModeloEstudio" ColumnName="IdModeloEstudio" />
+                <ScalarProperty Name="IdTipoPlanEstudio" ColumnName="IdTipoPlanEstudio" />
+                <ScalarProperty Name="IdSistemaEstudio" ColumnName="IdSistemaEstudio" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Carrera">
+            <EntityTypeMapping TypeName="SAADSTJModel.Carrera">
+              <MappingFragment StoreEntitySet="Carrera">
+                <ScalarProperty Name="IdCentroCostoNovus" ColumnName="IdCentroCostoNovus" />
+                <ScalarProperty Name="IdCentroCosto" ColumnName="IdCentroCosto" />
+                <ScalarProperty Name="IdInstitucionProfecional" ColumnName="IdInstitucionProfecional" />
+                <ScalarProperty Name="IdNivelEstudio" ColumnName="IdNivelEstudio" />
+                <ScalarProperty Name="IdEstado" ColumnName="IdEstado" />
+                <ScalarProperty Name="Resolucion" ColumnName="Resolucion" />
+                <ScalarProperty Name="FechaRegistro" ColumnName="FechaRegistro" />
+                <ScalarProperty Name="IdDireccionArea" ColumnName="IdDireccionArea" />
+                <ScalarProperty Name="FechaCreacion" ColumnName="FechaCreacion" />
+                <ScalarProperty Name="Abreviacion" ColumnName="Abreviacion" />
+                <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Ciudad">
+            <EntityTypeMapping TypeName="SAADSTJModel.Ciudad">
+              <MappingFragment StoreEntitySet="Ciudad">
+                <ScalarProperty Name="IdProvincia" ColumnName="IdProvincia" />
+                <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Provincia">
+            <EntityTypeMapping TypeName="SAADSTJModel.Provincia">
+              <MappingFragment StoreEntitySet="Provincia">
+                <ScalarProperty Name="IdDepartamento" ColumnName="IdDepartamento" />
+                <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Departamento">
+            <EntityTypeMapping TypeName="SAADSTJModel.Departamento">
+              <MappingFragment StoreEntitySet="Departamento">
+                <ScalarProperty Name="IdPais" ColumnName="IdPais" />
+                <ScalarProperty Name="Abreviacion" ColumnName="Abreviacion" />
+                <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="Ninguno" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

@@ -1,0 +1,21 @@
+﻿
+@{
+    ViewBag.Title = "Empresa";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div id="InicioCuenta" class="container">
+    <div class="h-100">
+        <div class="d-flex align-items-center h-100">
+            <div class="d-flex flex-wrap justify-content-center">
+                <a class="styleLinks m-1" href="@Url.Action("Editar","Empresas")">Mi Cuenta</a>
+                <a class="styleLinks m-1" href="@Url.Action("Index","Empleos")">Publicaciones de Empleos</a>
+                <a class="styleLinks m-1" href="@Url.Action("Index","Invitaciones")">Invitaciones a Empleo</a>
+                <a class="styleLinks m-1" href="#">Notificaciones </a>
+                <a class="styleLinks m-1" href="#">Preguntas Frecuentes</a>
+                <a class="styleLinks m-1" href="#">Reportar Empresa</a>
+            </div>
+        </div>
+    </div>
+
+</div>

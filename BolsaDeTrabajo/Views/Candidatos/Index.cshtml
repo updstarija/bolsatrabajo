@@ -1,0 +1,174 @@
+﻿
+@{
+    ViewBag.Title = "Registrar";
+    Layout = "~/Views/Shared/_LayoutCuenta.cshtml";
+}
+@{ string baseUrl = new Uri(Request.Url, Url.Content("~")).AbsoluteUri;
+    baseUrl = baseUrl.Remove(baseUrl.Length - 1);
+}
+
+<div class="container shadow-lg p-3 bg-white rounded pl-5 pr-5 pb-5 mt-4">
+    <h1 class="text-center">Registrar</h1>
+    <div id="searchPersona">
+        <div class="alert" style="background-color: #0099CC" role="alert">
+            <p class="text-center text-white font-weight-bold">Para poder registrarse como Candidato. Es necesario que se encuentre registrado en la UPDS</p>
+        </div>
+        <div class="row">
+            <div class="col-sm-12">
+                <form>
+                    <div class="form-group mb-2 d-flex flex-nowrap">
+                        <input type="search" class="form-control" name="buscarPersona" id="buscarPersona" placeholder="Ingrese su CI">
+                        <button type="button" class="btn btnBlueB ml-2" onclick="BuscarPersona()">
+                            <img src="@baseUrl/Content/iconos/person_search.svg" style="width:25px;height:30px;" />
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+        @*<div class="d-flex justify-content-center">
+            <form>
+                <div class="form-group mb-2 d-flex flex-nowrap">
+                    <input type="text" class="form-control" name="buscarPersona" id="buscarPersona" placeholder="Ingrese su CI">
+                    <button type="button" class="btn btnBlueB ml-2" onclick="BuscarPersona()">
+                        <img src="@baseUrl/Content/iconos/person_search.svg" style="width:25px;height:30px;" />
+                    </button>
+                </div>
+            </form>
+        </div>*@
+    </div>
+
+    <div id="Datos_Personales">
+        <form id="formCandidato" class="needs-validation" enctype="multipart/form-data" novalidate>
+            <h4 class="mt-1 mb-1">PERFIL:</h4>
+            <div class="form-row">
+                <div class="col-12 col-md-6">
+                    <label for="nombre">Nombre:</label>
+                    <input type="text" class="form-control" id="nombre" name="nombre" readonly required>
+                    <div class="invalid-feedback">¡Campo Vacio!</div>
+                    <input type="hidden" id="id" name="id" value="-1">
+                    <input type="hidden" id="idpersona" name="idpersona">
+                    <input type="hidden" id="idCandidato" name="idCandidato" value="-1">
+                </div>
+                <div class="col-12 col-md-6">
+                    <label for="apellido">Apellido:</label>
+                    <input type="text" class="form-control" id="apellido" name="apellido" readonly required>
+                    <div class="invalid-feedback">¡Campo Vacio!</div>
+                </div>
+            </div>
+            <div class="form-row">
+                <div class="col-12 col-md-3">
+                    <label for="tipoDocumento">Tipo de Documento:</label>
+                    <select class="custom-select" id="tipoDocumento" name="tipoDocumento" required>
+                        <option selected disabled value="">Cambiar...</option>
+                        <option value="CI">Cedula de Identidad</option>
+                        <option value="PASAPORTE">Pasaporte</option>
+                        <option value="OTRO">Otro</option>
+                    </select>
+                    <div class="invalid-feedback">
+                        Por favor seleccione un tipo.
+                    </div>
+                </div>
+                <div class="col-12 col-md-3">
+                    <label for="nroDocumento">Nro Documento:</label>
+                    <input type="text" class="form-control" id="nroDocumento" name="nroDocumento" readonly required>
+                    <div class="invalid-feedback">¡Campo Vacio!</div>
+                </div>
+                <div class="col-12 col-md-3">
+                    <label for="fechaNacimiento">Fecha Nacimiento:</label>
+                    <input type="date" class="form-control" id="fechaNacimiento" name="fechaNacimiento" readonly required>
+                    <div class="invalid-feedback">¡Seleccione una fecha!</div>
+                </div>
+                <div class="col-12 col-md-3">
+                    <label for="sexo">Sexo:</label>
+                    <select class="custom-select" id="sexo" name="sexo" required>
+                        <option selected disabled value="">Cambiar...</option>
+                        <option value="Masculino">Masculino</option>
+                        <option value="Femenino">Femenino</option>
+                    </select>
+                    <div class="invalid-feedback">
+                        Por favor seleccione un tipo.
+                    </div>
+                </div>
+            </div>
+            <div class="form-row">
+                <div class="col-12 col-md-3">
+                    <label for="nacionalidad">Nacionalidad:</label>
+                    <input type="text" class="form-control" id="nacionalidad" name="nacionalidad" required>
+                    <div class="invalid-feedback">¡Campo Vacio!</div>
+                </div>
+                <div class="col-12 col-md-3">
+                    <label for="pais">Pais Natal:</label>
+                    <input type="text" class="form-control" id="pais" name="pais" required>
+                    <div class="invalid-feedback">¡Campo Vacio!</div>
+                </div>
+                <div class="col-12 col-md-3">
+                    <label for="estadoRegion">Estado/Region:</label>
+                    <input type="text" class="form-control" id="estadoRegion" name="estadoRegion" required>
+                    <div class="invalid-feedback">¡Campo Vacio!</div>
+                </div>
+                <div class="col-12 col-md-3">
+                    <label for="ciudad">Ciudad:</label>
+                    <input type="text" class="form-control" id="ciudad" name="ciudad" required>
+                    <div class="invalid-feedback">¡Campo Vacio!</div>
+                </div>
+            </div>
+            <div class="form-row">
+                <div class="col-12 col-md-9">
+                    <label for="descripcion">Descripcion:</label>
+                    <textarea class="form-control" id="descripcion" name="descripcion" minlength="10" maxlength="500" style="resize: none; height: 200px;" required onkeyup="ContarCaracteres($(this).val(),'500',$(this))"></textarea>
+                    <p id="CaracteresDispCandidato" class="text-left"></p>
+                    <div class="invalid-feedback">¡Campo Vacio!</div>
+                </div>
+                <div class="col-12 col-md-3">
+                    <label for="imagen">Imagen:</label>
+                    <div id="contImg" class="border border-secondary" style="height:168px;"></div>
+                    <img id="foto" class="img-fluid" style="max-height: 168px; min-height: 168px; height: 168px; width:100%" src="" alt="" hidden="hidden">
+                    <div id="div_file_new">
+                        <label id="palabras" for="imagen">Seleccionar Imagen</label>
+                        <input type="file" name="imagen" id="imagen" class="form-control-file" onchange="showImg()" />
+                        <div class="invalid-feedback">¡Campo Vacio!</div>
+                    </div>
+                </div>
+            </div>
+            <div class="form-row">
+                <div class="col-md-6">
+                    <label for="profesionOcupacion">Profesion u ocupación:</label>
+                    <input type="text" class="form-control" id="profesionOcupacion" name="profesionOcupacion" required>
+                    <div class="invalid-feedback">¡Campo Vacio!</div>
+                </div>
+                <div class="col-12 col-md-3">
+                    <label for="telefonoCelular">Tel.Celular:</label>
+                    <input type="text" class="form-control" id="telefonoCelular" name="telefonoCelular">
+                </div>
+                <div class="col-12 col-md-3">
+                    <label for="telefonoFijo">Tel.Fijo:</label>
+                    <input type="text" class="form-control" id="telefonoFijo" name="telefonoFijo">
+                </div>
+            </div>
+            <hr />
+            <h4 class="mt-1 mb-1">CUENTA:</h4>
+            <div class="form-row">
+                <div class="col-md-6">
+                    <label for="email">Email:</label>
+                    <input type="email" class="form-control" id="email" name="email" required>
+                    <div class="invalid-feedback">¡Campo Vacio!</div>
+                </div>
+                <div class="col-12 col-md-3">
+                    <label for="clave">Contraseña:</label>
+                    <input type="password" class="form-control" id="clave" name="clave" required>
+                    <div class="invalid-feedback">¡Campo Vacio!</div>
+                </div>
+                <div class="col-12 col-md-3">
+                    <label for="confirmClave">Confirmar Contraseña:</label>
+                    <input type="password" class="form-control" id="confirmClave" name="confirmClave" required>
+                    <div id="clave2" class="invalid-feedback">Las contraseñas no coinciden</div>
+                </div>
+            </div>
+            <div class="form-group d-flex justify-content-center py-2 mt-5">
+                <button id="btnRegistrarCandidato" type="submit" class="btn btnBlueR">Registrar</button>
+            </div>
+        </form>
+    </div>
+</div>
+<br />
+<br />

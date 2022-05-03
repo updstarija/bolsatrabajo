@@ -1,0 +1,179 @@
+﻿
+@{
+    ViewBag.Title = "Admins";
+    Layout = "~/Views/Shared/_LayoutAdministrador.cshtml";
+}
+
+<div id="cargandoAdministradores" class="text-center">
+    <div class="spinner-border text-primary" role="status">
+        <span class="sr-only">Loading...</span>
+    </div>
+</div>
+<div class="table-responsive-lg" id="contenidoTAdministradores">
+    <br />
+    <h1 class=" text-center animated fadeInDown">Administradores</h1>
+    <br />
+    <table id="tAdministradores" class="table table-striped display my-table-DT animated slideInLeft " style="width:100%;"></table>
+</div>
+
+<button type="button" class="btn btn-Blue-par my-2 animated slideInLeft" onclick='Limpiar()'>
+    <div class="tooltip-personalizado"><p>Registrar un nuevo Administrador</p></div>+
+</button>
+
+
+<div class="modal fade" id="ModalAdministrador" data-backdrop="static" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-start modal-xl">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="titulo"></h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div id="seccionAdministrador" class="modal-body mx-1">
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal fade" id="ModalRegistrarAdministrador" data-backdrop="static" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-start modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="titulo">Registrar Usuario</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body mx-1">
+                <form id="FormAdministrador" class="needs-validation" enctype="multipart/form-data" novalidate>
+                    <h4>PERFIL</h4>
+                    <div class="form-row">
+                        <div class="col-12 col-md-6 mt-3">
+                            <label for="Nombre">Nombre:</label>
+                            <input type="text" class="form-control" id="Nombre" name="Nombre" required>
+                            <div class="invalid-feedback">¡Campo Vacio!</div>
+                            <input type="hidden" id="IdAdministrador" name="IdAdministrador" value="-1">
+                        </div>
+                        <div class="col-12 col-md-6 mt-3">
+                            <label for="Apellido">Apellido:</label>
+                            <input type="text" class="form-control" id="Apellido" name="Apellido" required>
+                            <div class="invalid-feedback">¡Campo Vacio!</div>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="col-12 col-md-3 mt-3">
+                            <label for="TipoDeDocumento">Tipo de Documento:</label>
+                            <select class="custom-select" id="TipoDeDocumento" name="TipoDeDocumento" required>
+                                <option selected disabled value="">Cambiar...</option>
+                                <option value="CI">Cedula de Identidad</option>
+                                <option value="PASAPORTE">Pasaporte</option>
+                                <option value="OTRO">Otro</option>
+                            </select>
+                            <div class="invalid-feedback">
+                                Por favor seleccione un tipo.
+                            </div>
+                        </div>
+                        <div class="col-12 col-md-3 mt-3">
+                            <label for="NroDocumento">Nro Documento:</label>
+                            <input type="text" class="form-control" id="NroDocumento" name="NroDocumento" required>
+                            <div class="invalid-feedback">¡Campo Vacio!</div>
+                        </div>
+                        <div class="col-12 col-md-3 mt-3">
+                            <label for="FechaNacimiento">Fecha Nacimiento:</label>
+                            <input type="date" class="form-control" id="FechaNacimiento" name="FechaNacimiento" required>
+                            <div class="invalid-feedback">¡Seleccione una fecha!</div>
+                        </div>
+                        <div class="col-12 col-md-3 mt-3">
+                            <label for="Sexo">Sexo:</label>
+                            <select class="custom-select" id="Sexo" name="Sexo" required>
+                                <option selected disabled value="">Cambiar...</option>
+                                <option value="Masculino">Masculino</option>
+                                <option value="Femenino">Femenino</option>
+                            </select>
+                            <div class="invalid-feedback">
+                                Por favor seleccione un tipo.
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="col-12 col-md-9 mt-3">
+                            <label for="Descripcion">Descripcion:</label>
+                            <textarea class="form-control" id="Descripcion" name="Descripcion" minlength="10" maxlength="500" style="resize: none; height: 161px;" required onkeyup="ContarCaracteres($(this).val(),'500',$(this))"></textarea>
+                            <p id="CaracteresDispDescripcion" class="text-left"></p>
+                            <div class="invalid-feedback">¡Campo Vacio!</div>
+                        </div>
+                        <div class="col-12 col-md-3 mt-3">
+                            <label>Imagen:</label>
+                            <div id="contImg" class="border border-secondary" style="height:130px;"></div>
+                            <img id="foto" class="img-fluid" style="max-height: 130px; min-height: 130px; height: 130px; width:100%" src="" alt="">
+                            <div id="div_file_new">
+                                <label id="palabras" for="imagen">Seleccionar Imagen</label>
+                                <input type="file" name="imagen" id="imagen" class="form-control-file" onchange="showImg()" />
+                                <div class="invalid-feedback">¡Campo Vacio!</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="col-12 col-sm-3 mt-3">
+                            <label for="Pais">Pais Natal:</label>
+                            <input type="text" class="form-control" id="Pais" name="Pais" required>
+                            <div class="invalid-feedback">¡Campo Vacio!</div>
+                        </div>
+                        <div class="col-12 col-md-3 mt-3">
+                            <label for="EstadoRegion">Estado/Region:</label>
+                            <input type="text" class="form-control" id="EstadoRegion" name="EstadoRegion" required>
+                            <div class="invalid-feedback">¡Campo Vacio!</div>
+                        </div>
+                        <div class="col-12 col-md-3 mt-3">
+                            <label for="Ciudad">Ciudad:</label>
+                            <input type="text" class="form-control" id="Ciudad" name="Ciudad" required>
+                            <div class="invalid-feedback">¡Campo Vacio!</div>
+                        </div>
+                        <div class="col-12 col-md-3 mt-3">
+                            <label for="TelefonoCelular">Tel.Celular:</label>
+                            <input type="text" class="form-control" id="TelefonoCelular" name="TelefonoCelular">
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="col-12 col-sm-6 mt-3">
+                            <label for="Direccion">Direccion:</label>
+                            <input type="text" class="form-control" id="Direccion" name="Direccion">
+                            <div class="invalid-feedback">¡Campo Vacio!</div>
+                        </div>
+                        <div class="col-12 col-sm-6 mt-3">
+                            <label for="Profesion">Profesion:</label>
+                            <select class="custom-select" id="Profesion" name="Profesion" required>
+                                <option selected disabled value="">Seleccionar Profesion...</option>
+                                @foreach (var item in ViewBag.tCarreras)
+                                {
+                                    <option value="@item.Nombre">@item.Nombre</option>
+                                }
+                            </select>
+                            <div class="invalid-feedback">¡Campo Vacio!</div>
+                        </div>
+                    </div>
+                    
+                    <hr />
+                    <h4>CUENTA</h4>
+                    <div class="form-row mt-1">
+                        <div class="col-12 col-sm-12">
+                            <label for="Correo">Correo:</label>
+                            <input type="email" class="form-control" id="Correo" name="Correo" required>
+                            <div class="invalid-feedback">¡Campo Vacio!</div>
+                        </div>
+                        <div id="divbtnMostrarCampos" class="col-12 col-sm-12">
+                        </div>
+                    </div>
+                    <div id="divClave" class="form-row">
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <div class="btn-group w-100">
+                    <button class="btn btn-Blue mr-1" type="submit" form="FormAdministrador">Guardar</button>
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

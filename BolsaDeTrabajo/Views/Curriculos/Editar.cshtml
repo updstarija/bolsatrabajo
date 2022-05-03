@@ -1,0 +1,968 @@
+﻿@model BolsaDeTrabajo.Models.Curriculum
+@{
+    ViewBag.Title = "Editar";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="container-personalizado">
+    <h1 class="text-center">Curriculum</h1>
+    <br />
+    <ul class="nav nav-tabs" id="myTab" role="tablist">
+        <li class="nav-item" onclick="subMenu1()">
+            <a class="nav-link active font-weight-bold pintarSubMenu" style="color: black;" id="dp-tab" data-toggle="tab"
+               href="#Datos_Personales" role="tab" aria-controls="Datos_Personales" aria-selected="true">Datos Personales</a>
+        </li>
+        <li class="nav-item" onclick="subMenu2()">
+            <a class="nav-link font-weight-bold" id="el-tab" style="color: black;" data-toggle="tab"
+               href="#ExperienciaLaboral" role="tab" aria-controls="ExperienciaLaboral" aria-selected="false">Experiencia Laboral</a>
+        </li>
+        <li class="nav-item" onclick="subMenu3()">
+            <a class="nav-link font-weight-bold" id="ed-tab" style="color: black;" data-toggle="tab"
+               href="#Educacion" role="tab" aria-controls="Educacion" aria-selected="false">Educacion</a>
+        </li>
+        <li class="nav-item" onclick="subMenu4()">
+            <a class="nav-link font-weight-bold" id="ig-tab" style="color: black;" data-toggle="tab"
+               href="#Informacion_General" role="tab" aria-controls="Informacion_General" aria-selected="false">Informacion General</a>
+        </li>
+    </ul>
+    <div class="tab-content shadow-lg p-3 bg-white rounded pl-5 pr-5 pb-5" id="formulario">
+        <div class="tab-pane fade show active p-3" id="Datos_Personales" role="tabpanel" aria-labelledby="dp-tab">
+            <h1>Datos Personales</h1>
+            <form id="formDP" class="needs-validation-formDP my-2" enctype="multipart/form-data" novalidate>
+                <div class="form-row">
+                    <div class="form-row col-12 mx-0">
+                        <div class="col-12 col-sm-6">
+                            <label for="nombreDP">Nombre:</label>
+                            <input type="text" class="form-control" id="nombreDP" name="nombreDP" value="@Model.DatosPersonales.Nombre" required>
+                            <div class="invalid-feedback">¡Campo Vacio!</div>
+                            <input type="hidden" id="idDP" name="idDP" value="@Model.DatosPersonales.Id">
+                            <input type="hidden" id="idCurriculum" name="idCurriculum" value="@Model.Id">
+                            <input type="hidden" id="idpersonaDP" name="idpersonaDP" value="@Model.IdCandidato">
+                        </div>
+                        <div class="col-12 col-sm-6">
+                            <label for="apellidoDP">Apellido:</label>
+                            <input type="text" class="form-control" id="apellidoDP" name="apellidoDP" value="@Model.DatosPersonales.Apellido" required>
+                            <div class="invalid-feedback">¡Campo Vacio!</div>
+                        </div>
+                    </div>
+                    <div class="form-row col-12 mx-0">
+                        <div class="col-12 col-sm-3">
+                            <div class="mt-3">
+                                <label for="tipoDocumentoDP">Tipo de Documento:</label>
+                                <select class="custom-select" id="tipoDocumentoDP" name="tipoDocumentoDP" value="@Model.DatosPersonales.TipoDeDocumento" required>
+                                    <option value="PASAPORTE">Pasaporte</option>
+                                    <option value="CI">CI</option>
+                                    <option value="OTRO">Otro</option>
+                                </select>
+                                <div class="invalid-feedback">
+                                    Por favor seleccione un tipo.
+                                </div>
+                            </div>
+                            <div class="mt-3">
+                                <label for="nroDocumentoDP">Nro Documento:</label>
+                                <input type="text" class="form-control" id="nroDocumentoDP" name="nroDocumentoDP" value="@Model.DatosPersonales.NroDocumento" required>
+                                <div class="invalid-feedback">¡Campo Vacio!</div>
+                            </div>
+                            <div class="mt-3">
+                                <label for="correoDP">Correo:</label>
+                                <input type="text" class="form-control" id="correoDP" name="correoDP" required value="@Model.DatosPersonales.Correo">
+                                <div class="invalid-feedback">¡Campo Vacio!</div>
+                            </div>
+                        </div>
+                        <div class="col-12 col-sm-3">
+                            <div class="mt-3">
+                                <label for="fechaNacimientoDP">Fecha Nacimiento:</label>
+                                <input type="date" class="form-control" id="fechaNacimientoDP" name="fechaNacimientoDP" value="@string.Format("{0:yyyy-MM-dd}", Model.DatosPersonales.FechaNacimiento)" required>
+                                <div class="invalid-feedback">¡Seleccione una fecha!</div>
+                            </div>
+                            <div class="mt-3">
+                                <label for="nacionalidadDP">Nacionalidad:</label>
+                                <input type="text" class="form-control" id="nacionalidadDP" name="nacionalidadDP" value="@Model.DatosPersonales.Nacionalidad" required>
+                                <div class="invalid-feedback">¡Campo Vacio!</div>
+                            </div>
+                            <div class="mt-3">
+                                <label for="movilDP">Movil:</label>
+                                <input type="text" class="form-control" id="movilDP" name="movilDP" value="@Model.DatosPersonales.Movil">
+                            </div>
+                        </div>
+                        <div class="col-12 col-sm-3">
+                            <div class="mt-3">
+                                <label for="sexoDP">Sexo:</label>
+                                <select class="custom-select" id="sexoDP" name="sexoDP" required>
+                                    <option selected disabled value="">Cambiar...</option>
+                                    <option value="MASCULINO">Masculino</option>
+                                    <option value="FEMENINO">Femenino</option>
+                                </select>
+                                <div class="invalid-feedback">
+                                    Por favor seleccione un tipo.
+                                </div>
+                            </div>
+                            <div class="mt-3">
+                                <label for="estadoCivilDP">Estado Civil:</label>
+                                <select class="custom-select" id="estadoCivilDP" name="estadoCivilDP" required>
+                                    <option selected disabled value="">Cambiar...</option>
+                                    <option value="Soltero">Soltero</option>
+                                    <option value="Casado">Casado</option>
+                                    <option value="Divorciado">Divorciado</option>
+                                </select>
+                                <div class="invalid-feedback">
+                                    Por favor seleccione un tipo.
+                                </div>
+                            </div>
+                            <div class="mt-3">
+                                <label for="telefonoDP">Telefono:</label>
+                                <input type="text" class="form-control" id="telefonoDP" name="telefonoDP" value="@Model.DatosPersonales.Telefono">
+                            </div>
+                        </div>
+                        <div class="col-12 col-sm-3">
+                            <div class="mt-3">
+                                <label for="imagenDP">Imagen:</label>
+                                <img id="fotoDP" class="img-fluid" style="max-height: 177px; min-height: 177px; height: 177px; width: 100% " src="data:image;base64,@System.Convert.ToBase64String(Model.DatosPersonales.Foto)" alt="">
+                                <div id="div_file_new">
+                                    <label for="imagenDP">Selecione una imagen</label>
+                                    <input type="file" name="imagenDP" id="imagenDP" class="form-control-file" onchange="showImg()" required>
+                                    <div class="invalid-feedback">¡Campo Vacio!</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-row col-12 mx-0">
+                        <div class="col-12 col-sm-6 mt-3">
+                            <label for="direccionDP">Direccion:</label>
+                            <input type="text" class="form-control" id="direccionDP" name="direccionDP" required value="@Model.DatosPersonales.Direccion">
+                            <div class="invalid-feedback">¡Campo Vacio!</div>
+                        </div>
+                        <div class="col-12 col-sm-3 mt-3">
+                            <label for="licenciaVehiculoDP">Licencia para Vehiculos:</label>
+                            <select class="custom-select" id="licenciaVehiculoDP" name="licenciaVehiculoDP" required>
+                                @if (Model.DatosPersonales.LicenciaVehiculo == "Si")
+                                {
+                                    <option disabled value="0">Seleccione...</option>
+                                    <option value="Si" selected>Si</option>
+                                    <option value="No">No</option>
+                                }
+                                else
+                                {
+                                    <option disabled value="0">Seleccione...</option>
+                                    <option value="Si">Si</option>
+                                    <option value="No" selected>No</option>
+                                }
+                            </select>
+                        </div>
+                        <div class="col-12 col-sm-3 mt-3">
+                            <label for="licenciaMotocicletaDP">Licencia para Motocicleta:</label>
+                            <select class="custom-select" id="licenciaMotocicletaDP" name="licenciaMotocicletaDP" required>
+                                @if (Model.DatosPersonales.LicenciaMotocicleta == "Si")
+                                {
+                                    <option disabled value="0">Seleccione...</option>
+                                    <option value="Si" selected>Si</option>
+                                    <option value="No">No</option>
+                                }
+                                else
+                                {
+                                    <option disabled value="0">Seleccione...</option>
+                                    <option value="Si">Si</option>
+                                    <option value="No" selected>No</option>
+                                }
+                            </select>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+        @{int i = 0;}
+        @{string Clon = "";}
+        @{string Ocultar = "";}
+        @{string OcultarForm = "d-none";}
+        <div class="tab-pane fade p-3" id="ExperienciaLaboral" role="tabpanel" aria-labelledby="el-tab">
+            <h1>Experiencia Laboral</h1>
+            @{OcultarForm = Model.ExperienciaLaboral.Count() > 0 ? "d-none" : "";}
+            <div id="divAddEL" class="d-flex justify-content-center @OcultarForm">
+                <span id="agregarEL0" class="badge badge-pill span-blue @OcultarForm" style="cursor:pointer;" onclick="MostrarForm('formEL','needs-validation-formEL','divAddEL','agregarEL0','agregarEL','spnEliminarEL')">Agregar campo +</span>
+            </div>
+            @{OcultarForm = Model.ExperienciaLaboral.Count() != 0 ? "" : "d-none";}
+            <form id="formEL" class="needs-validation-formEL my-2 @OcultarForm" enctype="multipart/form-data" novalidate>
+                @if (Model.ExperienciaLaboral.Count() != 0)
+                {
+                    foreach (var item in Model.ExperienciaLaboral)
+                    {
+                        Clon = i == 0 ? "ClonEL" : "";
+                        Ocultar = i == 0 ? "ocultar" : "";
+                        <div id="Clon" class="form-row my-2 @Clon">
+                            <div class="form-row col-12 mx-0">
+                                <div class="col-12 col-sm-6">
+                                    <input type="hidden" id="idEL" name="idEL" value="@item.Id">
+                                    <label for="nombreEmpresaEL">Nombre de Empresa</label>
+                                    <input type="text" class="form-control" id="nombreEmpresaEL" name="nombreEmpresaEL[]" value="@item.NombreEmpresa" required>
+                                    <div class="invalid-feedback">¡Campo Vacio!</div>
+                                </div>
+                                <div class="col-12 col-sm-3">
+                                    <label for="cargoEmpresaEL">Cargo en Empresa</label>
+                                    <input type="text" class="form-control" id="cargoEmpresaEL" name="cargoEmpresaEL[]" value="@item.CargoEnEmpresa" required>
+                                    <div class="invalid-feedback">¡Campo Vacio!</div>
+                                </div>
+                                <div class="col-12 col-sm-3">
+                                    <label for="industriaEL">Industria</label>
+                                    <input type="text" class="form-control" id="industriaEL" name="industriaEL[]" value="@item.Industria" required>
+                                    <div class="invalid-feedback">¡Campo Vacio!</div>
+                                </div>
+                            </div>
+                            <div class="form-row col-12 mx-0">
+                                <div class="col-12 col-sm-3 mt-3">
+                                    <label for="personasAlCargoEL">Personas a tu cargo:</label>
+                                    <input type="number" class="form-control" id="personasAlCargoEL" name="personasAlCargoEL[]" value="@item.NroPersonasAlCargo" min="1" pattern="^[0-9]+" required>
+                                    <div class="invalid-feedback">¡Campo Vacio!</div>
+                                </div>
+                                <div class="col-12 col-sm-3 mt-3">
+                                    <label for="paisEL">Pais</label>
+                                    <select class="custom-select" id="paisEL" name="paisEL[]" required>
+                                        <option disabled value="">Cambiar...</option>
+                                        <option value="Argentina">Argentina</option>
+                                        <option value="Bolivia">Bolivia</option>
+                                    </select>
+                                    <div class="invalid-feedback">
+                                        Por favor seleccione un tipo.
+                                    </div>
+                                </div>
+                                <div class="col-12 col-sm-3 mt-3">
+                                    <label for="estadoRegionEL">Estado/Region:</label>
+                                    <input type="text" class="form-control" id="estadoRegionEL" name="estadoRegionEL[]" value="@item.EstadoRegion" required>
+                                    <div class="invalid-feedback">¡Campo Vacio!</div>
+                                </div>
+                                <div class="col-12 col-sm-3 mt-3">
+                                    <label for="ciudadEL">Ciudad:</label>
+                                    <input type="text" class="form-control" id="ciudadEL" name="ciudadEL[]" value="@item.Ciudad" required>
+                                    <div class="invalid-feedback">¡Campo Vacio!</div>
+                                </div>
+                            </div>
+                            <div class="form-row col-12 mx-0">
+                                <div class="col-12 col-sm-3 mt-3">
+                                    <label for="contactoEL">Contacto</label>
+                                    <input type="text" class="form-control" id="contactoEL" name="contactoEL[]" value="@item.ContactoEmpresa" required>
+                                    <div class="invalid-feedback">¡Campo Vacio!</div>
+                                </div>
+                                <div class="col-12 col-sm-3 mt-3">
+                                    <label for="fechaInicioEL">Fecha Inicio:</label>
+                                    <input type="date" class="form-control" id="fechaInicioEL" name="fechaInicioEL[]" value="@string.Format("{0:yyyy-MM-dd}", item.FechaInicio)" required>
+                                    <div class="invalid-feedback">¡Seleccione una fecha!</div>
+                                </div>
+                                <div class="col-12 col-sm-3 mt-3">
+                                    <label for="fechaFinEL">Fecha Fin:</label>
+                                    <input type="date" class="form-control" id="fechaFinEL" name="fechaFinEL[]" value="@string.Format("{0:yyyy-MM-dd}", item.FechaFin)">
+                                    <div class="invalid-feedback">¡Seleccione una fecha!</div>
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" id="ActualTrabajo" name="ActualTrabajo[]">
+                                        <label class="form-check-label">
+                                            Actualmente
+                                            <!--Aqui estoy trabajando actualmente-->
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-row col-12 mx-0">
+                                <div class="col-12 col-sm-12 mt-3">
+                                    <label for="descripcionEL">Descripcion</label>
+                                    <p for="descripcionEL" style="font-size:13px;">Por favor verifique ortografía y gramática y no escriba el texto en mayusculas ya que esto puede hacer que su currículo sea rechazado para ser incluido en nuestra base de datos de curriculos.</p>
+                                    <textarea class="form-control" id="descripcionEL" name="descripcionEL[]" minlength="10" maxlength="1000" style="resize: none; height: 150px;" required onkeyup="ContarCaracteres($(this).val(),'1000',$(this))">@item.Descripcion</textarea>
+                                    <p id="CaracteresDisponibles" class="text-left"></p>
+                                    <div class="invalid-feedback">¡Campo Vacio!</div>
+                                </div>
+                            </div>
+                            <div class="form-row col-12 mx-0">
+                                <div class="col-12 col-sm-6">
+                                    <span id="spnEliminar" class="badge badge-pill span-red puntero @Ocultar" onclick="EliminarCampos($(this),'formEL','spnEliminarEL')">Eliminar</span>
+                                </div>
+                            </div>
+                            <div class="col-11 mx-auto py-1" style="border-bottom: 1px solid #B6C2CB;">
+                            </div>
+                        </div>
+                        { i++; }
+                    }
+                }
+                else
+                {
+                    <div id="Clon" class="form-row my-2 ClonEL">
+                        <div class="form-row col-12 mx-0">
+                            <div class="col-12 col-sm-6">
+                                <input type="hidden" id="idEL" name="idEL" value="-1">
+                                <label for="nombreEmpresaEL">Nombre de Empresa</label>
+                                <input type="text" class="form-control" id="nombreEmpresaEL" name="nombreEmpresaEL[]" required>
+                                <div class="invalid-feedback">¡Campo Vacio!</div>
+                            </div>
+                            <div class="col-12 col-sm-3">
+                                <label for="cargoEmpresaEL">Cargo en Empresa</label>
+                                <input type="text" class="form-control" id="cargoEmpresaEL" name="cargoEmpresaEL[]" required>
+                                <div class="invalid-feedback">¡Campo Vacio!</div>
+                            </div>
+                            <div class="col-12 col-sm-3">
+                                <label for="industriaEL">Industria</label>
+                                <input type="text" class="form-control" id="industriaEL" name="industriaEL[]" required>
+                                <div class="invalid-feedback">¡Campo Vacio!</div>
+                            </div>
+                        </div>
+                        <div class="form-row col-12 mx-0">
+                            <div class="col-12 col-sm-3 mt-3">
+                                <label for="personasAlCargoEL">Personas a tu cargo:</label>
+                                <input type="number" class="form-control" id="personasAlCargoEL" name="personasAlCargoEL[]" min="1" pattern="^[0-9]+" required>
+                                <div class="invalid-feedback">¡Campo Vacio!</div>
+                            </div>
+                            <div class="col-12 col-sm-3 mt-3">
+                                <label for="paisEL">Pais</label>
+                                <select class="custom-select" id="paisEL" name="paisEL[]" required>
+                                    <option selected disabled value="">Cambiar...</option>
+                                    <option value="Argentina">Argentina</option>
+                                    <option value="Bolivia">Bolivia</option>
+                                </select>
+                                <div class="invalid-feedback">
+                                    Por favor seleccione un tipo.
+                                </div>
+                            </div>
+                            <div class="col-12 col-sm-3 mt-3">
+                                <label for="estadoRegionEL">Estado/Region:</label>
+                                <input type="text" class="form-control" id="estadoRegionEL" name="estadoRegionEL[]" required>
+                                <div class="invalid-feedback">¡Campo Vacio!</div>
+                            </div>
+                            <div class="col-12 col-sm-3 mt-3">
+                                <label for="ciudadEL">Ciudad:</label>
+                                <input type="text" class="form-control" id="ciudadEL" name="ciudadEL[]" required>
+                                <div class="invalid-feedback">¡Campo Vacio!</div>
+                            </div>
+                        </div>
+                        <div class="form-row col-12 mx-0">
+                            <div class="col-12 col-sm-6 mt-3">
+                                <label for="contactoEL">Contacto</label>
+                                <input type="text" class="form-control" id="contactoEL" name="contactoEL[]" required>
+                                <div class="invalid-feedback">¡Campo Vacio!</div>
+                            </div>
+                            <div class="col-12 col-sm-3 mt-3">
+                                <label for="fechaInicioEL">Fecha Inicio:</label>
+                                <input type="date" class="form-control" id="fechaInicioEL" name="fechaInicioEL[]" required>
+                                <div class="invalid-feedback">¡Seleccione una fecha!</div>
+                            </div>
+                            <div class="col-12 col-sm-3 mt-3">
+                                <label for="fechaFinEL">Fecha Fin:</label>
+                                <input type="date" class="form-control" id="fechaFinEL" name="fechaFinEL[]">
+                                <div class="invalid-feedback">¡Seleccione una fecha!</div>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" id="ActualTrabajo" name="ActualTrabajo[]">
+                                    <label class="form-check-label">
+                                        Actualmente
+                                        <!--Aqui estoy trabajando actualmente-->
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-row col-12 mx-0">
+                            <div class="col-12 col-sm-12 mt-3">
+                                <label for="descripcionEL">Descripcion</label>
+                                <p for="descripcionEL" style="font-size:13px;">Por favor verifique ortografía y gramática y no escriba el texto en mayusculas ya que esto puede hacer que su currículo sea rechazado para ser incluido en nuestra base de datos de curriculos.</p>
+                                <textarea class="form-control" id="descripcionEL" name="descripcionEL[]" minlength="10" maxlength="1000" style="resize: none; height: 150px;" required onkeyup="ContarCaracteres($(this).val(),'1000',$(this))"></textarea>
+                                <p id="CaracteresDisponibles" class="text-left"></p>
+                                <div class="invalid-feedback">¡Campo Vacio!</div>
+                            </div>
+
+                        </div>
+                        <div class="form-row col-12 mx-0">
+                            <div class="col-12 col-sm-6">
+                                <span id="spnEliminar" class="badge badge-pill span-red puntero ocultar" onclick="EliminarCampos($(this),'formEL','spnEliminarEL')">Eliminar</span>
+                            </div>
+                        </div>
+                        <div class="col-11 mx-auto py-1" style="border-bottom: 1px solid #B6C2CB;">
+                        </div>
+                    </div>
+                }
+
+            </form>
+            @{OcultarForm = Model.ExperienciaLaboral.Count() == 1 ? "" : "d-none";}
+            <div class="d-flex justify-content-start">
+                <span id="spnEliminarEL" class="badge badge-pill span-red puntero @OcultarForm" onclick="OcultarForm('formEL','needs-validation-formEL','divAddEL','agregarEL0','agregarEL','spnEliminarEL')">Eliminar</span>
+            </div>
+            @{OcultarForm = Model.ExperienciaLaboral.Count() == 0 ? "d-none" : "";}
+            <div class="d-flex justify-content-center">
+                <span id="agregarEL" class="badge badge-pill span-blue @OcultarForm" style="cursor:pointer;" onclick="AgregarCampos('formEL','ClonEL','needs-validation-formEL','spnEliminarEL')">Agregar campo +</span>
+            </div>
+            <h1>Habilidades</h1>
+            @{OcultarForm = Model.Habilidad.Count() > 0 ? "d-none" : "";}
+            <div id="divAddH" class="d-flex justify-content-center @OcultarForm">
+                <span id="agregarHabilidad0" class="badge badge-pill span-blue @OcultarForm" style="cursor:pointer;" onclick="MostrarForm('formH','needs-validation-formH','divAddH','agregarHabilidad0','agregarHabilidad','spnEliminarH')">Agregar campo +</span>
+            </div>
+            @{OcultarForm = Model.Habilidad.Count() != 0 ? "" : "d-none";}
+            <form id="formH" class="needs-validation-formH my-2 @OcultarForm" novalidate>
+                @{ i = 0;}
+                @if (Model.Habilidad.Count() != 0)
+                {
+                    foreach (var item in Model.Habilidad)
+                    {
+                        Clon = i == 0 ? "ClonH" : "";
+                        Ocultar = i == 0 ? "ocultar" : "";
+                        <div id="Clon" class="form-row my-2 @Clon">
+                            <div class="form-row col-12 mx-0">
+                                <div class="col-12 col-sm-6 mx-0">
+                                    <input type="hidden" id="idH" name="idH" value="@item.Id">
+                                    <label for="nombreH">Nombre</label>
+                                    <input type="text" class="form-control" id="nombreH" name="nombreH[]" value="@item.Nombre" required>
+                                    <div class="invalid-feedback">¡Campo Vacio!</div>
+                                </div>
+                                <div class="col-12 col-sm-6 mx-0">
+                                    <label for="aniosExperienciaH">Años de Experiencia</label>
+                                    <select class="custom-select" id="aniosExperienciaH" name="aniosExperienciaH[]" value="@item.AniosExperiencia" required>
+                                        <option disabled value="">Cambiar...</option>
+                                        <option value="1">1</option>
+                                        <option value="2">2</option>
+                                        <option value="3">3</option>
+                                        <option value="4">4</option>
+                                        <option value="5">5</option>
+                                        <option value="6">6</option>
+                                    </select>
+                                    <div class="invalid-feedback">
+                                        Por favor seleccione un tipo.
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-row col-12 mx-0">
+                                <div class="col-12 col-sm-6 mx-0">
+                                    <span id="spnEliminar" class="badge badge-pill span-red puntero @Ocultar" onclick="EliminarCampos($(this),'formH','spnEliminarH')">Eliminar</span>
+                                </div>
+                            </div>
+                        </div>
+                        { i++; }
+                    }
+                }
+                else
+                {
+                    <div id="Clon" class="form-row my-2 ClonH">
+                        <div class="form-row col-12 mx-0">
+                            <div class="col-12 col-sm-6 mx-0">
+                                <input type="hidden" id="idH" name="idH" value="-1">
+                                <label for="nombreH">Nombre</label>
+                                <input type="text" class="form-control" id="nombreH" name="nombreH[]" required>
+                                <div class="invalid-feedback">¡Campo Vacio!</div>
+                            </div>
+                            <div class="col-12 col-sm-6 mx-0">
+                                <label for="aniosExperienciaH">Años de Experiencia</label>
+                                <select class="custom-select" id="aniosExperienciaH" name="aniosExperienciaH[]" required>
+                                    <option selected disabled value="">Cambiar...</option>
+                                    <option value="1">1</option>
+                                    <option value="2">2</option>
+                                    <option value="3">3</option>
+                                    <option value="4">4</option>
+                                    <option value="5">5</option>
+                                    <option value="6">6</option>
+                                </select>
+                                <div class="invalid-feedback">
+                                    Por favor seleccione un tipo.
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-row col-12 mx-0">
+                            <div class="col-12 col-sm-6 mx-0">
+                                <span id="spnEliminar" class="badge badge-pill span-red puntero ocultar" onclick="EliminarCampos($(this),'formH','spnEliminarH')">Eliminar</span>
+                            </div>
+                        </div>
+                    </div>
+                }
+            </form>
+            @{OcultarForm = Model.Habilidad.Count() == 1 ? "" : "d-none";}
+            <div class="d-flex justify-content-start">
+                <span id="spnEliminarH" class="badge badge-pill span-red puntero @OcultarForm" onclick="OcultarForm('formH','needs-validation-formH','divAddH','agregarHabilidad0','agregarHabilidad','spnEliminarH')">Eliminar</span>
+            </div>
+            @{OcultarForm = Model.Habilidad.Count() == 0 ? "d-none" : "";}
+            <div class="d-flex justify-content-center">
+                <span id="agregarHabilidad" class="badge badge-pill span-blue @OcultarForm" style="cursor:pointer;" onclick="AgregarCampos('formH','ClonH','needs-validation-formH','spnEliminarH')">Agregar campo +</span>
+            </div>
+
+            <h1>Informacion Adicional</h1>
+            @{OcultarForm = Model.InformacionAdicional.Count() > 0 ? "d-none" : "";}
+            <div id="divAddIA" class="d-flex justify-content-center @OcultarForm">
+                <span id="agregarInforAdic0" class="badge badge-pill span-blue @OcultarForm" style="cursor:pointer;" onclick="MostrarForm('formIA','needs-validation-formIA','divAddIA','agregarInforAdic0','agregarInforAdic','spnEliminarIA')">Agregar campo +</span>
+            </div>
+            @{OcultarForm = Model.InformacionAdicional.Count() != 0 ? "" : "d-none";}
+            <form id="formIA" class="needs-validation-formIA my-2 @OcultarForm" novalidate>
+                @{ i = 0;}
+                @if (Model.InformacionAdicional.Count() != 0)
+                {
+                    foreach (var item in Model.InformacionAdicional)
+                    {
+                        Clon = i == 0 ? "ClonIA" : "";
+                        Ocultar = i == 0 ? "ocultar" : "";
+                        <div id="Clon" class="form-row my-2 @Clon">
+                            <div class="form-row col-12 mx-0">
+                                <div class="col-12 col-sm-6">
+                                    <input type="hidden" id="idIA" name="idIA" value="@item.Id">
+                                    <label for="tituloIA">Titulo</label>
+                                    <input type="text" class="form-control" id="tituloIA" name="tituloIA[]" value="@item.Titulo" required>
+                                    <div class="invalid-feedback">¡Campo Vacio!</div>
+                                </div>
+                                <div class="col-12 col-sm-6">
+                                    <label for="descripcionIA">Descripcion</label>
+                                    <input type="text" class="form-control" id="descripcionIA" name="descripcionIA[]" value="@item.Descripcion" required>
+                                    <div class="invalid-feedback">¡Campo Vacio!</div>
+                                </div>
+                            </div>
+                            <div class="form-row col-12 mx-0">
+                                <div class="col-12 col-sm-6 mx-0">
+                                    <span id="spnEliminar" class="badge badge-pill span-red puntero @Ocultar" onclick="EliminarCampos($(this),'formIA','spnEliminarIA')">Eliminar</span>
+                                </div>
+                            </div>
+                        </div>
+                        { i++; }
+                    }
+                }
+                else
+                {
+                    <div id="Clon" class="form-row my-2 ClonIA">
+                        <div class="form-row col-12 mx-0">
+                            <div class="col-12 col-sm-6">
+                                <input type="hidden" id="idIA" name="idIA" value="-1">
+                                <label for="tituloIA">Titulo</label>
+                                <input type="text" class="form-control" id="tituloIA" name="tituloIA[]" required>
+                                <div class="invalid-feedback">¡Campo Vacio!</div>
+                            </div>
+                            <div class="col-12 col-sm-6">
+                                <label for="descripcionIA">Descripcion</label>
+                                <input type="text" class="form-control" id="descripcionIA" name="descripcionIA[]" required>
+                                <div class="invalid-feedback">¡Campo Vacio!</div>
+                            </div>
+                        </div>
+                        <div class="form-row col-12 mx-0">
+                            <div class="col-12 col-sm-6 mx-0">
+                                <span id="spnEliminar" class="badge badge-pill span-red puntero ocultar" onclick="EliminarCampos($(this),'formIA','spnEliminarIA')">Eliminar</span>
+                            </div>
+                        </div>
+                    </div>
+                }
+            </form>
+            @{OcultarForm = Model.InformacionAdicional.Count() == 1 ? "" : "d-none";}
+            <div class="d-flex justify-content-start">
+                <span id="spnEliminarIA" class="badge badge-pill span-red puntero @OcultarForm" onclick="OcultarForm('formIA','needs-validation-formIA','divAddIA','agregarInforAdic0','agregarInforAdic','spnEliminarIA')">Eliminar</span>
+            </div>
+            @{OcultarForm = Model.InformacionAdicional.Count() == 0 ? "d-none" : "";}
+            <div class="d-flex justify-content-center">
+                <span id="agregarInforAdic" class="badge badge-pill span-blue @OcultarForm" style="cursor:pointer;" onclick="AgregarCampos('formIA','ClonIA','needs-validation-formIA','spnEliminarIA')">Agregar campo +</span>
+            </div>
+        </div>
+
+        <div class="tab-pane fade p-3" id="Educacion" role="tabpanel" aria-labelledby="ed-tab">
+            <h1>Educacion</h1>
+            <form id="formED" class="needs-validation-formED my-2" novalidate>
+                <div class="form-row">
+                    <div class="form-row col-12 mx-0 px-0">
+                        <div class="col-12 col-sm-6 mt-3">
+                            <label for="ColegioInstitucionED">Colegio o Institucion:</label>
+                            <input type="text" class="form-control" id="ColegioInstitucionED" name="ColegioInstitucionED" value="@Model.Educacion.Colegio.Nombre" required>
+                            <div class="invalid-feedback">¡Campo Vacio!</div>
+                            <input type="hidden" id="idED" name="idED" value="@Model.Educacion.Colegio.Id">
+                        </div>
+                        <div class="col-12 col-sm-3 mt-3">
+                            <label for="nivelEstudioED">Nivel de Estudio</label>
+                            <input type="text" class="form-control" id="nivelEstudioED" name="nivelEstudioED" value="@Model.Educacion.Colegio.Nivel" required>
+                            <div class="invalid-feedback">¡Campo Vacio!</div>
+                        </div>
+                        <div class="col-12 col-sm-3 mt-3">
+                            <label for="paisED">Pais:</label>
+                            <input type="text" class="form-control" id="paisED" name="paisED" value="@Model.Educacion.Colegio.Pais" required>
+                            <div class="invalid-feedback">¡Campo Vacio!</div>
+                        </div>
+                    </div>
+                    <div class="form-row col-12 mx-0 px-0">
+                        <div class="col-12 col-sm-3 mt-3">
+                            <label for="estadoRegionED">Estado o Region:</label>
+                            <input type="text" class="form-control" id="estadoRegionED" name="estadoRegionED" value="@Model.Educacion.Colegio.EstadoRegion" required>
+                            <div class="invalid-feedback">¡Campo Vacio!</div>
+                        </div>
+                        <div class="col-12 col-sm-3 mt-3">
+                            <label for="ciudadED">Ciudad</label>
+                            <input type="text" class="form-control" id="ciudadED" name="ciudadED" value="@Model.Educacion.Colegio.Ciudad" required>
+                            <div class="invalid-feedback">¡Campo Vacio!</div>
+                        </div>
+                        <div class="col-12 col-sm-3 mt-3">
+                            <label for="fechaInicioED">Fecha Inicio:</label>
+                            <input type="date" class="form-control" id="fechaInicioED" name="fechaInicioED" value="@string.Format("{0:yyyy-MM-dd}", Model.Educacion.Colegio.FechaInicio)" required>
+                            <div class="invalid-feedback">¡Seleccione una fecha!</div>
+                        </div>
+                        <div class="col-12 col-sm-3 mt-3">
+                            <label for="fechaFinED">Fecha Fin:</label>
+                            <input type="date" class="form-control" id="fechaFinED" name="fechaFinED" value="@string.Format("{0:yyyy-MM-dd}", Model.Educacion.Colegio.FechaFin)" required>
+                            <div class="invalid-feedback">¡Seleccione una fecha!</div>
+                        </div>
+                    </div>
+                </div>
+            </form>
+            <h1>Formación</h1>
+            @{OcultarForm = Model.Educacion.Lista.Count() > 0 ? "d-none" : "";}
+            <div id="divAddES" class="d-flex justify-content-center @OcultarForm">
+                <span id="agregarES0" class="badge badge-pill span-blue @OcultarForm" style="cursor:pointer;" onclick="MostrarForm('formES','needs-validation-formES','divAddES','agregarES0','agregarES','spnEliminarES')">Agregar campo +</span>
+            </div>
+            @{OcultarForm = Model.Educacion.Lista.Count() != 0 ? "" : "d-none";}
+            <form id="formES" class="needs-validation-formES my-2 @OcultarForm" novalidate>
+                @{ i = 0;}
+                @if (Model.Educacion.Lista.Count() != 0)
+                {
+                    foreach (var item in Model.Educacion.Lista)
+                    {
+                        Clon = i == 0 ? "ClonES" : "";
+                        Ocultar = i == 0 ? "ocultar" : "";
+                        <div id="Clon" class="form-row my-2 @Clon">
+                            <div class="form-row col-12 mx-0 px-0">
+                                <div class="col-12 col-sm-6 mt-3">
+                                    <input type="hidden" id="idES" name="idES" value="@item.Id">
+                                    <label for="universidadInstitucionES">Universidad o Institución</label>
+                                    <input type="text" class="form-control" id="universidadInstitucionES" name="universidadInstitucionES[]" value="@item.Institucion" required>
+                                    <div class="invalid-feedback">¡Campo Vacio!</div>
+                                </div>
+                                <div class="col-12 col-sm-6 mt-3">
+                                    <label for="ccsES">Carrera, Curso o Seminario</label>
+                                    <input type="text" class="form-control" id="ccsES" name="ccsES[]" value="@item.CarreraCursoSeminario" required>
+                                    <div class="invalid-feedback">¡Campo Vacio!</div>
+                                </div>
+                            </div>
+                            <div class="form-row col-12 mx-0 px-0">
+                                <div class="col-12 col-sm-3 mt-3">
+                                    <label for="nivelEstudioES">Nivel de Estudio</label>
+                                    <input type="text" class="form-control" id="nivelEstudioES" name="nivelEstudioES[]" value="@item.Nivel" required>
+                                    <div class="invalid-feedback">¡Campo Vacio!</div>
+                                </div>
+                                <div class="col-12 col-sm-3 mt-3">
+                                    <label for="paisES">Pais:</label>
+                                    <input type="text" class="form-control" id="paisES" name="paisES[]" value="@item.Pais" required>
+                                    <div class="invalid-feedback">¡Campo Vacio!</div>
+                                </div>
+                                <div class="col-12 col-sm-3 mt-3">
+                                    <label for="estadoRegionES">Estado o Region:</label>
+                                    <input type="text" class="form-control" id="estadoRegionES" name="estadoRegionES[]" value="@item.EstadoRegion" required>
+                                    <div class="invalid-feedback">¡Campo Vacio!</div>
+                                </div>
+                                <div class="col-12 col-sm-3 mt-3">
+                                    <label for="ciudadES">Ciudad</label>
+                                    <input type="text" class="form-control" id="ciudadES" name="ciudadES[]" value="@item.Ciudad" required>
+                                    <div class="invalid-feedback">¡Campo Vacio!</div>
+                                </div>
+                            </div>
+                            <div class="form-row col-12 mx-0 px-0">
+                                <div class="col-12 col-sm-3 mt-3">
+                                    <label for="fechaInicioES">Fecha Inicio:</label>
+                                    <input type="date" class="form-control" id="fechaInicioES" name="fechaInicioES[]" value="@string.Format("{0:yyyy-MM-dd}", item.FechaInicio)" required>
+                                    <div class="invalid-feedback">¡Seleccione una fecha!</div>
+                                </div>
+                                <div class="col-12 col-sm-3 mt-3">
+                                    <label for="fechaFinES">Fecha Fin:</label>
+                                    <input type="date" class="form-control" id="fechaFinES" name="fechaFinES[]" value="@string.Format("{0:yyyy-MM-dd}", item.FechaFin)" required>
+                                    <div class="invalid-feedback">¡Seleccione una fecha!</div>
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" id="estudioActualES" name="estudioActualES[]">
+                                        <label class="form-check-label">
+                                            Actualmente
+                                            <!--Aqui estoy estudiando actualmente-->
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-row col-12 mx-0 px-0">
+                                <div class="col-12 col-sm-6">
+                                    <span id="spnEliminar" class="badge badge-pill span-red puntero @Ocultar" onclick="EliminarCampos($(this),'formES','spnEliminarES')">Eliminar</span>
+                                </div>
+                            </div>
+                            <div class="col-11 mx-auto py-1" style="border-bottom: 1px solid #B6C2CB;">
+                            </div>
+                        </div>
+                        { i++; }
+                    }
+                }
+                else
+                {
+                    <div id="Clon" class="form-row my-2 ClonES">
+                        <div class="form-row col-12 mx-0 px-0">
+                            <div class="col-12 col-sm-6 mt-3">
+                                <input type="hidden" id="idES" name="idES" value="-1">
+                                <label for="universidadInstitucionES">Universidad o Institución</label>
+                                <input type="text" class="form-control" id="universidadInstitucionES" name="universidadInstitucionES[]" required>
+                                <div class="invalid-feedback">¡Campo Vacio!</div>
+                            </div>
+                            <div class="col-12 col-sm-6 mt-3">
+                                <label for="ccsES">Carrera, Curso o Seminario</label>
+                                <input type="text" class="form-control" id="ccsES" name="ccsES[]" required>
+                                <div class="invalid-feedback">¡Campo Vacio!</div>
+                            </div>
+                        </div>
+                        <div class="form-row col-12 mx-0 px-0">
+                            <div class="col-12 col-sm-3 mt-3">
+                                <label for="nivelEstudioES">Nivel de Estudio</label>
+                                <input type="text" class="form-control" id="nivelEstudioES" name="nivelEstudioES[]" required>
+                                <div class="invalid-feedback">¡Campo Vacio!</div>
+                            </div>
+                            <div class="col-12 col-sm-3 mt-3">
+                                <label for="paisES">Pais:</label>
+                                <input type="text" class="form-control" id="paisES" name="paisES[]" required>
+                                <div class="invalid-feedback">¡Campo Vacio!</div>
+                            </div>
+                            <div class="col-12 col-sm-3 mt-3">
+                                <label for="estadoRegionES">Estado o Region:</label>
+                                <input type="text" class="form-control" id="estadoRegionES" name="estadoRegionES[]" required>
+                                <div class="invalid-feedback">¡Campo Vacio!</div>
+                            </div>
+                            <div class="col-12 col-sm-3 mt-3">
+                                <label for="ciudadES">Ciudad</label>
+                                <input type="text" class="form-control" id="ciudadES" name="ciudadES[]" required>
+                                <div class="invalid-feedback">¡Campo Vacio!</div>
+                            </div>
+                        </div>
+                        <div class="form-row col-12 mx-0 px-0">
+                            <div class="col-12 col-sm-3 mt-3">
+                                <label for="fechaInicioES">Fecha Inicio:</label>
+                                <input type="date" class="form-control" id="fechaInicioES" name="fechaInicioES[]" required>
+                                <div class="invalid-feedback">¡Seleccione una fecha!</div>
+                            </div>
+                            <div class="col-12 col-sm-3 mt-3">
+                                <label for="fechaFinES">Fecha Fin:</label>
+                                <input type="date" class="form-control" id="fechaFinES" name="fechaFinES[]" required>
+                                <div class="invalid-feedback">¡Seleccione una fecha!</div>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" id="estudioActualES" name="estudioActualES[]">
+                                    <label class="form-check-label">
+                                        Actualmente
+                                        <!--Aqui estoy estudiando actualmente-->
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-row col-12 mx-0 px-0">
+                            <div class="col-12 col-sm-6">
+                                <span id="spnEliminar" class="badge badge-pill span-red puntero ocultar" onclick="EliminarCampos($(this),'formES','spnEliminarES')">Eliminar</span>
+                            </div>
+                        </div>
+                        <div class="col-11 mx-auto py-1" style="border-bottom: 1px solid #B6C2CB;">
+                        </div>
+                    </div>
+                }
+            </form>
+            @{OcultarForm = Model.Educacion.Lista.Count() == 1 ? "" : "d-none";}
+            <div class="d-flex justify-content-start">
+                <span id="spnEliminarES" class="badge badge-pill span-red puntero @OcultarForm" onclick="OcultarForm('formES','needs-validation-formES','divAddES','agregarES0','agregarES','spnEliminarES')">Eliminar</span>
+            </div>
+            @{OcultarForm = Model.Educacion.Lista.Count() == 0 ? "d-none" : "";}
+            <div class="d-flex justify-content-center">
+                <span id="agregarES" class="badge badge-pill span-blue @OcultarForm" style="cursor:pointer;" onclick="AgregarCampos('formES','ClonES','needs-validation-formES','spnEliminarES')">Agregar campo +</span>
+            </div>
+            <h1>Idiomas</h1>
+            @{OcultarForm = Model.Educacion.Idioma.Count() > 0 ? "d-none" : "";}
+            <div id="divAddIS" class="d-flex justify-content-center @OcultarForm">
+                <span id="agregarIS0" class="badge badge-pill span-blue @OcultarForm" style="cursor:pointer;" onclick="MostrarForm('formIS','needs-validation-formIS','divAddIS','agregarIS0','agregarIS','spnEliminarIS')">Agregar campo +</span>
+            </div>
+            @{OcultarForm = Model.Educacion.Idioma.Count() != 0 ? "" : "d-none";}
+            <form id="formIS" class="needs-validation-formIS my-2 @OcultarForm" novalidate>
+                @{ i = 0;}
+                @if (Model.Educacion.Idioma.Count() != 0)
+                {
+                    foreach (var item in Model.Educacion.Idioma)
+                    {
+                        Clon = i == 0 ? "ClonIS" : "";
+                        Ocultar = i == 0 ? "ocultar" : "";
+                        <div id="Clon" class="form-row my-2 @Clon">
+                            <div class="form-row col-12 mx-0 px-0">
+                                <div class="col-12 col-sm-3">
+                                    <input type="hidden" id="idIS" name="idIS" value="@item.Id">
+                                    <label for="nombreIS">Idioma</label>
+                                    <input type="text" class="form-control" id="nombreIS" name="nombreIS[]" value="@item.Nombre">
+                                    <div class="invalid-feedback">¡Campo Vacio!</div>
+                                </div>
+                                <div class="col-12 col-sm-3">
+                                    <label for="escrituraIS">Nivel Escrito</label>
+                                    <select class="custom-select" id="escrituraIS" name="escrituraIS[]" value="@item.Escritura">
+                                        <option selected disabled value="">Cambiar...</option>
+                                        <option value="Basico">Basico</option>
+                                        <option value="Medio">Medio</option>
+                                        <option value="Avanzado">Avanzado</option>
+                                    </select>
+                                    <div class="invalid-feedback">
+                                        Por favor seleccione un tipo.
+                                    </div>
+                                </div>
+                                <div class="col-12 col-sm-3">
+                                    <label for="nivelOralIS">Nivel Oral</label>
+                                    <select class="custom-select" id="nivelOralIS" name="nivelOralIS[]" value="@item.Nivel">
+                                        <option selected disabled value="">Cambiar...</option>
+                                        <option value="Basico">Basico</option>
+                                        <option value="Medio">Medio</option>
+                                        <option value="Avanzado">Avanzado</option>
+                                    </select>
+                                    <div class="invalid-feedback">
+                                        Por favor seleccione un tipo.
+                                    </div>
+                                </div>
+                                <div class="col-12 col-sm-3">
+                                    <label for="lecturaIS">Nivel Lectura</label>
+                                    <select class="custom-select" id="lecturaIS" name="lecturaIS[]" value="@item.Lectura">
+                                        <option selected disabled value="">Cambiar...</option>
+                                        <option id="Basico">Basico</option>
+                                        <option id="Medio">Medio</option>
+                                        <option id="Avanzado">Avanzado</option>
+                                    </select>
+                                    <div class="invalid-feedback">
+                                        Por favor seleccione un tipo.
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-row col-12 mx-0 px-0">
+                                <div class="col-12">
+                                    <span id="spnEliminar" class="badge badge-pill span-red puntero @Ocultar" onclick="EliminarCampos($(this),'formIS','spnEliminarIS')">Eliminar</span>
+                                </div>
+                            </div>
+                            <div class="col-11 mx-auto py-1" style="border-bottom: 1px solid #B6C2CB;">
+                            </div>
+                        </div>
+                        { i++; }
+                    }
+                }
+                else
+                {
+                    <div id="Clon" class="form-row my-2 ClonIS">
+                        <div class="form-row col-12 mx-0 px-0">
+                            <div class="col-12 col-sm-3">
+                                <input type="hidden" id="idIS" name="idIS" value="-1">
+                                <label for="nombreIS">Idioma</label>
+                                <input type="text" class="form-control" id="nombreIS" name="nombreIS[]" required>
+                                <div class="invalid-feedback">¡Campo Vacio!</div>
+                            </div>
+                            <div class="col-12 col-sm-3">
+                                <label for="escrituraIS">Nivel Escrito</label>
+                                <select class="custom-select" id="escrituraIS" name="escrituraIS[]" required>
+                                    <option selected disabled value="">Cambiar...</option>
+                                    <option value="Basico">Basico</option>
+                                    <option value="Medio">Medio</option>
+                                    <option value="Avanzado">Avanzado</option>
+                                </select>
+                                <div class="invalid-feedback">
+                                    Por favor seleccione un tipo.
+                                </div>
+                            </div>
+                            <div class="col-12 col-sm-3">
+                                <label for="nivelOralIS">Nivel Oral</label>
+                                <select class="custom-select" id="nivelOralIS" name="nivelOralIS[]" required>
+                                    <option selected disabled value="">Cambiar...</option>
+                                    <option value="Basico">Basico</option>
+                                    <option value="Medio">Medio</option>
+                                    <option value="Avanzado">Avanzado</option>
+                                </select>
+                                <div class="invalid-feedback">
+                                    Por favor seleccione un tipo.
+                                </div>
+                            </div>
+                            <div class="col-12 col-sm-3">
+                                <label for="lecturaIS">Nivel Lectura</label>
+                                <select class="custom-select" id="lecturaIS" name="lecturaIS[]" required>
+                                    <option selected disabled value="">Cambiar...</option>
+                                    <option id="Basico">Basico</option>
+                                    <option id="Medio">Medio</option>
+                                    <option id="Avanzado">Avanzado</option>
+                                </select>
+                                <div class="invalid-feedback">
+                                    Por favor seleccione un tipo.
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-row col-12 mx-0 px-0">
+                            <div class="col-12">
+                                <span id="spnEliminar" class="badge badge-pill span-red puntero ocultar" onclick="EliminarCampos($(this),'formIS','spnEliminarIS')">Eliminar</span>
+                            </div>
+                        </div>
+                        <div class="col-11 mx-auto py-1" style="border-bottom: 1px solid #B6C2CB;">
+                        </div>
+                    </div>
+                }
+            </form>
+            @{OcultarForm = Model.Educacion.Idioma.Count() == 1 ? "" : "d-none";}
+            <div class="d-flex justify-content-start">
+                <span id="spnEliminarIS" class="badge badge-pill span-red puntero @OcultarForm" onclick="OcultarForm('formIS','needs-validation-formIS','divAddIS','agregarIS0','agregarIS','spnEliminarIS')">Eliminar</span>
+            </div>
+            @{OcultarForm = Model.Educacion.Idioma.Count() == 0 ? "d-none" : "";}
+            <div class="d-flex justify-content-center">
+                <span id="agregarIS" class="badge badge-pill span-blue @OcultarForm" style="cursor:pointer;" onclick="AgregarCampos('formIS','ClonIS','needs-validation-formIS','spnEliminarIS')">Agregar campo +</span>
+            </div>
+        </div>
+        <div class="tab-pane fade p-3" id="Informacion_General" role="tabpanel" aria-labelledby="ig-tab">
+            <h1>Informacion General</h1>
+            <form id="formIG" class="needs-validation-formIG my-2" novalidate>
+                <div class="form-row">
+                    <div class="form-row col-12 mx-0 px-0">
+                        <div class="col-12 col-sm-6">
+                            <label for="tituloIG">Titulo:</label>
+                            <input type="text" class="form-control" id="tituloIG" name="tituloIG" value="@Model.Titulo" required>
+                            <div class="invalid-feedback">¡Campo Vacio!</div>
+                            <input type="hidden" id="idIG" name="idIG" value="@Model.Id">
+                        </div>
+                        <div class="col-12 col-sm-3">
+                            <label for="contratoIG">Contrato:</label>
+                            <select class="custom-select" id="contratoIG" name="contratoIG" value="@Model.Contrato" required>
+                                <option disabled value="">Cambiar...</option>
+                                <option value="Tiempo Completo">Tiempo Completo</option>
+                                <option value="Medio Tiempo">Medio Tiempo</option>
+                                <option value="Otro">Otro</option>
+                            </select>
+                            <div class="invalid-feedback">
+                                Por favor seleccione un tipo.
+                            </div>
+                        </div>
+                        <div class="col-12 col-sm-3">
+                            <label for="pretencionSalarialIG">Pretencion Salarial:</label>
+                            <input type="number" class="form-control" id="pretencionSalarialIG" name="pretencionSalarialIG" min="1" pattern="^[0-9]+" value="@Model.PretencionSalarial" required>
+                            <div class="invalid-feedback">¡Campo Vacio!</div>
+                        </div>
+                        <div class="col-12 col-sm-6 mt-3">
+                            <label for="IdCarrera">Carrera:</label>
+                            <select class="custom-select" id="IdCarrera" name="IdCarrera" size="5" required>
+                                <option disabled value="">Seleccionar Carrera...</option>
+                                @foreach (var item in ViewBag.tCarreras)
+                                {
+                                    <option value="@item.Id">@item.Nombre</option>
+                                }
+                            </select>
+                            <div class="invalid-feedback">¡Campo Vacio!</div>
+                        </div>
+                        <div class="col-12 col-sm-3">
+                            <div class="mt-3">
+                                <label for="paisIG">Pais:</label>
+                                <input type="text" class="form-control" id="paisIG" name="paisIG[]" value="@Model.PaisResidencia" required>
+                                <div class="invalid-feedback">¡Campo Vacio!</div>
+                            </div>
+                            <div class="mt-1">
+                                <label for="ciudadIG">Ciudad</label>
+                                <input type="text" class="form-control" id="ciudadIG" name="ciudadIG[]" value="@Model.Ciudad" required>
+                                <div class="invalid-feedback">¡Campo Vacio!</div>
+                            </div>
+                        </div>
+                        <div class="col-12 col-sm-3 mt-3">
+                            <label for="estadoRegionIG">Estado o Region:</label>
+                            <input type="text" class="form-control" id="estadoRegionIG" name="estadoRegionIG[]" value="@Model.EstadoRegion" required>
+                            <div class="invalid-feedback">¡Campo Vacio!</div>
+                        </div>
+                    </div>
+                    <div class="form-row col-12 mx-0 px-0">
+                        <div class="col-12 col-sm-12 mt-3">
+                            <label for="presentacionBiografiaIG">Presentacion/Biografia</label>
+                            <p for="descripcionIG" style="font-size:13px;">Por favor verifique ortografía y gramática y no escriba el texto en mayusculas ya que esto puede hacer que su currículo sea rechazado para ser incluido en nuestra base de datos de curriculos.</p>
+                            <textarea class="form-control" id="presentacionBiografiaIG" name="presentacionBiografiaIG[]" minlength="10" maxlength="500" style="resize: none; height: 150px;" required onkeyup="ContarCaracteres($(this).val(),'500',$(this))">@Model.PresentacionBiografica</textarea>
+                            <p id="CaracteresDisponibles" class="text-left"></p>
+                            <div class="invalid-feedback">¡Campo Vacio!</div>
+                        </div>
+                    </div>
+                    <div class="form-row col-12 mx-0 px-0">
+                        <div class="col-12 col-sm-12 mt-3">
+                            <label for="privacidadIG">Privacidad</label>
+                            <select class="custom-select" id="privacidadIG" name="privacidadIG" required>
+                                <option disabled value="">Cambiar...</option>
+                                <option value="0">Solamente a las empresas que postulo</option>
+                                <option value="1">Publico</option>
+                            </select>
+                            <div class="invalid-feedback">
+                                Por favor seleccione un tipo.
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+        <div class="form-group px-3 py-2">
+            <button class="btn btn-Blue btn-block" type="submit" form="formDP">Guardar</button>
+        </div>
+    </div>
+</div>

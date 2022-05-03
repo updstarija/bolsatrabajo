@@ -1,0 +1,127 @@
+﻿@model BolsaDeTrabajo.Models.Empleo
+@{
+    ViewBag.Title = "detalleEmpleo";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<div id="DetalleEmpleo" class="container">
+    <div class="row">
+        <div class="col-12 col-sm-4 ">
+            <div class="infoEmpresa shadow-lg p-3 bg-white rounded pl-5 pr-5 pb-5 mt-4">
+                <h6>Información de:</h6>
+                <h5 class="text-center font-weight-bold">@Model.Empresa.NombreEmpresa.ToUpper()</h5>
+                <div class="d-flex justify-content-center mt-3">
+                    <img id="foto" class="img-fluid" src="data:image;base64,@System.Convert.ToBase64String(Model.Empresa.Perfil.Foto)" alt="">
+                </div>
+                <br />
+                <p class="text-center">@Model.Ciudad, @Model.EstadoRegion, @Model.Pais</p>
+                @if (Model.Empresa.Perfil.TelefonoCelular != null)
+                {
+                    <p><b>Telefono Celular:</b> @Model.Empresa.Perfil.TelefonoCelular</p>
+                }
+                @if (Model.Empresa.Perfil.TelefonoFijo != null)
+                {
+                    <p><b>Telefono Fijo:</b> @Model.Empresa.Perfil.TelefonoFijo</p>
+                }
+                <p><b>Pagina Web:</b></p>
+                <p>@Model.Empresa.SitioWeb</p>
+            </div>
+        </div>
+        <div class="col-12 col-sm-8">
+            <div class="infoEmpleo shadow-lg p-3 bg-white rounded pl-5 pr-5 pb-5 mt-4">
+                @if (ViewBag.Estado == "0")
+                {
+                    <div class="d-flex justify-content-center justify-content-md-end mb-2">
+                        <button type="button" id="btnPostularEmpleo" class="btn btn-Blue font-weight-bold" data-toggle="modal" data-target="#PostulacionModal" onclick="Limpiar()">Postular a este Empleo <i class="fas fa-angle-double-right"></i></button>
+                    </div>
+                }
+                else
+                {
+                    <div class="d-flex justify-content-center justify-content-md-end mb-2">
+                        <p class="font-weight-bolder">Ya has postulado al empleo</p>
+                    </div>
+                }
+
+            <h3 class="font-weight-bold text-center mt-3">@Model.Titulo.ToUpper()</h3>
+                <div class="row mt-3">
+                    <div class="col-12 col-sm-6">
+                        <input type="hidden" name="IdDE" id="IdDE" value="@Model.Id" />
+                        <p><b>Id Empleo:</b> @Model.Id</p>
+                        @{string cad = ""; }
+                        @foreach (var item in @Model.CategoriaBDT)
+                        {
+                            { cad += item.Nombre + " "; }
+                        }
+                        <p><b>Categorias:</b> @cad</p>
+                        <p><b>Sueldo:</b> @Model.RangoSueldos</p>
+                        <p><b>Publicado:</b> @string.Format("{0:yyyy-MM-dd}", Model.FechaRegistro)</p>
+                    </div>
+                    <div class="col-12 col-sm-6">
+                        <p><b>Ubicacion:</b> @Model.Ciudad, @Model.EstadoRegion, @Model.Pais</p>
+                        <p><b>Contrato:</b> @Model.Contrato</p>
+                        <p><b>Expiración:</b> @Model.FechaExpiracion</p>
+                        @{var Teletrabajo = Model.Teletrabajo == true ? "Si" : "No"; }
+                        <p><b>Teletrabajo:</b> @Teletrabajo</p>
+                    </div>
+                </div>
+                <hr />
+                <h3>Descripción del Trabajo</h3>
+                <p>@Model.Descripcion</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="modal fade back-gray10" id="PostulacionModal" data-backdrop="static" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-start modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Postular a Empleo</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body mx-1">
+                <form id="formRegistrarPostulacion" class="needs-validationRP" novalidate>
+                    <div class="form-group">
+                        <label for="PretencionSalarial">Pretención Salarial:</label>
+                        <input type="number" name="PretencionSalarial" id="PretencionSalarial" class="form-control">
+                        <div class="invalid-feedback">¡Campo Vacio!</div>
+                    </div>
+                    <div class="form-group">
+                        <label for="IdCurriculum">Curriculum:</label>
+                        <select class="custom-select" id="IdCurriculum" name="IdCurriculum" required>
+                            <option selected disabled value="">Seleccionar un Curriculum...</option>
+                            @foreach (var item in ViewBag.Curriculums)
+                            {
+                                <option value="@item.Id">@item.Titulo</option>
+                            }
+                        </select>
+                        <div class="invalid-feedback">
+                            Por favor seleccione un tipo.
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="col-12">
+                            <label for="Descripcion">Carta de Presentación:</label>
+                            <p for="CartaPresentacion" style="font-size:13px;">Por favor verifique ortografía y gramática.</p>
+                            <textarea class="form-control my-scroll1" id="CartaPresentacion" name="CartaPresentacion" minlength="10" maxlength="3000" style="resize: none;width:100%; height: 200px;" required onkeyup="ContarCaracteres($(this).val(),'3000',$(this))"></textarea>
+                            <p id="CaracteresDispDE" class="text-left"></p>
+                            <div class="invalid-feedback">¡Campo Vacio!</div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <div class="row w-100">
+                    <div class="col-12 py-1 py-sm-0 col-sm-7 px-1">
+                        <button id="btnPE" type="button" class="btn btn-Blue btn-block" onclick="RegistrarPostulacion()">Postular</button>
+                    </div>
+                    <div class="col-12 py-1 py-sm-0 col-sm-5 px-1">
+                        <button type="button" id="btnCPE" class="btn btn-secondary btn-block" data-dismiss="modal">Cerrar</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

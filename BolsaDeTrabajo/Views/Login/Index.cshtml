@@ -1,0 +1,32 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_LayoutCuenta.cshtml";
+}
+
+<div id="login" class="bg-img">
+    <div class="content animated zoomIn">
+        <header>Iniciar Sesion</header>
+        <form id="formulario">
+            <div class="field">
+                <span class="fa fa-user"></span>
+                <input type="text" id="usuario" name="usuario" required placeholder="Usuario" >
+            </div>
+            <div class="field space">
+                <span class="fa fa-lock"></span>
+                <input type="password" class="pass-key" id="clave" name="clave" required placeholder="Contraseña">
+                <span class="show">Mostrar</span>
+            </div>
+            <div class="pass">
+                <button type="button" onclick="ConfirmCambiarClave()">Olvido la contraseña?</button>
+            </div>
+            <div class="field">
+                <input  type="submit" value="Ingresar">
+            </div>
+            <div class="signup">
+                No tienes cuenta?
+                <a href="#" data-toggle="modal" data-target="#registrarModal">Registrate Ahora</a>
+            </div>
+        </form>
+    </div>
+</div>

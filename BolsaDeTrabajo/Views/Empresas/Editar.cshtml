@@ -1,0 +1,159 @@
+﻿@{
+    ViewBag.Title = "Editar";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="container-personalizado">
+    <div class="shadow-lg p-3 bg-white rounded pl-5 pr-5 pb-5 mt-4">
+        <h3 class="text-center">Perfil de la Empresa</h3>
+        <div class="row mt-5">
+            <div class="col-sm-3">
+                <div id="perfil-info00">
+
+                </div>
+            </div>
+            <div class="col-sm-9">
+                <div class="row">
+                    <div class="col-sm-6 mt-4">
+                        <div id="perfil-info01">
+
+                        </div>
+                    </div>
+                    <div class="col-sm-6 mt-4">
+                        <div id="perfil-info02">
+
+                        </div>
+                    </div>
+                    <div class="col-sm-12 mt-4">
+                        <div id="perfil-info03">
+
+                        </div>
+                        <div class="text-right mt-5">
+                            <button class="btn btn-outline-primary" data-toggle="modal" data-target="#ModalActualizarEmpresa">Actualizar</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="modal fade" id="ModalActualizarEmpresa" data-backdrop="static" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-start modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="titulo">Registrar Empresa</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body mx-1">
+                <form id="formEditarEmpresa" class="needs-validation-empresa" enctype="multipart/form-data" novalidate>
+                    <div class="form-row">
+                        <div class="col-12 col-md-4">
+                            <label for="NIT_empresa">NIT:</label>
+                            <input type="text" class="form-control" id="NIT_empresa" name="NIT_empresa" required>
+                            <div class="invalid-feedback">¡Campo Vacio!</div>
+                        </div>
+                        <div class="col-12 col-md-4">
+                            <label for="nombre_empresa">Nombre:</label>
+                            <input type="text" class="form-control" id="nombre_empresa" name="nombre_empresa" required>
+                            <input type="hidden" id="id_empresa" name="id_empresa" value="@ViewBag.IdEmpresa">
+                            <div class="invalid-feedback">¡Campo Vacio!</div>
+                        </div>
+                        <div class="col-12 col-md-4">
+                            <label for="direccion_empresa">Direccion:</label>
+                            <input type="text" class="form-control" id="direccion_empresa" name="direccion_empresa" required>
+                            <div class="invalid-feedback">¡Campo Vacio!</div>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="col-12 col-md-4">
+                            <label for="sitio_web_empresa">Sitio Web:</label>
+                            <input type="text" class="form-control" id="sitio_web_empresa" name="sitio_web_empresa">
+                            <div class="invalid-feedback">¡Campo Vacio!</div>
+                        </div>
+                        <div class="col-12 col-md-4">
+                            <label for="telefonoCelular">Tel.Celular:</label>
+                            <input type="text" class="form-control" id="telefonoCelular" name="telefonoCelular">
+                        </div>
+                        <div class="col-12 col-md-4">
+                            <label for="telefonoFijo">Tel.Fijo:</label>
+                            <input type="text" class="form-control" id="telefonoFijo" name="telefonoFijo">
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="col-12 col-md-4">
+                            <label for="pais_empresa">Pais:</label>
+                            <input type="text" class="form-control" id="pais_empresa" name="pais_empresa" disabled value="Bolivia" required>
+                            <div class="invalid-feedback">¡Campo Vacio!</div>
+                        </div>
+                        <div class="col-12 col-md-4">
+                            <label for="estadoregion">Departamento:</label>
+                            <select class="custom-select" id="estadoregion" name="estadoregion" required>
+                                <option selected disabled value="">Seleccionar Departamento...</option>
+                                @foreach (var item in ViewBag.tDepartamentos)
+                                {
+                                    <option value="@item.Nombre">@item.Nombre</option>
+                                }
+                            </select>
+                            <div class="invalid-feedback">¡Campo Vacio!</div>
+                        </div>
+                        <div class="col-12 col-md-4">
+                            <label for="ciudad_empresa">Ciudad:</label>
+                            <input type="text" class="form-control" id="ciudad_empresa" name="ciudad_empresa" required>
+                            <div class="invalid-feedback">¡Campo Vacio!</div>
+                        </div>
+                        <div class="col-12 col-md-8">
+                            <label for="descripcion_empresa">Descripcion:</label>
+                            <textarea class="form-control" id="descripcion_empresa" name="descripcion_empresa" minlength="10" maxlength="500" style="resize: none; height: 200px;" required onkeyup="ContarCaracteres($(this).val(),'500',$(this))"></textarea>
+                            <p id="CaracteresDispEmpresa" class="text-left"></p>
+                            <div class="invalid-feedback">¡Campo Vacio!</div>
+                        </div>
+                        <div class="col-12 col-md-4">
+                            <label>Imagen:</label>
+                            <img id="foto" class="img-fluid" style="max-height: 168px; min-height: 168px; height: 168px; width:100%" src="" alt="">
+                            <div id="div_file_new">
+                                <label id="palabras" for="imagen">Seleccionar Imagen</label>
+                                <input type="file" name="imagen" id="imagen" class="form-control-file" onchange="showImg()" />
+                                <div class="invalid-feedback">¡Campo Vacio!</div>
+                            </div>
+                        </div>
+                        <div class="col-12 col-md-12">
+                            <label for="nombre_persona_empresa">Nombre Persona Responsable:</label>
+                            <input type="text" class="form-control" id="nombre_persona_empresa" name="nombre_persona_empresa" required>
+                            <div class="invalid-feedback">¡Campo Vacio!</div>
+                        </div>
+                    </div>
+                    <hr>
+                    <h4 class="text-center">Cuenta</h4>
+                    <div class="form-row">
+                        <div class="col-12 col-sm-12">
+                            <label for="correo_empresa">Correo:</label>
+                            <input type="email" class="form-control" id="correo_empresa" name="correo_empresa" required>
+                            <div class="invalid-feedback">¡Campo Vacio!</div>
+                        </div>
+                        <div class="col-12 col-sm-6">
+                            <div class="d-flex justify-content-start align-items-end h-100">
+                                <button id="btnMostrarCamposE" type="button" class="btn btn-primary" onclick="MostrarCamposE()">Cambiar Contraseña</button>
+                            </div>
+                        </div>
+                    </div>
+                    <div id="passwordE" class="form-row d-none">
+
+                    </div>
+                    <div class="form-row mt-4">
+                        <div class="col-sm-6">
+                            <button class="btn btn-Blue btn-block" id="btnRegistrarEmpresa" type="submit">Actulizar</button>
+                        </div>
+                        <div class="col-sm-6">
+                            <button type="button" class="btn btn-secondary btn-block" data-dismiss="modal">Cerrar</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+

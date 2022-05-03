@@ -1,0 +1,69 @@
+﻿@{
+    ViewBag.Title = "DetalleCurriculo";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<input type="hidden" id="idValor" value="@ViewBag.IdCurriculo" />
+<div class="container shadow-lg p-3 bg-white rounded pl-5 pr-5 pb-5 mt-4" id="ContentCurriculo">
+
+</div>
+<div class="container mt-3" id="botones">
+    <div class="d-flex justify-content-center">
+        <div class="form-inline">
+            <button id="boton2" type="button" class="btn btn-secondary mx-1" data-toggle="modal" data-target="#InvitacionModal">Invitar a postularse</button>
+            <button type="button" style="font-family:Arial;" class="btn btn-Blue mx-1" onclick="Imprimir()"><i class="fas fa-print"></i> Imprimir Curriculum</button>
+        </div>
+    </div>
+</div>
+<div class="modal fade" id="InvitacionModal" data-backdrop="static" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-start modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Invitar a Empleo</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body mx-1">
+                <form id="formRegistrarPostulacion" class="needs-validationRP" novalidate>
+                    <div class="form-group">
+                        <label for="PretencionSalarial">Salario Estimado:</label>
+                        <input type="text" name="SujerirSalarial" id="SujerirSalarial" class="form-control">
+                        <div class="invalid-feedback">¡Campo Vacio!</div>
+                    </div>
+                    <div class="form-group">
+                        <label for="IdEmpleos">Empleos:</label><br />
+                        <span>Si tiene empleos publicados seleccione una opción,de lo contrario dejelo en blanco</span>
+                        <select class="custom-select" onchange="verificarInvitacionesT()" id="IdEmpleos" name="IdEmpleos"></select>
+                        <div class="invalid-feedback">
+                            Por favor seleccione un tipo.
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="col-12">
+                            <label for="Descripcion">Carta de Invitación:</label>
+                            <p for="CartaPresentacion" style="font-size:13px;">Por favor verifique ortografía y gramática.</p>
+                            <textarea class="form-control overflow-auto" id="CartaInvitacion" name="CartaInvitacion" minlength="10" maxlength="3000" style="resize: none;width:100%; height: 200px;" required onkeyup="ContarCaracteres($(this).val(),'3000',$(this))"></textarea>
+                            <p id="CaracteresDispDE" class="text-left"></p>
+                            <div class="invalid-feedback">¡Campo Vacio!</div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <div class="row w-100">
+                    <div class="col-12 py-1 py-sm-0 col-sm-7 px-1">
+                        <button id="btnPEInvitacion" type="button" class="btn btn-Blue btn-block" onclick="RegistrarInvitacion()">Invitar</button>
+                    </div>
+                    <div class="col-12 py-1 py-sm-0 col-sm-5 px-1">
+                        <button type="button" id="btnCPE" class="btn btn-secondary btn-block" data-dismiss="modal">Cerrar</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="~/Scripts/js/jQuery.print.min.js"></script>
+<script src="~/Scripts/js/detalleCurriculum.js"></script>
+<script src="~/Scripts/js/InvitacionCurriculum.js"></script>

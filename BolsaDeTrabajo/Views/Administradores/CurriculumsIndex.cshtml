@@ -1,0 +1,39 @@
+﻿
+@{
+    ViewBag.Title = "CurriculumsIndex";
+    Layout = "~/Views/Shared/_LayoutAdministrador.cshtml";
+}
+<input type="hidden" id="idValor" value="@ViewBag.IdCurriculum" />
+<div id="cargandoCurriculums" class="text-center">
+    <div class="spinner-border" role="status">
+        <span class="sr-only">Loading...</span>
+    </div>
+</div>
+<div class="table-responsive-lg" id="contenidoTcurriculums">
+    <br />
+    <h1 class="text-center animated fadeInDown">Registro Curriculums del candidato</h1>
+    <br />
+    <table id="tcurriculumscandidato" class="table table-striped display mx-0 my-table-DT animated fadeIn" style="width:100%"></table>
+</div>
+<br>
+<div class="modal fade" id="ModalCurriculum" data-backdrop="static" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-start modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="titulo"></h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div id="MBInvitado" class="modal-body mx-1">
+                <div id="seccionCurriculumC" class="style-marco1 mt-3 pb-2">
+
+
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="~/Scripts/js/jQuery.print.min.js"></script>
+<script src="~/Scripts/js/Administrador/AdministrarCurriculums.js"></script>

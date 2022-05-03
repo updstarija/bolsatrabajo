@@ -1,0 +1,148 @@
+﻿@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<div class="sticky-top-2">
+    <div class="container FiltrosInicio">
+        <div id="textSearch">
+            <div class="form-group row  mt-2 mb-0">
+                <div class="col-10">
+                    <input type="text" readonly class="form-control" name="search_text" id="search_text"
+                           value="Todos los empleos de bolivia">
+                </div>
+                <div class="col-2 icono text-right my-auto">
+                    <button type="button" class="btn-back-transparent" onclick="showFiltrar()"><i class="fas fa-bars ico"></i></button>
+                </div>
+            </div>
+        </div>
+        <div class="div-padre w-100">
+            <div id="filters" class="busqueda">
+                <div id="filtroEmpleo" class="px-2">
+                    <div class="form-row">
+                        <div class="col-12 col-sm-6">
+                            <label for="Departamento">Departamento:</label>
+                            <select class="form-control myselect" name="Departamento" id="Departamento" size="4">
+                                <option selected value="">Ninguna...</option>
+                                @foreach (var item in ViewBag.tDepartamentos)
+                                {
+                                    <option value="@item.Nombre">@item.Nombre</option>
+                                }
+                            </select>
+                        </div>
+                        <div class="col-12 col-sm-6">
+                            <label for="Categoria">Categoria:</label>
+                            <select class="form-control myselect" name="listCategoria[]" id="listCategoria" size="4" multiple>
+                                <option selected value="">Ninguno...</option>
+                                @foreach (var item in ViewBag.tCategoria)
+                                {
+                                    <option value="@item.Nombre">@item.Nombre</option>
+                                }
+                            </select>
+                            <small>Use la tecla "Control" para escoger dos o más opciones.</small>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="col-12 col-sm-6">
+                            <label for="PublicadoDentroDe">Publicado dentro de:</label>
+                            <select class="form-control" name="PublicadoDentroDe" id="PublicadoDentroDe">
+                                <option selected value="">Ninguno...</option>
+                                <option value="30">Ultimos 30 dias</option>
+                                <option value="15">Ultimos 15 dias</option>
+                                <option value="7">Ultima semana</option>
+                                <option value="3">Ultimos 3 dias</option>
+                                <option value="1">Desde Ayer</option>
+                            </select>
+                        </div>
+                        <div class="col-12 col-sm-6">
+                            <label for="Contrato">Contrato:</label>
+                            <select class="form-control" name="Contrato" id="Contrato">
+                                <option selected value="">Ninguno...</option>
+                                <option value="Tiempo Completo">Tiempo Completo</option>
+                                <option value="Medio Tiempo">Medio Tiempo</option>
+                                <option value="Contratista">Contratista</option>
+                                <option value="Pasantía">Pasantía</option>
+                                <option value="Temporal">Temporal</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="PalabraClave">Palabras Clave:</label>
+                        <input type="text" class="form-control" id="PalabraClave" name="PalabraClave" placeholder="Palabra clave de busqueda...">
+                    </div>
+                    <div class="form-group">
+                        <button type="button" class="btn btn-block" onclick="EmpleosFiltrar('true','Filtro2')">Buscar Empleo</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div id="OpcionesFiltrosInicio" class="container mt-2">
+    <div class="row">
+        <div class="col-12 col-sm-5 col-md-3">
+            <div class="accordion sidebar2" id="accordionExample">
+                <div class="card">
+                    <div class="card-header" id="headingOne">
+                        <h2 class="mb-0">
+                            <button class="btn btn-block text-left" type="button" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                                <div class="header">
+                                    <h3>Trabajos en Bolivia</h3>
+                                </div>
+                            </button>
+                        </h2>
+                    </div>
+
+                    <div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-parent="#accordionExample">
+                        <div class="card-body">
+                            <div id="departamentos" class="body">
+                                @foreach (var item in ViewBag.tDepartamentos)
+                                {
+                                    <div class="form-group form-check">
+                                        <input type="checkbox" class="form-check-input" id="@item.Id-@item.Nombre" name="Departamentos[]" onclick="FiltrarEmpleos('true','Filtro1')" value="@item.Nombre">
+                                        <label class="form-check-label" for="@item.Id-@item.Nombre">@item.Nombre</label>
+                                    </div>
+                                }
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="accordion sidebar2" id="accordionExample">
+                <div class="card">
+                    <div class="card-header" id="headingTwo">
+                        <h2 class="mb-0">
+                            <button class="btn btn-block text-left collapsed" type="button" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                                <div class="header">
+                                    <h3>Filtrar por Categoria</h3>
+                                </div>
+                            </button>
+                        </h2>
+                    </div>
+                    <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionExample">
+                        <div class="card-body">
+                            <div id="categorias" class="body overflow-auto" style="height:250px;">
+                                @foreach (var item in ViewBag.tCategoria)
+                                {
+                                    <div class="form-group form-check">
+                                        <input type="checkbox" class="form-check-input" id="@item.Id-@item.Nombre" name="Categorias[]" onclick="FiltrarEmpleos('true','Filtro1')" value="@item.Nombre">
+                                        <label class="form-check-label" for="@item.Id-@item.Nombre">@item.Nombre</label>
+                                    </div>
+                                }
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-12 col-sm-7 col-md-9">
+            <div class="row" id="itemsCards">
+            </div>
+            <div id="btnAgregarMas" class="row">
+
+            </div>
+        </div>
+
+    </div>
+</div>
+

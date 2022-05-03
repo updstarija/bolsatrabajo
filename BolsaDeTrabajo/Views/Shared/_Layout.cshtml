@@ -1,0 +1,249 @@
+﻿@using BolsaDeTrabajo.Models;
+<!DOCTYPE html>
+<html lang="es">
+<head>
+
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="shortcut icon" href="~/Content/img/Logos/isologo-color-upds_800x800i.png" />
+    @*@Styles.Render("~/Content/css")
+        @Scripts.Render("~/bundles/modernizr")*@
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css" integrity="sha384-B0vP5xmATw1+K9KRQjQERJvTumQW0nPEzvF6L/Z6nronJ3oUOFUFpCjEUQouq2+l" crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-Piv4xVNRyMGpqkS2by6br4gNJ7DXjqk09RmUpJ8jgGtD7zP9yug3goQfGII0yAns" crossorigin="anonymous"></script>
+
+    @*@Scripts.Render("~/bundles/jquery")
+        @Scripts.Render("~/bundles/bootstrap")*@
+
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css" integrity="sha512-HK5fgLBL+xu6dm/Ii3z4xhlSUyZgTT9tuc/hSrtw6uzJOvgRr2a9jyxxT1ely+B+xFAmJKVSTbpM/CuL7qxO8w==" crossorigin="anonymous" />
+    <title>UPDS Trabaja</title>
+    <link rel="stylesheet" href="~/Content/css/general.css">
+    <link rel="stylesheet" href="~/Content/css/card.css">
+    <link href="~/style.css" rel="stylesheet" />
+    <script src="~/cute-alert.js"></script>
+
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.25/css/jquery.dataTables.css">
+    <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.25/js/jquery.dataTables.js"></script>
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-confirm/3.3.2/jquery-confirm.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-confirm/3.3.2/jquery-confirm.min.js"></script>
+
+</head>
+<body class="py-0">
+    @{
+        UsuarioActivo us = new UsuarioActivo();
+        var Usuario = us.getUser(User);
+    }
+    <div class="sticky-top">
+        <nav id="navInicio" class="navbar navbar-expand-sm style">
+            <img src="~/Content/img/Logos/upds-blanco.png" alt="logo-upds" width="40" height="40" class="mt-1 mb-1 mr-3" />
+            @if (Usuario.Rol == "Candidato")
+            {
+                <a style="text-decoration:none;" class="navbar-brand" href="@Url.Action("Index","Inicio")">UPDS</a>
+            }
+            @if (Usuario.Rol == "Empresa")
+            {
+                <a style="text-decoration:none;" class="navbar" href="@Url.Action("IndexCurriculums","Inicio")">UPDS</a>
+            }
+            <button class="navbar-toggler btn-back-transparent" style="color:white;" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+                    aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <i class="fas fa-bars ico"></i>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent" style="border-radius:0px 0px 7px 7px;">
+                <ul class="navbar-nav mr-auto text-center d-none d-sm-flex">
+                    @if (Usuario.Rol == "Candidato")
+                    {
+                        <li class="nav-item"><a class="nav-link" href="@Url.Action("Index","Curriculos")"><i class="fas fa-file"></i> Mis Curriculums</a></li>
+                        <li class="nav-item"><a class="nav-link" href="@Url.Action("Postulaciones","Candidatos")"><i class="fas fa-clipboard-list"></i> Mis Postulaciones</a></li>
+                        <li class="nav-item"><a class="nav-link" href="@Url.Action("Lista","Invitaciones")"><i class="fas fa-envelope"></i> Invitaciones a Postular</a></li>
+                    }
+                    @if (Usuario.Rol == "Empresa")
+                    {
+                        <li class="nav-item"><a class="nav-link" href="@Url.Action("Index","Empleos")"><i class="fas fa-globe"></i> Publicaciones de Empleos</a></li>
+                        <li class="nav-item"><a class="nav-link" href="@Url.Action("Index","Invitaciones")"><i class="fas fa-envelope-open"></i> Invitaciones a Empleos</a></li>
+                    }
+                </ul>
+                <ul class="navbar-nav mr-auto text-center d-block d-sm-none pb-2 pb-sm-0" style="border-radius:0px 0px 7px 7px;">
+                    @if (Usuario.Rol == "Candidato")
+                    {
+                        @*<li class="nav-item active"><a class="nav-link" href="@Url.Action("Index","Inicio")">Inicio <span class="sr-only">(current)</span></a></li>*@
+                        <li class="mx-auto text-left"><a class="ml-3" href="@Url.Action("Editar","Candidatos")"><i class="fas fa-user"></i> Perfil</a></li>
+                        <li class="mx-auto text-left"><a class="ml-3" href="@Url.Action("Index","Curriculos")"><i class="fas fa-file"></i> Mis Curriculums</a></li>
+                        <li class="mx-auto text-left"><a class="ml-3" href="@Url.Action("Postulaciones","Candidatos")"><i class="fas fa-clipboard-list"></i> Mis Postulaciones</a></li>
+                        <li class="mx-auto text-left"><a class="ml-3" href="@Url.Action("Lista","Invitaciones")"><i class="fas fa-envelope"></i> Invitaciones a Postular</a></li>
+                        <li class="mx-auto text-left" id="notificacionStyle"><a class="ml-3" href="#NotificacionModal" data-toggle="modal"><i class="fas fa-bell"></i> Notificaciones</a> <span id="NroNotificaciones" class="my-span1"></span></li>
+                        <li class="mx-auto text-left"><a class="ml-3" href="@Url.Action("Logout","Login")"><i class="fas fa-sign-out-alt"></i> Cerrar Sesion</a></li>
+                    }
+                    @if (Usuario.Rol == "Empresa")
+                    {
+                        <li class="mx-auto text-left"><a class="ml-3 mt-3" href="@Url.Action("Editar","Empresas")"><i class="fas fa-user"></i> Perfil</a></li>
+                        <li class="mx-auto text-left"><a class="nav-link ml-3" href="@Url.Action("Index","Empleos")"><i class="fas fa-globe"></i> Publicaciones de Empleos</a></li>
+                        <li class="mx-auto text-left"><a class="nav-link ml-3" href="@Url.Action("Index","Invitaciones")"><i class="fas fa-envelope-open"></i> Invitaciones a Empleos</a></li>
+                        <li class="mx-auto text-left" id="notificacionStyle"><a class="ml-3" href="#NotificacionModal" data-toggle="modal"><i class="fas fa-bell"></i> Notificaciones</a> <span id="NroNotificaciones" class="my-span1"></span></li>
+                        <li class="mx-auto text-left"><a class="ml-3" href="@Url.Action("Logout","Login")"><i class="fas fa-sign-out-alt"></i> Cerrar Sesion</a></li>
+                    }
+                </ul>
+
+            <div class="d-flex justify-content-center justify-content-sm-end d-none d-sm-block">
+                <button class="btn text-white d-none d-sm-block" onclick="showMenuCuenta()">@Usuario.Email  <i class="fas fa-user-circle ico"></i></button>
+            </div>
+                <div class="contentCuenta d-none d-sm-block">
+                    <div class="d-flex justify-content-end">
+                        <div id="Cuenta" class="menuCuenta overflow-hidden">
+                            <h5 class="text-center text-white">@Usuario.Rol</h5>
+                            <div class="d-flex justify-content-center">
+                                <img class="img-fluid" src="" alt="">
+                            </div>
+                            <ul>
+                                @if (Usuario.Rol == "Candidato")
+                                {
+                                    <li class="mx-auto"><a href="@Url.Action("Editar","Candidatos")">Perfil</a></li>
+
+                                }
+                                @if (Usuario.Rol == "Empresa")
+                                {
+                                    <li class="mx-auto"><a href="@Url.Action("Editar","Empresas")">Perfil</a></li>
+                                }
+                                <li class="mx-auto" id="notificacionStyle"><a href="#NotificacionModal" data-toggle="modal"><i class="fas fa-bell"></i> Notificaciones</a> <span id="NroNotificaciones" class="my-span1"></span></li>
+                                <li class="mx-auto"><a href="@Url.Action("Logout","Login")"><i class="fas fa-sign-out-alt"></i> Cerrar Sesion</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </nav>
+    </div>
+    <div class="container-fluid mx-0 px-0">
+        @RenderBody()
+        <br />
+    </div>
+    <div class="modal fade border-mymodal" id="NotificacionModal" data-backdrop="static" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-start modal-md">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Notificaciones</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div id="Notificacion" class="modal-body mx-1"></div>
+            </div>
+        </div>
+    </div>
+    <script>
+        function Toast(tipo, msj) {
+            cuteToast({
+                type: tipo,
+                message: msj,
+                timer: 3000
+            })
+        }
+    </script>
+    <script src="~/Scripts/js/general.js"></script>
+
+    @RenderSection("scripts", required: false)
+    @{
+        var ruta = HttpContext.Current.Request.RequestContext.RouteData.Values["controller"].ToString();
+        var action = HttpContext.Current.Request.RequestContext.RouteData.Values["action"].ToString();
+    }
+    @if (ruta == "Inicio")
+    {
+        if (action == "IndexCurriculums")
+        {
+            <script src="~/Scripts/js/InicioCurriculums.js"></script>
+        }
+        else
+        {
+            <script src="~/Scripts/js/inicio.js"></script>
+        }
+    }
+    @if (ruta == "Curriculos")
+    {
+        if (action == "Index")
+        {
+            <script src="~/Scripts/js/jQuery.print.min.js"></script>
+            <script src="~/Scripts/js/CurriculosIndex.js"></script>
+        }
+        if (action == "Curriculo")
+        {
+            <script src="~/Scripts/js/curriculo.js"></script>
+        }
+        if (action == "Editar")
+        {
+            <script src="~/Scripts/js/EditarCurriculo.js"></script>
+        }
+    }
+    @if (ruta == "Candidatos")
+    {
+        if (action == "Editar")
+        {
+            <script src="~/Scripts/js/EditarCandidato.js"></script>
+        }
+        if (action == "Postulaciones")
+        {
+            <script src="~/Scripts/js/CandidatosPostulaciones.js"></script>
+        }
+        if (action == "Postulacion")
+        {
+            <script src="~/Scripts/js/CandidatoPostulacion.js"></script>
+        }
+    }
+    @if (ruta == "Empresas")
+    {
+        if (action == "Editar")
+        {
+            <script src="~/Scripts/js/EditarEmpresa.js"></script>
+        }
+    }
+    @if (ruta == "Empleos")
+    {
+        if (action == "Index")
+        {
+            <script src="~/Scripts/js/EmpleosIndex.js"></script>
+        }
+        if (action == "Empleo")
+        {
+            <script src="~/Scripts/js/registrarEmpleo.js"></script>
+        }
+        if (action == "Editar")
+        {
+            <script src="~/Scripts/js/EditarEmpleo.js"></script>
+        }
+        if (action == "detalleEmpleo")
+        {
+            <script src="~/Scripts/js/detalleEmpleo.js"></script>
+        }
+    }
+    @if (ruta == "Postulantes")
+    {
+        if (action == "Lista")
+        {
+            <script src="~/Scripts/js/jQuery.print.min.js"></script>
+            <script src="~/Scripts/js/listaPostulantes.js"></script>
+        }
+    }
+    @if (ruta == "Invitaciones")
+    {
+        if (action == "Index")
+        {
+            <script src="~/Scripts/js/InvitacionesIndex.js"></script>
+            <script src="~/Scripts/js/InvitadosFD.js"></script>
+        }
+        if (action == "Lista")
+        {
+            <script src="~/Scripts/js/InvitacionesLista.js"></script>
+        }
+        if (action == "listaInvitados")
+        {
+            <script src="~/Scripts/js/EmpleosInvitados.js"></script>
+        }
+        if (action == "Invitacion")
+        {
+            <script src="~/Scripts/js/InvitacionesInvitacion.js"></script>
+        }
+    }
+</body>
+</html>

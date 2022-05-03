@@ -1,0 +1,99 @@
+﻿@using BolsaDeTrabajo.Models;
+<!DOCTYPE html>
+<html lang="es">
+<head>
+
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="shortcut icon" href="~/Content/img/Logos/isologo-color-upds_800x800i.png" />
+    @*@Scripts.Render("~/bundles/jquery")
+        @Scripts.Render("~/bundles/bootstrap")*@
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css" integrity="sha384-B0vP5xmATw1+K9KRQjQERJvTumQW0nPEzvF6L/Z6nronJ3oUOFUFpCjEUQouq2+l" crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-Piv4xVNRyMGpqkS2by6br4gNJ7DXjqk09RmUpJ8jgGtD7zP9yug3goQfGII0yAns" crossorigin="anonymous"></script>
+
+
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css" integrity="sha512-HK5fgLBL+xu6dm/Ii3z4xhlSUyZgTT9tuc/hSrtw6uzJOvgRr2a9jyxxT1ely+B+xFAmJKVSTbpM/CuL7qxO8w==" crossorigin="anonymous" />
+    <title>UPDS Trabaja</title>
+    <link rel="stylesheet" href="~/Content/css/Administradores.css">
+    <link href="~/style.css" rel="stylesheet" />
+    <script src="~/cute-alert.js"></script>
+
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.25/css/jquery.dataTables.css">
+    <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.25/js/jquery.dataTables.js"></script>
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-confirm/3.3.2/jquery-confirm.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-confirm/3.3.2/jquery-confirm.min.js"></script>
+
+</head>
+<body class="py-0">
+    @{
+        UsuarioActivo us = new UsuarioActivo();
+        var Usuario = us.getUser(User);
+    }
+    <div class="sticky-top">
+        <nav id="navInicio" class="navbar navbar-expand-sm style">
+            <img src="~/Content/img/Logos/upds-blanco.png" alt="logo-upds" width="40" height="40" class="mt-1 mb-1 mr-3" />
+            <a class="navbar-brand" href="@Url.Action("Index","Administradores")">UPDS</a>
+            <button class="navbar-toggler btn-back-transparent" style="color:white;" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+                    aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <i class="fas fa-bars ico"></i>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav mr-auto text-center">
+                    <li class="nav-item active"><a class="nav-link" href="@Url.Action("Empresas","Administradores")"><i class="fas fa-building"></i> Empresas</a></li>
+                    <li class="nav-item active"><a class="nav-link" href="@Url.Action("CandidatoIndex","Administradores")"><i class="far fa-id-card"></i> Candidatos</a></li>
+                    <li class="nav-item active"><a class="nav-link" href="@Url.Action("Admins","Administradores")"><i class="fas fa-users-cog"></i> Administradores</a></li>
+                </ul>
+                <a class="nav-link text-white">@Usuario.Email</a>
+                <div class="d-flex" style="background-color:white; border-radius:50px;">
+                    <a class="nav-link" href="@Url.Action("Logout","Login")">Cerrar  <i class="fas fa-sign-out-alt"></i> </a>
+                </div>
+            </div>
+        </nav>
+    </div>
+    <div class="container-personalizado">
+        <div class="shadow-lg p-3 bg-white rounded pl-5 pr-5 pb-5 mt-4">
+            @RenderBody()
+        </div>
+    </div>
+    <script>
+        function Toast(tipo, msj) {
+            cuteToast({
+                type: tipo,
+                message: msj,
+                timer: 3000
+            })
+        }
+    </script>
+    @RenderSection("scripts", required: false)
+    @{
+        var ruta = HttpContext.Current.Request.RequestContext.RouteData.Values["controller"].ToString();
+        var action = HttpContext.Current.Request.RequestContext.RouteData.Values["action"].ToString();
+    }
+    @if (ruta == "Administradores")
+    {
+        if (action == "Empresas")
+        {
+            <script src="~/Scripts/js/Administrador/Empresas.js"></script>
+        }
+        if (action == "EmpleosByEmpresa")
+        {
+            <script src="~/Scripts/js/Administrador/EmpleosEmpresa.js"></script>
+        }
+        if (action == "PostulantesByEmpleo")
+        {
+            <script src="~/Scripts/js/jQuery.print.min.js"></script>
+            <script src="~/Scripts/js/Administrador/PostulantesByEmpleo.js"></script>
+        }
+        if (action == "Admins")
+        {
+            <script src="~/Scripts/js/jQuery.print.min.js"></script>
+            <script src="~/Scripts/js/Administrador/Admins.js"></script>
+        }
+    }
+</body>
+</html>

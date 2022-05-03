@@ -1,0 +1,111 @@
+﻿
+@{
+    ViewBag.Title = "Invitacion";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="container-personalizado">
+    <div class="shadow-lg p-3 bg-white rounded pl-5 pr-5 pb-5 mt-4">
+        <input type="hidden" id="idValor" value="@ViewBag.IdInvitado" />
+        <div class="mb-3" style="font-family:Arial;" id="viewMensaje">
+
+        </div>
+        <div id="DetalleEmpleo">
+            <div class="row w-100">
+                <div class="col-12 py-1 py-sm-0 col-sm-7 px-1 mx-auto">
+                    @if (@ViewBag.IdEmpleo != null)
+                    {
+                        <button id="btnPE" type="button" class="btn btn-Blue btn-block" onclick="verEmpleo(@ViewBag.IdEmpleo,@ViewBag.IdCurriculum)">Ver Empleo</button>
+                    }
+                    else
+                    {
+                        <button id="btnPE" type="button" class="btn btn-Blue btn-block" data-toggle="modal" data-target="#MensajeModal">Mandar mensaje</button>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal fade border-mymodal" id="PostulacionCIModal" data-backdrop="static" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-start modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Postular a Empleo</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body mx-1">
+                    <form id="formRegistrarPostulacion" class="needs-validationRPCI" novalidate>
+                        <div class="form-group">
+                            <label for="PretencionSalarial">Pretención Salarial:</label>
+                            <input type="number" name="PretencionSalarial" id="PretencionSalarial" class="form-control">
+                            <div class="invalid-feedback">¡Campo Vacio!</div>
+                        </div>
+                        <div class="form-group">
+                            <label for="IdCurriculum">Curriculum:</label>
+                            <select class="custom-select" id="IdCurriculum" name="IdCurriculum" required>
+                            </select>
+                            <div class="invalid-feedback">
+                                Por favor seleccione un tipo.
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="col-12">
+                                <label for="Descripcion">Carta de Presentación:</label>
+                                <p for="CartaPresentacion" style="font-size:13px;">Por favor verifique ortografía y gramática.</p>
+                                <textarea class="form-control overflow-auto" id="CartaPresentacion" name="CartaPresentacion" minlength="10" maxlength="3000" style="resize: none;width:100%; height: 200px;" required onkeyup="ContarCaracteres($(this).val(),'3000',$(this))"></textarea>
+                                <p id="CaracteresDispDE" class="text-left"></p>
+                                <div class="invalid-feedback">¡Campo Vacio!</div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <div class="row w-100">
+                        <div class="col-12 py-1 py-sm-0 col-sm-7 px-1">
+                            <button id="btnPE" type="button" class="btn btn-Blue btn-block" onclick="RegistrarPostulacion()">Postular</button>
+                        </div>
+                        <div class="col-12 py-1 py-sm-0 col-sm-5 px-1">
+                            <button type="button" id="btnCPE" class="btn btn-secondary btn-block" data-dismiss="modal">Cerrar</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal fade border-mymodal" id="MensajeModal" data-backdrop="static" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-start modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Enviar mensaje</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body mx-1">
+                    <form id="formRegistrarPostulacion1" class="needs-validationRPCI2" novalidate>
+                        <div class="form-row">
+                            <div class="col-12">
+                                <label for="Descripcion">Escriba el mensaje</label>
+                                <p for="CartaPresentacion" style="font-size:13px;">Por favor verifique ortografía y gramática.</p>
+                                <textarea class="form-control overflow-auto" id="ContenidoMensaje" name="ContenidoMensaje" minlength="10" maxlength="3000" style="resize: none;width:100%; height: 200px;" required onkeyup="ContarCaracteres($(this).val(),'3000',$(this))"></textarea>
+                                <p id="CaracteresDispDE" class="text-left"></p>
+                                <div class="invalid-feedback">¡Campo Vacio!</div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <div class="row w-100">
+                        <div class="col-12 py-1 py-sm-0 col-sm-7 px-1">
+                            <button id="btnPE" type="button" class="btn btn-Blue btn-block" onclick="EnviarMensaje()">Postular</button>
+                        </div>
+                        <div class="col-12 py-1 py-sm-0 col-sm-5 px-1">
+                            <button type="button" id="btnCPE" class="btn btn-secondary btn-block" data-dismiss="modal">Cerrar</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,48 @@
+﻿@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="container-personalizado">
+    <div class="shadow-lg p-3 bg-white rounded pl-5 pr-5 pb-5 mt-4">
+        <br>
+        <h1 class="text-center">Mis Curriculums</h1>
+        <br>
+        <!--<a class="btn btn-Blue-par mb-2" title="Agregar Curriculo" href="@Url.Action("Curriculo","Curriculos")">+</a>-->
+        <div class="table-responsive-lg">
+            <table class="table table-hover table-striped my-table-DT">
+                <thead>
+                    <tr>
+                        <th>Fecha de Registro</th>
+                        <th>Fecha de Actualización</th>
+                        <th>Titulo</th>
+                        <th>Carrera</th>
+                        <th>Privacidad</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody id="itemsCurriculosC">
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <a class="btn btn-Blue-par my-2 animated slideInLeft"  href="@Url.Action("Curriculo","Curriculos")">
+        <div class="tooltip-personalizado"><p>Agregar Curriculo</p></div>+
+    </a>
+
+    <div class="modal fade" id="ModalCurriculo" data-backdrop="static" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-start modal-lg">
+            <div class="modal-content">
+                <div id="MBPostulante" class="modal-body mx-1">
+                    <div id="seccionCurriculoC" class="style-marco1 mt-3 pb-2">
+
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,289 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_LayoutCuenta.cshtml";
+}
+
+<div id="portada" class="container-fluid mx-0 px-0">
+    <section id="seccion1">
+        <div class="section1">
+            <div id="figura1">
+                <p id="sub1">Bolsa de Trabajo</p>
+                <div id="sub2">
+                    <p>UPDS</p>
+                </div>
+
+            </div>
+
+        </div>
+    </section>
+    <section id="seccion2">
+        <div id="texto1" class="container mt-5">
+            <h1>Bolsa de Trabajo UPDS</h1>
+            <div class="row ">
+                <div id="texto2" class="col-12">
+                    <h3>La Bolsa de trabajo es una herramienta muy valiosa</h3>
+                    <p class="text-justify">
+                        Hoy en día, las bolsas de empleo han alcanzado un
+                        crecimiento tan
+                        importante, que las
+                        personas interesadas en solicitudes y ofertas de trabajo también pueden informarse de
+                        noticias y publicaciones relevantes a su área, por medio de la publicidad que figura en
+                        los diferentes espacios de los sitios web.
+
+                        Además, pueden realizar consultas, informarse en directorios de trabajo, participar en
+                        diferentes blogs y foros que incluyan los sitios web de bolsa de empleo. Es una muy
+                        buena herramienta adicional que les permite a los individuos interesados investigar y
+                        ahondarse más en el mercado de trabajo, disminuir su tiempo y dinero a la hora de buscar
+                        mejores oportunidades de empleo.
+                    </p>
+                    <h3>Objetivo</h3>
+                    <p class="text-justify">
+                        Mejorar la inserción laboral mediante la vinculación entre la demanda laboral de la
+                        Comunidad Universitaria UPDS y la oferta de vacantes en puestos de trabajo de
+                        organizaciones empleadoras.
+                    </p>
+                </div>
+            </div>
+
+            <div id="texto3">
+                <h3>¿Como Funciona Bolsa de trabajo UPDS?</h3>
+                <div class="row">
+                    <div class="col-xl-3 col-sm-6">
+                        <h5>Publicar</h5>
+                        <p>Publica tu CV con nosotros llenando algunos campos requeridos.</p>
+                    </div>
+                    <div class="col-xl-3  col-sm-6">
+                        <h5>Postular</h5>
+                        <p>Postula a empleos de diferentes empresas ya registradas en Bolsa de trabajo UPDS.</p>
+                    </div>
+                    <div class="col-xl-3  col-sm-6">
+                        <h5>Seleccionar</h5>
+                        <p>Recibe exelentes propuestas de empleos de diferentes empresas calificadas.</p>
+                    </div>
+                    <div class="col-xl-3  col-sm-6">
+                        <h5>Contacta</h5>
+                        <p>Logra contactar con una empresa interesada en tus habilidades y lograr una entrevista de trabajo.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <section id="seccion3">
+        <div id="divFoto" class="mb-5 mt-4">
+            <div id="content">
+                <p> Encuentra lo que estas buscando</p>
+            </div>
+
+        </div>
+        <div class="container-md mb-5">
+            <h2 id="candidatoT" class="text-center">Candidato</h2>
+            <h4 id="textoT" class="text-center mb-5">Encuentra la oferta de trabajo que mejor se adapte a tu perfil</h4>
+            <div id="tarjetas" class="row">
+                <div class="col-xl-4 col-sm-6 mb-5">
+                    <div id="cardG">
+                        <div id="card1">
+                        </div>
+                        <div id="cardT" class="mt-3">
+                            <h5>¿Eres estudiante de ciencias juridicas? aqui encontraras trabajos adecuados para ti.</h5>
+                            <p class="mt-4"> La mayoria de los estudiantes de ciencias juridicas pueden encontrar trabajo en muchos campos de la profeción como Notario publico, docente, notarias entre otros. </p>
+                        </div>
+                    </div>
+
+                </div>
+                <div class="col-xl-4 col-sm-6 mb-5">
+                    <div id="cardG">
+                        <div id="card2">
+                        </div>
+                        <div id="cardT" class="mt-3">
+                            <h5>Los estudiantes de Ciencias Empresariales encontrar variedad de  ofertas a empleos.</h5>
+                            <p class="mt-4"> Para nuestros estudiantes de Ciencias Empresariales encontraran ofertas que en la cual tu escojeras el empleo mas adecuado para ti y tus necesidades. </p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xl-4 col-sm-6 mb-5">
+                    <div id="cardG">
+                        <div id="card3">
+                        </div>
+                        <div id="cardT" class="mt-3">
+                            <h5>Para nuestros estudiantes de Ciencias Sociales podran de igual manera podran encontrar oportunidades de empleos.</h5>
+                            <p class="mt-4">Los estudiantes de Ciencias de la Comunicación Social pueden encontrar empleo en varios rubros tal como en la carrera de Psicología. </p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xl-4 col-sm-6 mb-5">
+                    <div id="cardG">
+                        <div id="card4">
+                        </div>
+                        <div id="cardT" class="mt-3">
+                            <h5>Los estudiantes de Ingeniería encontraran empleos de distintas areas.</h5>
+                            <p class="mt-4"> La Facultad de Ingeniería es la que mas contiene diferentes carreras de la cuales las ofertas de empleo no se hacer esperar para nuestros estudiantes.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    @{ string baseUrl = new Uri(Request.Url, Url.Content("~")).AbsoluteUri;
+        baseUrl = baseUrl.Remove(baseUrl.Length - 1);
+    }
+    <section id="seccion4">
+        <div class="container">
+            <h2 id="candidatoT" class="text-center">Empresa</h2>
+            <h4 id="textoT" class="text-center mb-5">Descubre a  nuestros profesionales capacitados en distintas areas.</h4>
+            <div id="fila" class="row">
+                <div class="col-xl-3 col-sm-6 mb-5  p-0">
+                    <div id="CardCarreras1">
+                        <img src="@baseUrl/Content/img/Profeciones/fotoAbogado.png" alt="Alternate Text" />
+                        <p>Profesional en </p>
+                        <h5>Ciencias Jurídicas</h5>
+                    </div>
+                </div>
+                <div class="col-xl-3 col-sm-6 mb-5 p-0">
+                    <div id="CardCarreras1">
+                        <img src="@baseUrl/Content/img/Profeciones/fotoAdministracion.png" alt="Alternate Text" />
+                        <p>Profesional en </p>
+                        <h5>Administración de Empresas</h5>
+                    </div>
+                </div>
+                <div class="col-xl-3 col-sm-6 mb-5  p-0">
+                    <div id="CardCarreras1">
+                        <img src="@baseUrl/Content/img/Profeciones/fotoContador.png" alt="Alternate Text" />
+                        <p>Profesional en </p>
+                        <h5>Contaría Pública</h5>
+                    </div>
+                </div>
+                <div class="col-xl-3 col-sm-6 mb-5  p-0">
+                    <div id="CardCarreras1">
+                        <img src="@baseUrl/Content/img/Profeciones/fotoComercial.png" alt="Alternate Text" />
+                        <p>Profesional en </p>
+                        <h5>Ingeniería Comercial</h5>
+                    </div>
+                </div>
+                <div class="col-xl-3 col-sm-6 mb-5  p-0">
+                    <div id="CardCarreras1">
+                        <img src="@baseUrl/Content/img/Profeciones/fotoComunicacion.png" alt="Alternate Text" />
+                        <p>Profesional en </p>
+                        <h5>Ciencias de la Comunicacíon Social </h5>
+                    </div>
+                </div>
+                <div class="col-xl-3 col-sm-6 mb-5  p-0">
+                    <div id="CardCarreras1">
+                        <img src="@baseUrl/Content/img/Profeciones/fotoPsicologia.png" alt="Alternate Text" />
+                        <p>Profesional en </p>
+                        <h5>Psicología</h5>
+                    </div>
+                </div>
+                <div class="col-xl-3 col-sm-6 mb-5  p-0">
+                    <div id="CardCarreras1">
+                        <img src="@baseUrl/Content/img/Profeciones/fotoCivil.png" alt="Alternate Text" />
+                        <p>Profesional en </p>
+                        <h5>Ingeniería Civil</h5>
+                    </div>
+                </div>
+                <div class="col-xl-3 col-sm-6 mb-5  p-0">
+                    <div id="CardCarreras1">
+                        <img src="@baseUrl/Content/img/Profeciones/fotoSistemas.png" alt="Alternate Text" />
+                        <p>Profesional en </p>
+                        <h5>Ingeniería Sitemas</h5>
+                    </div>
+                </div>
+                <div class="col-xl-3 col-sm-6 mb-5  p-0">
+                    <div id="CardCarreras1">
+                        <img src="@baseUrl/Content/img/Profeciones/fotoAmbiental.png" alt="Alternate Text" />
+                        <p>Profesional en </p>
+                        <h5>Ingeniería en Gestíon Ambiental</h5>
+                    </div>
+                </div>
+                <div class="col-xl-3 col-sm-6 mb-5  p-0">
+                    <div id="CardCarreras1">
+                        <img src="@baseUrl/Content/img/Profeciones/fotoPetrolera.png" alt="Alternate Text" />
+                        <p>Profesional en </p>
+                        <h5>Ingeniería en Gestíon Petrolera</h5>
+                    </div>
+                </div>
+                <div class="col-xl-3 col-sm-6 mb-5  p-0">
+                    <div id="CardCarreras1">
+                        <img src="@baseUrl/Content/img/Profeciones/fotoredes.png" alt="Alternate Text" />
+                        <p>Profesional en </p>
+                        <h5>Ingeniería en Redes y Telecomunicaciones</h5>
+                    </div>
+                </div>
+                <div class="col-xl-3 col-sm-6 mb-5  p-0">
+                    <div id="CardCarreras1">
+                        <img src="@baseUrl/Content/img/Profeciones/fotoIndustrial.png" alt="Alternate Text" />
+                        <p>Profesional en </p>
+                        <h5>Ingeniería Industrial</h5>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</div>
+
+<section id="seccion5">
+    <div class="text-white" style="background-color:#223B87; ">
+        <div class="row mx-0">
+            <div id="div1" class="col-12 col-sm-8 pt-5 pb-5 ml-1 mr-4">
+                <h1 style="font-family: Inter,sans-serif;">¿Por qué esta en Bolsa de Trabajo UPDS?</h1>
+                <ul style="font-family: Inter,sans-serif;">
+                    <li>
+                        Porque es una red profesional de proximidad donde encuentro y hago contactos con empresas y
+                        profesionales
+                        en mi zona que me ayudan a crecer en mi carrera
+                    </li>
+                    <li>
+                        Porque hay nuevos empleos en una amplia bolsa de trabajo que se ajustan a mi experiencia
+                    </li>
+                    <li>Porque me ayuda a encontrar nuevas empresas y sus productos o servicios</li>
+                </ul>
+                <div class="d-flex justify-content-center">
+                    <div>
+                        <button id="ButtonCandidatoRegistro" class="btn button1">
+                            Crear mi perfil
+                        </button>
+                        <button id="ButtonCandidatoIngreso" class="btn button2">
+                            Ingresar
+                        </button>
+                    </div>
+                </div>
+            </div>
+            <div class="col-12 col-sm-4 d-none d-sm-block mx-auto">
+                <img src="" class="img-fluid styleImg" alt="">
+            </div>
+        </div>
+    </div>
+    <div class="text-white pt-5 pb-5">
+        <div class="row mx-0">
+            <div class="col-12 col-sm-4 d-none d-sm-block mx-auto ">
+                <img src="" class="img-fluid styleImg" alt="">
+            </div>
+            <div id="div1" class="col-12 col-sm-8">
+                <div class="d-flex-justify-content-end mr-4">
+                    <div>
+                        <h1 style="font-family: Inter,sans-serif;" id="texto">Mi empresa está en Bolsa de trabajo UPDS</h1>
+                        <ul style="font-family: Inter,sans-serif;" id="texto">
+                            <li>
+                                Porque encuentro el capital humano que necesito cuando publico mis ofertas de
+                                trabajo o
+                                busco en el directorio profesional.
+                            </li>
+                            <li>Porque encuentro a nuevos proveedores que me ayudan a crecer mi empresa</li>
+                        </ul>
+                        <div class="d-flex justify-content-center">
+                            <div>
+                                <button id="ButtonEmpresaRegistro" class="btn button4">
+                                    Crear mi cuenta de Empresa
+                                </button>
+                                <button id="ButtonEmpresaIngreso" class="btn button3">
+                                    Ingresa
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<script src="~/Scripts/js/portadaGeneral.js"></script>

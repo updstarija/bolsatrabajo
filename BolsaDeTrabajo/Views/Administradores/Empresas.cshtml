@@ -1,0 +1,151 @@
+﻿@{
+    ViewBag.Title = "Empresas";
+    Layout = "~/Views/Shared/_LayoutAdministrador.cshtml";
+}
+<div id="cargandoEmpresas" class="text-center">
+    <div class="spinner-border text-primary" role="status">
+        <span class="sr-only">Loading...</span>
+    </div>
+</div>
+<div class="table-responsive-lg" id="contenidoTEmpresas">
+    <br />
+    <h1 class=" text-center animated fadeInDown">Empresas</h1>
+    <br />
+    <table id="tEmpresasC" class="table table-striped display my-table-DT animated slideInLeft " style="width:100%;"></table>
+</div>
+
+<button type="button" class="btn btn-Blue-par my-2 animated slideInLeft" onclick='Limpiar()'>
+    <div class="tooltip-personalizado"><p>Registrar una Nueva Empresa</p></div>+
+</button>
+
+
+<div class="modal fade" id="ModalEmpresa" data-backdrop="static" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-start modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="titulo"></h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body mx-1">
+                <div id="seccionEmpresa" class="container detalle-empresa">
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal fade" id="ModalRegistrarEmpresa" data-backdrop="static" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-start modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="titulo">Registrar Empresa</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body mx-1">
+                <form id="formRegistrarEmpresa" class="needs-validation-empresa" enctype="multipart/form-data" novalidate>
+                    <div class="form-row">
+                        <div class="col-12 col-md-4">
+                            <label for="NIT_empresa">NIT:</label>
+                            <input type="text" class="form-control" id="NIT_empresa" name="NIT_empresa" required>
+                            <div class="invalid-feedback">¡Campo Vacio!</div>
+                        </div>
+                        <div class="col-12 col-md-4">
+                            <label for="nombre_empresa">Nombre:</label>
+                            <input type="text" class="form-control" id="nombre_empresa" name="nombre_empresa" required>
+                            <input type="hidden" id="id_empresa" name="id_empresa" value="-1">
+                            <div class="invalid-feedback">¡Campo Vacio!</div>
+                        </div>
+                        <div class="col-12 col-md-4">
+                            <label for="direccion_empresa">Direccion:</label>
+                            <input type="text" class="form-control" id="direccion_empresa" name="direccion_empresa" required>
+                            <div class="invalid-feedback">¡Campo Vacio!</div>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="col-12 col-md-4">
+                            <label for="sitio_web_empresa">Sitio Web:</label>
+                            <input type="text" class="form-control" id="sitio_web_empresa" name="sitio_web_empresa">
+                            <div class="invalid-feedback">¡Campo Vacio!</div>
+                        </div>
+                        <div class="col-12 col-md-4">
+                            <label for="telefonoCelular">Tel.Celular:</label>
+                            <input type="text" class="form-control" id="telefonoCelular" name="telefonoCelular">
+                        </div>
+                        <div class="col-12 col-md-4">
+                            <label for="telefonoFijo">Tel.Fijo:</label>
+                            <input type="text" class="form-control" id="telefonoFijo" name="telefonoFijo">
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="col-12 col-md-4">
+                            <label for="pais_empresa">Pais:</label>
+                            <input type="text" class="form-control" id="pais_empresa" name="pais_empresa" disabled value="Bolivia" required>
+                            <div class="invalid-feedback">¡Campo Vacio!</div>
+                        </div>
+                        <div class="col-12 col-md-4">
+                            <label for="estadoregion">Departamento:</label>
+                            <select class="custom-select" id="estadoregion" name="estadoregion" required>
+                                <option selected disabled value="">Seleccionar Departamento...</option>
+                                @foreach (var item in ViewBag.tDepartamentos)
+                                {
+                                    <option value="@item.Nombre">@item.Nombre</option>
+                                }
+                            </select>
+                            <div class="invalid-feedback">¡Campo Vacio!</div>
+                        </div>
+                        <div class="col-12 col-md-4">
+                            <label for="ciudad_empresa">Ciudad:</label>
+                            <input type="text" class="form-control" id="ciudad_empresa" name="ciudad_empresa" required>
+                            <div class="invalid-feedback">¡Campo Vacio!</div>
+                        </div>
+                        <div class="col-12 col-md-8">
+                            <label for="descripcion_empresa">Descripcion:</label>
+                            <textarea class="form-control" id="descripcion_empresa" name="descripcion_empresa" minlength="10" maxlength="500" style="resize: none; height: 200px;" required onkeyup="ContarCaracteres($(this).val(),'500',$(this))"></textarea>
+                            <p id="CaracteresDisponiblesEmpresa" class="text-left"></p>
+                            <div class="invalid-feedback">¡Campo Vacio!</div>
+                        </div>
+                        <div class="col-12 col-md-4">
+                            <label>Imagen:</label>
+                            <div id="contImg" class="border border-secondary" style="height:168px;"></div>
+                            <img id="foto" class="img-fluid" style="max-height: 168px; min-height: 168px; height: 168px; width:100%" src="" alt="">
+                            <div id="div_file_new">
+                                <label id="palabras" for="imagen">Seleccionar Imagen</label>
+                                <input type="file" name="imagen" id="imagen" class="form-control-file" onchange="showImg()" />
+                                <div class="invalid-feedback">¡Campo Vacio!</div>
+                            </div>
+                        </div>
+                        <div class="col-12 col-md-12">
+                            <label for="nombre_persona_empresa">Nombre Persona Responsable:</label>
+                            <input type="text" class="form-control" id="nombre_persona_empresa" name="nombre_persona_empresa" required>
+                            <div class="invalid-feedback">¡Campo Vacio!</div>
+                        </div>
+                    </div>
+                    <hr>
+                    <h4 class="text-center">Cuenta</h4>
+                    <div class="form-row">
+                        <div class="col-12 col-sm-6">
+                            <label for="correo_empresa">Correo:</label>
+                            <input type="email" class="form-control" id="correo_empresa" name="correo_empresa" required>
+                            <div class="invalid-feedback">¡Campo Vacio!</div>
+                        </div>
+                        <div id="divClave" class="col-12 col-sm-6">
+                            <label for="clave">Contraseña</label>
+                            <input type="password" class="form-control" id="clave" name="clave">
+                            <div class="invalid-feedback">¡Campo Vacio!</div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <div class="btn-group w-100">
+                    <button class="btn btn-Blue mr-1" type="submit" form="formRegistrarEmpresa">Guardar</button>
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

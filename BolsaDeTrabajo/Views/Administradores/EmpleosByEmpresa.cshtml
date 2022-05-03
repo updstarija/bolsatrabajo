@@ -1,0 +1,198 @@
+﻿
+@{
+    ViewBag.Title = "EmpleosByEmpresa";
+    Layout = "~/Views/Shared/_LayoutAdministrador.cshtml";
+}
+
+<div id="cargandoEmpleos" class="text-center">
+    <div class="spinner-border" role="status">
+        <span class="sr-only">Loading...</span>
+    </div>
+</div>
+<div class="table-responsive-lg" id="contenidoTEmpleos">
+    <br />
+    <h1 class="text-center animated fadeInDown">Publicaciones de Empleos</h1>
+    <br />
+    <table id="tEmpleosIndex" class="table table-striped display mx-0 my-table-DT animated slideInLeft" style="width:100%"></table>
+</div>
+<input type="hidden" name="IdEmpresaEstatic" id="IdEmpresaEstatic" value="@ViewBag.IdEmpresa" />
+
+<button type="button" class="btn btn-Blue-par my-2 animated slideInLeft" onclick='Limpiar()'>
+    <div class="tooltip-personalizado"><p>Registrar una Nueva Publicación</p></div>+
+</button>
+
+
+<div class="modal fade" id="ModalEmpleo" data-backdrop="static" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-start modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title font-weight-bold" id="titulo">Detalle Empleo</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body mx-1">
+                <div id="seccionEmpleo" class="detalleEmpleo">
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="ModalRegistrarEmpleo" data-backdrop="static" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-start modal-xl">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="titulo">Empleo</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body registroEmpleo container contenido px-4">
+                <form id="formRegistrarEmpleo" class="needs-validation" enctype="multipart/form-data" novalidate>
+                    <div class="form-row">
+                        <div class="col-12 col-sm-8">
+                            <label for="Titulo" class="mt-2">Titulo:</label>
+                            <input type="text" class="form-control" id="Titulo" name="Titulo" required>
+                            <input type="hidden" id="Id" name="Id" value="-1">
+                            <input type="hidden" name="IdEmpresa" id="IdEmpresa" value="" />
+                            <div class="invalid-feedback">¡Campo Vacio!</div>
+                        </div>
+                        <div class="col-12 col-sm-4">
+                            <label for="Contrato" class="mt-2">Contrato:</label>
+                            <select class="custom-select" id="Contrato" name="Contrato" required>
+                                <option selected disabled value="">Seleccione una opción...</option>
+                                <option value="Tiempo Completo">Tiempo Completo</option>
+                                <option value="Medio Tiempo">Medio Tiempo</option>
+                                <option value="Contratista">Contratista</option>
+                                <option value="Pasantía">Pasantía</option>
+                                <option value="Temporal">Temporal</option>
+                            </select>
+                            <div class="invalid-feedback">¡Campo Vacio!</div>
+                        </div>
+                        <div class="col-12 col-sm-4">
+                            <label for="RangoSueldos" class="mt-2">Rango de Sueldos:</label>
+                            <select class="custom-select" id="RangoSueldos" name="RangoSueldos" required>
+                                <option selected disabled value="">Seleccione una opción...</option>
+                                <option value="2.000-2.999">De Bs. 2.000 a Bs. 2.999</option>
+                                <option value="3000-3.999">De Bs. 3.000 a Bs. 3.999</option>
+                                <option value="4.000-4.999">De Bs. 4.000 a Bs. 4.999</option>
+                                <option value="5.000-5.999">De Bs. 5.000 a Bs. 5.999</option>
+                                <option value="6.000-6.999">De Bs. 6.000 a Bs. 6.999</option>
+                                <option value="7.000-7.999">De Bs. 7.000 a Bs. 7.999</option>
+                                <option value="8.000-8.999">De Bs. 8.000 a Bs. 8.999</option>
+                                <option value="9.000-9.999">De Bs. 9.000 a Bs. 9.999</option>
+                                <option value="10.000-14.999">De Bs. 10.000 a Bs. 14.999</option>
+                                <option value="15.000-19.999">De Bs. 15.000 a Bs. 19.999</option>
+                                <option value="Mayores a 20.0000">Mayores a Bs. 20.0000</option>
+                                <option value="Negociable">Negociable</option>
+                                <option value="Dependiendo de la Experiencia">Dependiendo de la Experiencia</option>
+                                <option value="No Declarado">No Declarado</option>
+                            </select>
+                            <div class="invalid-feedback">¡Campo Vacio!</div>
+                        </div>
+                        <div class="col-12 col-sm-4">
+                            <label for="ExperienciaMinima" class="mt-2">Experiencia Minima</label>
+                            <select class="custom-select" id="ExperienciaMinima" name="ExperienciaMinima" required>
+                                <option selected disabled value="">Seleccione una opción...</option>
+                                <option value="0">Sin Experiencia</option>
+                                <option value="1">1 Año de Experiencia</option>
+                                <option value="2">2 Años de Experiencia</option>
+                                <option value="3">3 Años de Experiencia</option>
+                                <option value="4">4 Años de Experiencia</option>
+                                <option value="5">5 Años de Experiencia</option>
+                                <option value="Mayor a 5">Mas de 5 Años de Experiencia</option>
+                            </select>
+                            <div class="invalid-feedback">¡Campo Vacio!</div>
+                        </div>
+                        <div class="col-12 col-sm-4">
+                            <label for="Periodo" class="mt-2">Periodo:</label>
+                            <select class="custom-select" id="Periodo" name="Periodo" required>
+                                <option selected disabled value="">Seleccione una opción...</option>
+                                <option value="Por Hora">Por Hora</option>
+                                <option value="Por Semana">Por Semana</option>
+                                <option value="Por Mes">Por Mes</option>
+                                <option value="Por Año">Por Año</option>
+                                <option value="Por Proyecto">Por Proyecto</option>
+                            </select>
+                            <div class="invalid-feedback">¡Campo Vacio!</div>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="col-12 col-sm-4">
+                            <label for="Categoria" class="mt-2">Categoria:</label>
+                            <select class="custom-select" id="Categoria" name="Categoria[]" style="height:150px" multiple required>
+                                @foreach (var item in ViewBag.tCategoria)
+                                {
+                                    <option value="@item.Id">@item.Nombre</option>
+                                }
+                            </select>
+                            <div class="invalid-feedback">
+                                Por favor seleccione un tipo.
+                            </div>
+                        </div>
+                        <div class="col-12 col-sm-8">
+                            <label for="Descripcion" class="mt-2">Descripcion</label>
+                            <!--<p for="Descripcion" style="font-size:13px;">Por favor verifique ortografía y gramática.</p>-->
+                            <textarea placeholder="Por favor verifique ortografía y gramática." class="form-control" id="Descripcion" name="Descripcion" minlength="10" maxlength="3000" style="resize: none; height: 150px;" required onkeyup="ContarCaracteres($(this).val(),'3000',$(this))"></textarea>
+                            <p id="CaracteresDispDesc" class="text-left"></p>
+                            <div class="invalid-feedback">¡Campo Vacio!</div>
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="col-12 col-sm-4 col-lg-4">
+                            <label for="Pais">Pais:</label>
+                            <select class="custom-select" id="Pais" name="Pais" required>
+                                <option selected disabled value="Bolivia">Bolivia</option>
+                            </select>
+                            <div class="invalid-feedback">¡Campo Vacio!</div>
+                        </div>
+                        <div class="col-12 col-sm-4 col-lg-4">
+                            <label for="EstadoRegion">Departamento:</label>
+                            <select class="custom-select" id="EstadoRegion" name="EstadoRegion" required>
+                                <option selected disabled value="">Seleccionar Departamento...</option>
+                                @foreach (var item in ViewBag.tDepartamentos)
+                                {
+                                    <option value="@item.Nombre">@item.Nombre</option>
+                                }
+                            </select>
+                            <div class="invalid-feedback">¡Campo Vacio!</div>
+                        </div>
+                        <div class="col-12 col-sm-4 col-lg-4">
+                            <label for="Ciudad">Ciudad:</label>
+                            <input type="text" class="form-control" id="Ciudad" name="Ciudad" required>
+                            <div class="invalid-feedback">¡Campo Vacio!</div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-12 col-sm-4 mt-2">
+                            <label for="CorreoEnvioPostulaciones">Correo para envio de postulaciones:</label>
+                            <input type="text" class="form-control" id="CorreoEnvioPostulaciones" name="CorreoEnvioPostulaciones" value="@ViewBag.Correo" required>
+                            <div class="invalid-feedback">¡Campo Vacio!</div>
+                        </div>
+                        <div class="col-12 col-sm-4 mt-2">
+                            <label for="FechaExpiracion">Fecha Expiracion:</label>
+                            <input type="datetime-local" class="form-control" id="FechaExpiracion" name="FechaExpiracion">
+                        </div>
+                    </div>
+                    <div class="form-row mt-2">
+                        <div class="col-12 col-sm-4 mt-2">
+                            <div class="d-flex flex-nowrap align-items-center h-100">
+                                <input class="style-checkbox mr-1" type="checkbox" id="Teletrabajo" name="Teletrabajo">
+                                <label class="my-0" for="Teletrabajo">Teletrabajo</label>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <div class="btn-group w-100">
+                    <button class="btn btn-Blue mr-1" type="submit" form="formRegistrarEmpleo">Guardar</button>
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

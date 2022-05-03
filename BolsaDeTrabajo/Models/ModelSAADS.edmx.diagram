@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="6cf10079723940878413163497f79b05" Name="Diagram1" ZoomLevel="79">
+        <EntityTypeShape EntityType="SAADSTJModel.Estudiante" Width="1.5" PointX="5.25" PointY="1.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="SAADSTJModel.InscripcionCarrera" Width="1.5" PointX="7.5" PointY="2.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="SAADSTJModel.Pais" Width="1.5" PointX="0.75" PointY="3.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="SAADSTJModel.Persona" Width="1.5" PointX="3" PointY="1.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="SAADSTJModel.PlanEstudio" Width="1.5" PointX="5.25" PointY="9.375" IsExpanded="true" />
+        <AssociationConnector Association="SAADSTJModel.FK__Estudiante__Id__08B54D69" ManuallyRouted="false" />
+        <AssociationConnector Association="SAADSTJModel.FK__Inscripci__IdEst__3F115E1A" ManuallyRouted="false" />
+        <AssociationConnector Association="SAADSTJModel.FK__Inscripci__IdPla__3E1D39E1" ManuallyRouted="false" />
+        <AssociationConnector Association="SAADSTJModel.FK_Persona_Pais" ManuallyRouted="false" />
+        <EntityTypeShape EntityType="SAADSTJModel.Carrera" Width="1.5" PointX="3" PointY="13.125" />
+        <EntityTypeShape EntityType="SAADSTJModel.Ciudad" Width="1.5" PointX="7.375" PointY="8.875" />
+        <AssociationConnector Association="SAADSTJModel.FK__PlanEstud__IdCar__2645B050" />
+        <AssociationConnector Association="SAADSTJModel.FK__Persona__IdCiuda__787EE5A0" />
+        <EntityTypeShape EntityType="SAADSTJModel.Provincia" Width="1.5" PointX="5.125" PointY="18" />
+        <AssociationConnector Association="SAADSTJModel.FK__Ciudad__IdProvin__44EA3301" />
+        <EntityTypeShape EntityType="SAADSTJModel.Departamento" Width="1.5" PointX="3" PointY="20.75" />
+        <AssociationConnector Association="SAADSTJModel.FK__Departame__IdPai__60924D76" />
+        <AssociationConnector Association="SAADSTJModel.FK__Provincia__IdDep__335592AB" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

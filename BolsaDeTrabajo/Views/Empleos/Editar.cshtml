@@ -1,0 +1,150 @@
+﻿@model BolsaDeTrabajo.Models.Empleo
+@{
+    ViewBag.Title = "Editar";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<div id="registroEmpleo" class="container contenido px-4">
+    <h1>Registro de Empleo</h1>
+    <form id="formRegistrarEmpleo" class="needs-validation" enctype="multipart/form-data" novalidate>
+        <div class="form-row">
+            <div class="col-12 col-sm-6">
+                <label for="Titulo">Titulo:</label>
+                <input type="text" class="form-control" id="Titulo" name="Titulo" value="@Model.Titulo" required>
+                <input type="hidden" id="Id" name="Id" value="@Model.Id">
+                <div class="invalid-feedback">¡Campo Vacio!</div>
+            </div>
+            <div class="col-12 col-sm-6">
+                <label for="Categoria">Categoria:</label>
+                <select class="custom-select" id="Categoria" name="Categoria[]" required size="4" multiple>
+                    <option selected disabled value="">Seleccionar Categoria...</option>
+                    @foreach (var item in ViewBag.tCategoria)
+                    {
+                        <option value="@item.Id">@item.Nombre</option>
+                    }
+                </select>
+                <div class="invalid-feedback">
+                    Por favor seleccione un tipo.
+                </div>
+            </div>
+        </div>
+        <div class="form-row">
+            <div class="col-12 col-sm-4">
+                <label for="Contrato">Contrato:</label>
+                <select class="custom-select" id="Contrato" name="Contrato" required>
+                    <option selected disabled value="">Seleccione una opción...</option>
+                    <option value="Tiempo Completo">Tiempo Completo</option>
+                    <option value="Medio Tiempo">Medio Tiempo</option>
+                    <option value="Contratista">Contratista</option>
+                    <option value="Pasantía">Pasantía</option>
+                    <option value="Temporal">Temporal</option>
+                </select>
+                <div class="invalid-feedback">¡Campo Vacio!</div>
+            </div>
+            <div class="col-12 col-sm-4">
+                <label for="RangoSueldos">Rango de Sueldos:</label>
+                <select class="custom-select" id="RangoSueldos" name="RangoSueldos" required>
+                    <option selected disabled value="">Seleccione una opción...</option>
+                    <option value="2.000-2.999">De Bs. 2.000 a Bs. 2.999</option>
+                    <option value="3000-3.999">De Bs. 3.000 a Bs. 3.999</option>
+                    <option value="4.000-4.999">De Bs. 4.000 a Bs. 4.999</option>
+                    <option value="5.000-5.999">De Bs. 5.000 a Bs. 5.999</option>
+                    <option value="6.000-6.999">De Bs. 6.000 a Bs. 6.999</option>
+                    <option value="7.000-7.999">De Bs. 7.000 a Bs. 7.999</option>
+                    <option value="8.000-8.999">De Bs. 8.000 a Bs. 8.999</option>
+                    <option value="9.000-9.999">De Bs. 9.000 a Bs. 9.999</option>
+                    <option value="10.000-14.999">De Bs. 10.000 a Bs. 14.999</option>
+                    <option value="15.000-19.999">De Bs. 15.000 a Bs. 19.999</option>
+                    <option value="Mayores a 20.0000">Mayores a Bs. 20.0000</option>
+                    <option value="Negociable">Negociable</option>
+                    <option value="Dependiendo de la Experiencia">Dependiendo de la Experiencia</option>
+                    <option value="No Declarado">No Declarado</option>
+                </select>
+                <div class="invalid-feedback">¡Campo Vacio!</div>
+            </div>
+            <div class="col-12 col-sm-4">
+                <label for="ExperienciaMinima">Experiencia Minima</label>
+                <select class="custom-select" id="ExperienciaMinima" name="ExperienciaMinima" required>
+                    <option selected disabled value="">Seleccione una opción...</option>
+                    <option value="0">Sin Experiencia</option>
+                    <option value="1">1 Año de Experiencia</option>
+                    <option value="2">2 Años de Experiencia</option>
+                    <option value="3">3 Años de Experiencia</option>
+                    <option value="4">4 Años de Experiencia</option>
+                    <option value="5">5 Años de Experiencia</option>
+                    <option value="Mayor a 5">Mas de 5 Años de Experiencia</option>
+                </select>
+                <div class="invalid-feedback">¡Campo Vacio!</div>
+            </div>
+        </div>
+        <div class="form-row">
+            <div class="col-12">
+                <label for="Descripcion">Descripcion</label>
+                <p for="Descripcion" style="font-size:13px;">Por favor verifique ortografía y gramática y no escriba el texto en mayusculas ya que esto puede hacer que su currículo sea rechazado para ser incluido en nuestra base de datos de curriculos.</p>
+                <textarea class="form-control" id="Descripcion" name="Descripcion" minlength="10" maxlength="3000" style="resize: none; height: 300px;" required onkeyup="ContarCaracteres($(this).val(),'3000',$(this))">@Model.Descripcion</textarea>
+                <p id="CaracteresDispCE" class="text-left"></p>
+                <div class="invalid-feedback">¡Campo Vacio!</div>
+            </div>
+        </div>
+        <div class="form-row">
+            <div class="col-12 col-sm-6">
+                <label for="Periodo">Periodo:</label>
+                <select class="custom-select" id="Periodo" name="Periodo" required>
+                    <option selected disabled value="">Seleccione una opción...</option>
+                    <option value="Por Hora">Por Hora</option>
+                    <option value="Por Semana">Por Semana</option>
+                    <option value="Por Mes">Por Mes</option>
+                    <option value="Por Año">Por Año</option>
+                    <option value="Por Proyecto">Por Proyecto</option>
+                </select>
+                <div class="invalid-feedback">¡Campo Vacio!</div>
+            </div>
+        </div>
+        <div class="form-row">
+            <div class="col-12 col-sm-6 col-lg-4">
+                <label for="Pais">Pais:</label>
+                <select class="custom-select" id="Pais" name="Pais" required>
+                    <option selected disabled value="Bolivia">Bolivia</option>
+                </select>
+                <div class="invalid-feedback">¡Campo Vacio!</div>
+            </div>
+            <div class="col-12 col-sm-6 col-lg-4">
+                <label for="EstadoRegion">Estado / Region:</label>
+                <select class="custom-select" id="EstadoRegion" name="EstadoRegion" required>
+                    <option selected disabled value="">Seleccionar Departamento...</option>
+                    @foreach (var item in ViewBag.tDepartamentos)
+                    {
+                        <option value="@item.Nombre">@item.Nombre</option>
+                    }
+                </select>
+                <div class="invalid-feedback">¡Campo Vacio!</div>
+            </div>
+            <div class="col-12 col-sm-6 col-lg-4">
+                <label for="Ciudad">Ciudad:</label>
+                <input type="text" class="form-control" id="Ciudad" name="Ciudad" value="@Model.Ciudad" required>
+                <div class="invalid-feedback">¡Campo Vacio!</div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-12 col-sm-6">
+                <label for="CorreoEnvioPostulaciones">Correo para envio de postulaciones:</label>
+                <input type="text" class="form-control" id="CorreoEnvioPostulaciones" name="CorreoEnvioPostulaciones" value="@Model.CorreoEnvioPostulaciones" required>
+                <div class="invalid-feedback">¡Campo Vacio!</div>
+            </div>
+            <div class="col-12 col-sm-6">
+                <label for="FechaExpiracion">Fecha Expiracion:</label>
+                <input type="datetime-local" class="form-control" id="FechaExpiracion" name="FechaExpiracion" value="@string.Format("{0:yyyy-MM-ddThh:mm}", Model.FechaExpiracion)">
+            </div>
+        </div>
+        <div class="form-row mt-2">
+            <div class="col-12 col-sm-6">
+                <div class="d-flex flex-nowrap align-items-center h-100">
+                    <input class="style-checkbox mr-1" type="checkbox" id="Teletrabajo" name="Teletrabajo">
+                    <label class="my-0" for="Teletrabajo">Teletrabajo</label>
+                </div>
+            </div>
+        </div>
+        <div class="form-group d-flex justify-content-center py-4">
+            <button id="btnGuardarEmpleo" type="submit" class="btn btnBlueR">Guardar</button>
+        </div>
+    </form>
+</div>

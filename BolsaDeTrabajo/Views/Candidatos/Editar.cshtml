@@ -1,0 +1,254 @@
+﻿@model BolsaDeTrabajo.Models.Candidato
+@{
+    ViewBag.Title = "Editar";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="container-personalizado">
+    <div class="shadow-lg p-3 bg-white rounded pl-5 pr-5 pb-5 mt-4">
+        <h3 class="text-center">Perfil</h3>
+        <div class="row mt-5">
+            <div class="col-sm-3">
+                <div id="perfil-info00">
+                    <img src="data:image;base64,@System.Convert.ToBase64String(Model.Perfil.Foto)" class="rounded-circle img-perfil-empresa" />
+                    <h5 class="text-center mt-3">@Model.Nombre @Model.Apellido</h5>
+                    <p class="text-center">@Model.Perfil.Usuario.Correo</p>
+                </div>
+            </div>
+            <div class="col-sm-9">
+                <div class="row">
+                    <div class="col-sm-6 mt-4">
+                        <div id="perfil-info01">
+                            <p><b>Fecha de Naimiento:</b> @string.Format("{0:yyyy-MM-dd}", Model.FechaNacimiento)</p>
+                            <p><b>Nacionalidad: </b>@Model.Nacionalidad</p>
+                            <p><b>@Model.TipoDeDocumento:</b> @Model.NroDocumento</p>
+                            <p><b>Sexo:</b> @Model.Sexo</p>
+                            <p><b>Celular:</b> @Model.Perfil.TelefonoCelular</p>
+                            <p><b>Telefono:</b> @Model.Perfil.TelefonoFijo</p>
+                        </div>
+                    </div>
+                    <div class="col-sm-6 mt-4">
+                        <div id="perfil-info02">
+                            <p><b>Profesion: </b>@Model.ProfesionOcupacion</p>
+                            <p><b>Pais: </b>@Model.Perfil.Pais</p>
+                            <p><b>Estado/ Region: </b>@Model.Perfil.EstadoRegion</p>
+                            <p><b>Ciudad: </b>@Model.Perfil.Ciudad</p>
+                        </div>
+                    </div>
+                    <div class="col-sm-12 mt-4">
+                        <div id="perfil-info03">
+                            <p><b>Descripción:</b> @Model.Perfil.Descripcion</p>
+                        </div>
+                        <div class="text-right mt-5">
+                            <button class="btn btn-outline-primary" data-toggle="modal" data-target="#ModalActualizarCandidato">Actualizar</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="modal fade" id="ModalActualizarCandidato" data-backdrop="static" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-start modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="titulo">Registrar Empresa</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body mx-1">
+                <form id="formCandidato" class="needs-validation-empresa" enctype="multipart/form-data" novalidate>
+                    <div class="form-row">
+                        <div class="col-12 col-sm-6">
+                            <label for="nombre">Nombre:</label>
+                            <input type="text" class="form-control" id="nombre" name="nombre" value="@Model.Nombre" readonly required>
+                            <div class="invalid-feedback">¡Campo Vacio!</div>
+                            <input type="hidden" id="idCandidato" name="idCandidato" value="@Model.Id">
+                            <input type="hidden" id="idpersona" name="idpersona" value="@Model.IdEstudiante">
+                        </div>
+                        <div class="col-12 col-sm-6">
+                            <label for="apellido">Apellido:</label>
+                            <input type="text" class="form-control" id="apellido" name="apellido" value="@Model.Apellido" readonly required>
+                            <div class="invalid-feedback">¡Campo Vacio!</div>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="col-12 col-sm-3 mt-3">
+                            <label for="tipoDocumento">Tipo de Documento:</label>
+                            <select class="custom-select" id="tipoDocumento" name="tipoDocumento" value="@Model.TipoDeDocumento" required>
+                                <option selected disabled value="">Cambiar...</option>
+                                <option value="CI">Cedula de Identidad</option>
+                                <option value="PASAPORTE">Pasaporte</option>
+                                <option value="OTRO">Otro</option>
+                            </select>
+                            <div class="invalid-feedback">
+                                Por favor seleccione un tipo.
+                            </div>
+                        </div>
+                        <div class="col-12 col-sm-3 mt-3">
+                            <label for="nroDocumento">Nro Documento:</label>
+                            <input type="text" class="form-control" id="nroDocumento" name="nroDocumento" value="@Model.NroDocumento" readonly required>
+                            <div class="invalid-feedback">¡Campo Vacio!</div>
+                        </div>
+                        <div class="col-12 col-sm-3 mt-3">
+                            <label for="fechaNacimiento">Fecha Nacimiento:</label>
+                            <input type="date" class="form-control" id="fechaNacimiento" name="fechaNacimiento" value="@string.Format("{0:yyyy-MM-dd}", Model.FechaNacimiento)" readonly required>
+                            <div class="invalid-feedback">¡Seleccione una fecha!</div>
+                        </div>
+                        <div class="col-12 col-sm-3 mt-3">
+                            <label for="sexo">Sexo:</label>
+                            <select class="custom-select" id="sexo" name="sexo" required>
+                                <option selected disabled value="">Cambiar...</option>
+                                <option id="MASCULINO">Masculino</option>
+                                <option id="FEMENINO">Femenino</option>
+                            </select>
+                            <div class="invalid-feedback">
+                                Por favor seleccione un tipo.
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="col-12 col-sm-3 mt-3">
+                            <label for="nacionalidad">Nacionalidad:</label>
+                            <input type="text" class="form-control" id="nacionalidad" name="nacionalidad" value="@Model.Nacionalidad" required>
+                            <div class="invalid-feedback">¡Campo Vacio!</div>
+                        </div>
+                        <div class="col-12 col-sm-3 mt-3">
+                            <label for="pais">Pais Natal:</label>
+                            <input type="text" class="form-control" id="pais" name="pais" value="@Model.Perfil.Pais" required>
+                            <div class="invalid-feedback">¡Campo Vacio!</div>
+                        </div>
+                        <div class="col-12 col-sm-3 mt-3">
+                            <label for="estadoRegion">Estado/Region:</label>
+                            <input type="text" class="form-control" id="estadoRegion" name="estadoRegion" value="@Model.Perfil.EstadoRegion" required>
+                            <div class="invalid-feedback">¡Campo Vacio!</div>
+                        </div>
+                        <div class="col-12 col-sm-3 mt-3">
+                            <label for="ciudad">Ciudad:</label>
+                            <input type="text" class="form-control" id="ciudad" name="ciudad" value="@Model.Perfil.Ciudad" required>
+                            <div class="invalid-feedback">¡Campo Vacio!</div>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="col-12 col-sm-6 mt-3">
+                            <label for="profesionOcupacion">Profesion u ocupación:</label>
+                            <input type="text" class="form-control" id="profesionOcupacion" name="profesionOcupacion" value="@Model.ProfesionOcupacion" required>
+                            <div class="invalid-feedback">¡Campo Vacio!</div>
+                        </div>
+                        <div class="col-12 col-sm-3 mt-3">
+                            <label for="telefonoCelular">Tel.Celular:</label>
+                            <input type="text" class="form-control" id="telefonoCelular" name="telefonoCelular" value="@Model.Perfil.TelefonoCelular">
+                        </div>
+                        <div class="col-12 col-sm-3 mt-3">
+                            <label for="telefonoFijo">Tel.Fijo:</label>
+                            <input type="text" class="form-control" id="telefonoFijo" name="telefonoFijo" value="@Model.Perfil.TelefonoFijo">
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="col-12 col-sm-8 mt-3">
+                            <label for="descripcion">Descripcion:</label>
+                            <textarea class="form-control" id="descripcion" name="descripcion" minlength="10" maxlength="500" style="resize: none; height: 200px;" required onkeyup="ContarCaracteres($(this).val(),'500',$(this))">@Model.Perfil.Descripcion</textarea>
+                            <p id="CaracteresDispCandidato" class="text-left"></p>
+                            <div class="invalid-feedback">¡Campo Vacio!</div>
+                        </div>
+                        <div class="col-12 col-md-4 mt-3">
+                            <label for="imagen">Imagen:</label>
+                            <img id="foto" class="img-fluid" style="max-height: 168px; min-height: 168px; height: 168px; width:100%" src="data:image;base64,@System.Convert.ToBase64String(Model.Perfil.Foto)" alt="">
+                            <div id="div_file_new">
+                                <label id="palabras" for="imagen">Seleccionar Imagen</label>
+                                <input type="file" name="imagen" id="imagen" class="form-control-file" onchange="showImg()" />
+                                <div class="invalid-feedback">¡Campo Vacio!</div>
+                            </div>
+                        </div>
+                    </div>
+                    <hr>
+                    <h4 class="text-center mt-3">Cuenta</h4>
+                    <div class="form-row">
+                        <div class="col-12 col-sm-9">
+                            <label for="email">Email:</label>
+                            <input type="email" class="form-control" id="email" name="email" value="@Model.Perfil.Usuario.Correo" required>
+                            <div class="invalid-feedback">¡Campo Vacio!</div>
+                        </div>
+                        <div class="col-12 col-sm-3">
+                            <div class="d-flex justify-content-start align-items-end h-100">
+                                <button id="btnMostrarCamposC" type="button" class="btn btn-primary btn-block" onclick="MostrarCampos()">Cambiar Contraseña</button>
+                            </div>
+                        </div>
+                    </div>
+                    <div id="passwordC" class="form-row d-none">
+
+                    </div>
+                    <div class="form-row mt-4">
+                        <div class="col-sm-6">
+                            <button class="btn btn-Blue btn-block" id="btnEditarCandidato" type="submit">Actulizar</button>
+                        </div>
+                        <div class="col-sm-6">
+                            <button type="button" class="btn btn-secondary btn-block" data-dismiss="modal">Cerrar</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+<!--
+<div class="container mt-5 mb-5 border" style="border-radius:40px; box-shadow:0px 0px 10px;">
+     <br>
+    <div id="Datos_Personales" class="py-2 px-3" style="border-radius:40px; box-shadow:0px 0px 10px;">
+        <form id="formCandidato" class="needs-validation-candidato" enctype="multipart/form-data" novalidate>
+
+            <div class="form-row">
+
+                <div class="col-12 col-sm-6">
+                    <label for="imagen">Imagen:</label>
+                    <input type="file" name="imagen" id="imagen" class="form-control-file" onchange="showImg()"
+                           placeholder="Selecione una imagen">
+                    <div class="invalid-feedback">¡Campo Vacio!</div>
+                </div>
+            </div>
+            <div class="form-row my-2">
+                <div class="col-12 col-sm-4">
+                    <div class="d-flex justify-content-center align-items-center h-100">
+                        <img id="foto" class="img-fluid" style="max-height: 180px;border-radius:10px;" src="data:image;base64,@System.Convert.ToBase64String(Model.Perfil.Foto)" alt="">
+                    </div>
+                </div>
+                <div class="col-12 col-sm-8">
+                    <label for="descripcion">Descripcion:</label>
+                    <textarea class="form-control" id="descripcion" name="descripcion" minlength="10" maxlength="500" style="resize: none; height: 150px;" required onkeyup="ContarCaracteres($(this).val(),'500',$(this))">@Model.Perfil.Descripcion</textarea>
+                    <p id="CaracteresDispCandidato" class="text-left"></p>
+                    <div class="invalid-feedback">¡Campo Vacio!</div>
+                </div>
+            </div>
+
+            <div class="form-row mt-1">
+
+            </div>
+
+            <hr />
+            <h4>CUENTA:</h4>
+            <div class="form-row">
+                <div class="col-12 col-sm-6">
+                    <label for="email">Email:</label>
+                    <input type="email" class="form-control" id="email" name="email" value="@Model.Perfil.Usuario.Correo" required>
+                    <div class="invalid-feedback">¡Campo Vacio!</div>
+                </div>
+                <div class="col-12 col-sm-6">
+                    <div class="d-flex justify-content-start align-items-end h-100">
+                        <button id="btnMostrarCamposC" type="button" class="btn btn-Blue" onclick="MostrarCampos()">Cambiar Contraseña</button>
+                    </div>
+                </div>
+            </div>
+            <div id="passwordC" class="form-row d-none">
+
+            </div>
+            <div class="form-group d-flex justify-content-center mt-4 mb-0">
+                <button id="btnEditarCandidato" type="submit" class="btn btnBlueR">Guardar</button>
+            </div>
+        </form>
+    </div>
+    <br>
+</div>
+    -->

@@ -1,0 +1,24 @@
+﻿/* #formulario {
+    display: none;
+} */
+.contenido {
+    background: #eef2f3;
+    background: -webkit-linear-gradient(to top, #eef2f3, #c6d4df);
+    background: linear-gradient(to top, #eef2f3, #c6d4df);
+}
+
+.btnBlueR {
+    color: black;
+    border-radius: 5px;
+    border: 2px solid rgba(0, 0, 0, 0.281);
+    font-weight: bold;
+    background-color: white;
+    width: 60%;
+    /* box-shadow: inset 0 0 10px rgba(37, 78, 201); */
+    transition-duration: 0.6s;
+}
+
+    .btnBlueR:hover {
+        color: White;
+        background-color: #2e5470;
+    }
