@@ -120,8 +120,8 @@
                                 <img id="fotoDP" class="img-fluid" style="max-height: 177px; min-height: 177px; height: 177px; width: 100% " src="data:image;base64,@System.Convert.ToBase64String(Model.DatosPersonales.Foto)" alt="">
                                 <div id="div_file_new">
                                     <label for="imagenDP">Selecione una imagen</label>
-                                    <input type="file" name="imagenDP" id="imagenDP" class="form-control-file" onchange="showImg()" required>
-                                    <div class="invalid-feedback">¡Campo Vacio!</div>
+                                    <input type="file" name="imagenDP" id="imagenDP" class="form-control-file" onchange="showImg()">
+                                    <div class="invalid-feedback bg-white">¡Campo Vacio!</div>
                                 </div>
                             </div>
                         </div>
@@ -210,7 +210,7 @@
                             <div class="form-row col-12 mx-0">
                                 <div class="col-12 col-sm-3 mt-3">
                                     <label for="personasAlCargoEL">Personas a tu cargo:</label>
-                                    <input type="number" class="form-control" id="personasAlCargoEL" name="personasAlCargoEL[]" value="@item.NroPersonasAlCargo" min="1" pattern="^[0-9]+" required>
+                                    <input type="number" class="form-control" id="personasAlCargoEL" name="personasAlCargoEL[]" value="@item.NroPersonasAlCargo" min="0" pattern="^[0-9]+" required>
                                     <div class="invalid-feedback">¡Campo Vacio!</div>
                                 </div>
                                 <div class="col-12 col-sm-3 mt-3">
@@ -487,13 +487,13 @@
                         Ocultar = i == 0 ? "ocultar" : "";
                         <div id="Clon" class="form-row my-2 @Clon">
                             <div class="form-row col-12 mx-0">
-                                <div class="col-12 col-sm-6">
+                                <div class="col-12 col-sm-12">
                                     <input type="hidden" id="idIA" name="idIA" value="@item.Id">
                                     <label for="tituloIA">Titulo</label>
                                     <input type="text" class="form-control" id="tituloIA" name="tituloIA[]" value="@item.Titulo" required>
                                     <div class="invalid-feedback">¡Campo Vacio!</div>
                                 </div>
-                                <div class="col-12 col-sm-6">
+                                <div class="col-12 col-sm-12">
                                     <label for="descripcionIA">Descripcion</label>
                                     <input type="text" class="form-control" id="descripcionIA" name="descripcionIA[]" value="@item.Descripcion" required>
                                     <div class="invalid-feedback">¡Campo Vacio!</div>
@@ -512,13 +512,13 @@
                 {
                     <div id="Clon" class="form-row my-2 ClonIA">
                         <div class="form-row col-12 mx-0">
-                            <div class="col-12 col-sm-6">
+                            <div class="col-12 col-sm-12">
                                 <input type="hidden" id="idIA" name="idIA" value="-1">
                                 <label for="tituloIA">Titulo</label>
                                 <input type="text" class="form-control" id="tituloIA" name="tituloIA[]" required>
                                 <div class="invalid-feedback">¡Campo Vacio!</div>
                             </div>
-                            <div class="col-12 col-sm-6">
+                            <div class="col-12 col-sm-12">
                                 <label for="descripcionIA">Descripcion</label>
                                 <input type="text" class="form-control" id="descripcionIA" name="descripcionIA[]" required>
                                 <div class="invalid-feedback">¡Campo Vacio!</div>

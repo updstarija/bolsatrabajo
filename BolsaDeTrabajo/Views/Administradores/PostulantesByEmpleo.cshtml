@@ -3,6 +3,7 @@
     ViewBag.Title = "PostulantesByEmpleo";
     Layout = "~/Views/Shared/_LayoutAdministrador.cshtml";
 }
+
 <div id="cargando" class="text-center">
     <div class="spinner-border" role="status">
         <span class="sr-only">Loading...</span>
@@ -10,7 +11,13 @@
 </div>
 <input type="hidden" name="IdEmpleo" id="IdEmpleo" value="@ViewBag.IdEmpleo" />
 <div class="table-responsive" id="contenido">
-    <br>
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb bg-white">
+            <li class="breadcrumb-item"><a href="https://localhost:44351/Administradores/Empresas">Empresas</a></li>
+            <li class="breadcrumb-item"><a href="https://localhost:44351/Administradores/EmpleosByEmpresa?Id=@ViewBag.IdEmpresa">@ViewBag.NombreEmpresa / Empleos Empresa </a></li>
+            <li class="breadcrumb-item active" aria-current="page">@ViewBag.NombreEmpleo / Postulantes</li>
+        </ol>
+    </nav>
     <h2>Lista de postulantes</h2>
     <br>
     <table id="tPostulantes" class="table table-striped display mx-0 style-table-1" style="width:100%"></table>

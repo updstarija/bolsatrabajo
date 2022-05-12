@@ -395,6 +395,7 @@ namespace BolsaDeTrabajo.Controllers
             ViewBag.IdEmpresa = Id;
             ViewBag.tCategoria = db.CategoriaBDT.ToList();
             ViewBag.tDepartamentos = db.DepartamentoBDT.ToList();
+            ViewBag.NombreEmpresa = db.Empresa.Single(x => x.Id == Id).NombreEmpresa;
             Usuario ua = db.Usuario.Where(x => x.Id == Id).SingleOrDefault();
             ViewBag.Correo = ua.Correo;
             return View();
@@ -526,7 +527,12 @@ namespace BolsaDeTrabajo.Controllers
         [Authorize(Roles = "Administrador")]
         public ActionResult PostulantesByEmpleo(int Id)
         {
+            UPDS_BDTEntities db = new UPDS_BDTEntities();
             ViewBag.IdEmpleo = Id;
+            var empleo = db.Empleo.Single(x => x.Id == Id);
+            ViewBag.IdEmpresa = empleo.IdEmpresa;
+            ViewBag.NombreEmpresa = empleo.Empresa.NombreEmpresa;
+            ViewBag.NombreEmpleo = empleo.Titulo;
             return View();
         }
 
@@ -634,8 +640,11 @@ namespace BolsaDeTrabajo.Controllers
         [Authorize(Roles = "Administrador")]
         public ActionResult CurriculumsIndex(int Id)
         {
+            UPDS_BDTEntities db = new UPDS_BDTEntities();
             ViewBag.IdCurriculum = Id;
-            return View();
+            var candidato = db.Candidato.Single(x => x.Id == Id);
+            ViewBag.NombreCandidato = candidato.Nombre + " " + candidato.Apellido;
+            return View(); 
         }
         [Authorize(Roles = "Administrador")]
         public ActionResult getCurriculums(int Id)
@@ -828,7 +837,12 @@ namespace BolsaDeTrabajo.Controllers
         [Authorize(Roles = "Administrador")]
         public ActionResult PostulacionesIndex(int Id)
         {
+            UPDS_BDTEntities db = new UPDS_BDTEntities();
+            var curri = db.Curriculum.Single(x => x.Id == Id);
+            ViewBag.IdCandidato = curri.Candidato.Id;
+            ViewBag.NombreCandidato = curri.Candidato.Nombre + " " + curri.Candidato.Apellido;
             ViewBag.IdCurriculum = Id;
+            ViewBag.Nombrecurricumlu = curri.Titulo;
             return View();
         }
         [Authorize(Roles = "Administrador")]

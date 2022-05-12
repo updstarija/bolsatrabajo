@@ -24,6 +24,11 @@
                     </div>
                 </form>
             </div>
+            <div class="col-sm-12 mt-3">
+                <div class="Datos_Cuenta_Existente">
+                    <div id="correoCuentaExistente"></div>
+                </div>
+            </div>
         </div>
         @*<div class="d-flex justify-content-center">
             <form>
@@ -125,8 +130,8 @@
                     <img id="foto" class="img-fluid" style="max-height: 168px; min-height: 168px; height: 168px; width:100%" src="" alt="" hidden="hidden">
                     <div id="div_file_new">
                         <label id="palabras" for="imagen">Seleccionar Imagen</label>
-                        <input type="file" name="imagen" id="imagen" class="form-control-file" onchange="showImg()" />
-                        <div class="invalid-feedback">¡Campo Vacio!</div>
+                        <input type="file" name="imagen" id="imagen" class="form-control-file" onchange="showImg()" required/>
+                        <div class="invalid-feedback bg-white">¡Campo Vacio!</div>
                     </div>
                 </div>
             </div>

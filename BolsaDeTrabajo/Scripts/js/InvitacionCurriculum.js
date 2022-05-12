@@ -55,7 +55,7 @@ function RegistrarInvitacion() {
                     Toast("success", data.Msj);
                     $("#InvitacionModal").modal('hide');
                     setTimeout(function () {
-                        urla = "https://localhost:44351/Inicio";
+                        urla = "https://localhost:44351/IndexCurriculums";
                         window.location.href = urla + '/IndexCurriculums';
                     }, 3000);
                 }

@@ -99,7 +99,6 @@ function CargarDatos() {
             ActualizarCheckboxs(obj.Educacion.Lista, "EstudiandoActualmente", "estudioActualES[]");
             $("#contratoIG").val(obj.Contrato);
             $("#privacidadIG").val(obj.Privacidad);
-
             $("#IdCarrera").val(obj.IdCarrera);
         }
     });

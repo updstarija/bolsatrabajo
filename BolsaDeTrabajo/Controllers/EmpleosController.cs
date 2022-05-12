@@ -190,6 +190,15 @@ namespace BolsaDeTrabajo.Controllers
                 emp.FechaActualizacion = DateTime.Now;
                 emp.FechaExpiracion = obj.FechaExpiracion;
                 emp.Teletrabajo = obj.Teletrabajo;
+                if (emp.FechaExpiracion > DateTime.Now)
+                {
+                    emp.Estado = "Activo";
+                }
+                else
+                {
+
+                    emp.Estado = "Vencido";
+                }
                 //emp.Estado = "Activo";
 
                 if (obj.Id == -1)
@@ -463,8 +472,12 @@ namespace BolsaDeTrabajo.Controllers
                 if (item.Invitado.Count() != 0)
                 {
                     obj.atrib8 += "<a href='" + baseUrl + "Invitaciones/listaInvitados?Id=" + item.Id + "'><i class='fas fa-eye ico-blue ico-animation fa-lg'></i></a>";
+                    obj.atrib9 = "";
                 }
-                obj.atrib9 = "<a class='btn' onclick='CargarDatosEmpleo(" + item.Id + ")'><i class='fas fa-edit ico-gray ico-animation fa-lg'></i></a>";
+                else
+                {
+                    obj.atrib9 = "<a class='btn' onclick='CargarDatosEmpleo(" + item.Id + ")'><i class='fas fa-edit ico-gray ico-animation fa-lg'></i></a>";
+                }
                 tabla.Add(obj);
             }
             return Json(tabla, JsonRequestBehavior.AllowGet);

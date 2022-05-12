@@ -89,16 +89,30 @@ function ActualizarDatos(data) {
     $("#ciudad").val(data.Ciudad);
     $("#profesionOcupacion").val(data.Carrera);
 }
+
+function ActualizarDatosCuentaExistente(data) {
+    $("#correoCuentaExistente").html("");
+    $("#correoCuentaExistente").html('<div class="alert alert-primary" role="alert">' +
+        '<p class="text-center">Usted ya tiene una cuenta creada con el siguiente correo:<br/><b>' + data.Email1 + '</b></p>' +
+        '</div >');
+}
+
 function BuscarPersona() {
     urlE = "https://localhost:44351/Persona";
     $.getJSON(urlE + '/Buscar', { texto: $("#buscarPersona").val() },
         function (data) {
-            if (data.length != 0) {
-                ActualizarDatos(data[0]);
+            console.log(data);
+            if (data.Existe == 1) {
+                ActualizarDatos(data);
                 $("#searchPersona").fadeOut();
                 $("#Datos_Personales").fadeIn(1000);
             }
-            else {
+            else if (data.Existe == 2) {
+                ActualizarDatosCuentaExistente(data);
+                $("#Datos_Cuenta_Existente").fadeIn(1000);
+            }
+            else if (data.Existe == 3) {
+                $("#Datos_Cuenta_Existente").fadeOut();
                 Toast("error", "CI no encontrado");
             }
         });
@@ -135,12 +149,10 @@ $("#formCandidato").on('submit', function (e) {
             processData: false,
             success: function (data) {
                 if (data.Tipo == 1) {
-                    Limpiar();
                     Toast("success", data.Msj);
-                    setTimeout(function () {
-                        urla = "https://localhost:44351/Login";
-                        window.location.href = urla + '/Index';
-                    }, 3000);
+                    urla = "https://localhost:44351/Login";
+                    window.location.href = urla + '/Index';
+                    Limpiar();
                 }
                 else if (data.Tipo == 5) {
                     Toast("error", data.Msj);

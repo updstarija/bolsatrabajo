@@ -10,7 +10,12 @@
     </div>
 </div>
 <div class="table-responsive-lg" id="contenidoTEmpleos">
-    <br />
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb bg-white">
+            <li class="breadcrumb-item"><a href="https://localhost:44351/Administradores/Empresas">Empresas</a></li>
+            <li class="breadcrumb-item active" aria-current="page">@ViewBag.NombreEmpresa / Empleos Empresa</li>
+        </ol>
+    </nav>
     <h1 class="text-center animated fadeInDown">Publicaciones de Empleos</h1>
     <br />
     <table id="tEmpleosIndex" class="table table-striped display mx-0 my-table-DT animated slideInLeft" style="width:100%"></table>

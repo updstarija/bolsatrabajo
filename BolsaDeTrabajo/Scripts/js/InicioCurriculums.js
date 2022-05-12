@@ -12,6 +12,7 @@ var validorScroll = 0;
 var Departamentos = new Array();
 var Carreras = new Array();
 var FiltrosGeneral = null;
+var c = 0;
 
 function MostrarMenu() {
     $("#filters").animate({ height: 'toggle' }, 700);
@@ -39,14 +40,27 @@ function agregarListaCurriculums() {
     }
 }
 function cargarListaCurriculums() {
+    console.log("contador antes: " + c);
     urlE = "https://localhost:44351/Curriculos";
     $.getJSON(urlE + '/getCurriculums', { Pagina: indexRegistroinicial }, function (data) {
         var list = data;
         if (list.curriculums.length != 0) {
+            c = 1;
             validorScroll = 1;
             ListarCurriculums(list);
             indexRegistroinicial += list.curriculums.length;
+        } else {
+            if (c == 0) {
+                $("#mensaje").removeAttr("hidden","hidden");
+                $("#cargandoC").hide();
+                $("#mensaje").html("");
+                var mensaje = '<div class="alert" style="background-color: #0099CC" role="alert">'
+                    + '<p class="text-center text-white font-weight-bold">Aun no hay curriculums publicados</p>'
+                    + '</div>';
+                $("#mensaje").html(mensaje);
+            }
         }
+        console.log("contador despues: " + c);
     });
 }
 
@@ -62,7 +76,7 @@ function ListarCurriculums(list) {
         var subcadena = obj.InformacionGeneral.Carrera.Nombre.substring(0, 12);
         var subcadenaPB = obj.InformacionGeneral.presentacionBiografiaIG.substring(0, 121);
         var cartas = `<div class=" col-12 col-sm-4 mb-3">
-                    <div class="card-personalizado">
+                        <div class="card-personalizado">
                         <div class="cabecera-cards">
                             <img src="data:image;base64,${obj.DatosPersonalesC.imagenDP}" />
                         </div>
@@ -77,34 +91,6 @@ function ListarCurriculums(list) {
                         </div>
                     </div>
                 </div>`;
-
-
-
-
-
-         //    `<div id="cards">
-         //   <div class="fotoperfil" style="background-image: url(data:image;base64,${obj.DatosPersonalesC.imagenDP})">
-         //   </div>
-         //   <div class="contenido">
-         //       <div id="titulos">
-         //           <p class="titulo">${obj.InformacionGeneral.tituloIG}</p>
-         //           <div class="form-inline" id="ListIconos">
-         //               <p id="sub"><i class="fab fa-algolia"></i>${fecha}</p>
-         //               <p id="sub"><i class="fas fa-globe-americas"></i>${obj.InformacionGeneral.estadoRegionIG} </p>
-         //               <p id="sub"><i class="fas fa-suitcase"></i>${obj.InformacionGeneral.Carrera.Nombre.length > 11 ? subcadena : obj.InformacionGeneral.Carrera.Nombre}...</p>
-         //           </div>
-         //           <div id="linea"></div>
-         //       </div>
-         //       <div id="subtitulo">
-         //           <p id="descripcion">Descripcion</p>
-         //           <p id="contenido">${obj.InformacionGeneral.presentacionBiografiaIG.length > 127 ? subcadenaPB : obj.InformacionGeneral.presentacionBiografiaIG}...</p>
-         //       </div>
-         //           <div class="text-center">
-         //               <a id="boton" href="${urlE}/DetalleCurriculo?Id=${obj.DatosPersonalesC.idCurriculum}"> Ver mas</a>
-         //           </div>
-         //   </div>
-         //   </div>
-         //`;
         $("#itemsCardsCurriculums").append(cartas);
         if (i + 1 == list.curriculums.length) {
             confirmar = true;
@@ -114,6 +100,7 @@ function ListarCurriculums(list) {
     ultiCards = document.querySelectorAll('#itemsCardsCurriculums')[0].children[indexCards - 1];
     $("#cargandoC").hide();
 }
+
 function getList(idDiv) {
     var list = new Array();
     var datosCheck = document.getElementById(idDiv);

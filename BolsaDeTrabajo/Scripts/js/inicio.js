@@ -23,7 +23,6 @@ function showFiltrar() {
 }
 function cargarListaEmpleos(Recargar) {
     urlE = "https://localhost:44351/Empleos";
-
     if (Recargar == "true") {
         indexRegistroInicial = 0;
     }
@@ -40,6 +39,14 @@ function cargarListaEmpleos(Recargar) {
                 $("#btnAgregarMas").addClass('d-block');
                 $("#btnAgregarMas").removeClass('d-none');
             }
+        } else {
+            $("#mensaje").removeAttr("hidden", "hidden");
+            $("#cargandoC").hide();
+            $("#mensaje").html("");
+            var mensaje = '<div class="alert" style="background-color: #0099CC" role="alert">'
+                + '<p class="text-center text-white font-weight-bold">Aun no hay empleos publicados</p>'
+                + '</div>';
+            $("#mensaje").html(mensaje);
         }
     });
 }
@@ -178,6 +185,7 @@ function getValues(idDiv) {
 
     return obj;
 }
+
 function EmpleosFiltrar(Recargar, NombreFiltro) {
     showFiltrar();
     FiltrarEmpleos(Recargar, NombreFiltro);
