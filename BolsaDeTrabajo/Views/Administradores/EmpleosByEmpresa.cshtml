@@ -12,8 +12,13 @@
 <div class="table-responsive-lg" id="contenidoTEmpleos">
     <nav aria-label="breadcrumb">
         <ol class="breadcrumb bg-white">
-            <li class="breadcrumb-item"><a href="https://localhost:44351/Administradores/Empresas">Empresas</a></li>
-            <li class="breadcrumb-item active" aria-current="page">@ViewBag.NombreEmpresa / Empleos Empresa</li>
+            <!--****************************** Local ***************************-->
+            @*<li class="breadcrumb-item"><a href="https://localhost:44351/Administradores/Empresas">Empresas</a></li>
+            <li class="breadcrumb-item active" aria-current="page">Publicaciones de Empleos</li>*@
+
+            <!--****************************** publicado ***************************-->
+            <li class="breadcrumb-item"><a href="https://tarija.upds.edu.bo/UpdsTrabaja/Administradores/Empresas">Empresas</a></li>
+            <li class="breadcrumb-item active" aria-current="page">Publicaciones de Empleos</li>
         </ol>
     </nav>
     <h1 class="text-center animated fadeInDown">Publicaciones de Empleos</h1>
@@ -23,7 +28,7 @@
 <input type="hidden" name="IdEmpresaEstatic" id="IdEmpresaEstatic" value="@ViewBag.IdEmpresa" />
 
 <button type="button" class="btn btn-Blue-par my-2 animated slideInLeft" onclick='Limpiar()'>
-    <div class="tooltip-personalizado"><p>Registrar una Nueva Publicación</p></div>+
+    <div class="tooltip-personalizado"><p>Registrar nuevo empleo</p></div>+
 </button>
 
 
@@ -174,7 +179,8 @@
                     <div class="row">
                         <div class="col-12 col-sm-4 mt-2">
                             <label for="CorreoEnvioPostulaciones">Correo para envio de postulaciones:</label>
-                            <input type="text" class="form-control" id="CorreoEnvioPostulaciones" name="CorreoEnvioPostulaciones" value="@ViewBag.Correo" required>
+                            <input type="email" oninput="verificarCorreo(0)" class="form-control" id="CorreoEnvioPostulaciones" name="CorreoEnvioPostulaciones" value="@ViewBag.Correo" required>
+                            <div id="estadoCorreo" style="font-size:13px;" class="text-danger" hidden="hidden">¡Correo no valido!</div>
                             <div class="invalid-feedback">¡Campo Vacio!</div>
                         </div>
                         <div class="col-12 col-sm-4 mt-2">
@@ -194,7 +200,7 @@
             </div>
             <div class="modal-footer">
                 <div class="btn-group w-100">
-                    <button class="btn btn-Blue mr-1" type="submit" form="formRegistrarEmpleo">Guardar</button>
+                    <button class="btn btn-Blue mr-1" id="btnEmpleoGuardar" type="submit" form="formRegistrarEmpleo">Guardar</button>
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
                 </div>
             </div>

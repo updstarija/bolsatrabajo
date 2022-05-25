@@ -13,8 +13,20 @@
             </div>
         </div>
         <div class="table-responsive-lg" id="contenidoTInvitados">
-            <br />
-            <h1 class="text-center">Lista de Invitados</h1>
+            <nav aria-label="breadcrumb">
+                <ol class="breadcrumb bg-white">
+
+                    <!--************* Local ****************-->
+                    @*<li class="breadcrumb-item"><a href="https://localhost:44351/Invitaciones">Invitaciones a Empleos</a></li>
+                    <li class="breadcrumb-item active" aria-current="page">Invitados</li>*@
+
+                    <!--************* Produccion ****************-->
+                    <li class="breadcrumb-item"><a href="https://tarija.upds.edu.bo/UpdsTrabaja/Invitaciones">Invitaciones a Empleos</a></li>
+                    <li class="breadcrumb-item active" aria-current="page">Invitados</li>
+
+                </ol>
+            </nav>
+            <h1 class="text-center">Invitados</h1>
             <br />
             <table id="tInvitadosLista" class="table table-striped display mx-0 my-table-DT" style="width:100%"></table>
         </div>

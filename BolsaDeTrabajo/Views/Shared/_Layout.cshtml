@@ -30,7 +30,8 @@
 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-confirm/3.3.2/jquery-confirm.min.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-confirm/3.3.2/jquery-confirm.min.js"></script>
-
+    <script src="~/Scripts/js/enlace.js"></script>
+    <script src="~/Scripts/js/validacion.js"></script>
 </head>
 <body class="py-0">
     @{
@@ -63,7 +64,16 @@
                     @if (Usuario.Rol == "Empresa")
                     {
                         <li class="nav-item"><a class="nav-link" href="@Url.Action("Index","Empleos")"><i class="fas fa-globe"></i> Publicaciones de Empleos</a></li>
-                        <li class="nav-item"><a class="nav-link" href="@Url.Action("Index","Invitaciones")"><i class="fas fa-envelope-open"></i> Invitaciones a Empleos</a></li>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-expanded="false">
+                                <i class="fas fa-mail-bulk"></i> Invitaciones a Empleos
+                            </a>
+                            <div class="dropdown-menu dropdown-menu-xl-right" id="subMenu" aria-labelledby="navbarDropdown">
+                                <a class="nav-link" href="@Url.Action("Index","Invitaciones")"> <i class="fas fa-envelope-open"></i> Invitación Normal </a>
+                                <a class="nav-link" href="@Url.Action("IndexFD","Invitaciones")"> <i class="fas fa-envelope-open"></i> Invitación Directa </a>
+                            </div>
+                        </li>
+                        @*<li class="nav-item"><a class="nav-link" href="@Url.Action("Index","Invitaciones")"><i class="fas fa-envelope-open"></i> Invitaciones a Empleos</a></li>*@
                     }
                 </ul>
                 <ul class="navbar-nav mr-auto text-center d-block d-sm-none pb-2 pb-sm-0" style="border-radius:0px 0px 7px 7px;">
@@ -81,7 +91,9 @@
                     {
                         <li class="mx-auto text-left"><a class="ml-3 mt-3" href="@Url.Action("Editar","Empresas")"><i class="fas fa-user"></i> Perfil</a></li>
                         <li class="mx-auto text-left"><a class="nav-link ml-3" href="@Url.Action("Index","Empleos")"><i class="fas fa-globe"></i> Publicaciones de Empleos</a></li>
-                        <li class="mx-auto text-left"><a class="nav-link ml-3" href="@Url.Action("Index","Invitaciones")"><i class="fas fa-envelope-open"></i> Invitaciones a Empleos</a></li>
+                        <li class="mx-auto text-left"><a class="nav-link ml-3" href="@Url.Action("Index","Invitaciones")"> <i class="fas fa-envelope-open"></i> Invitación Normal </a></li>
+                        <li class="mx-auto text-left"><a class="nav-link ml-3" href="@Url.Action("IndexFD","Invitaciones")"> <i class="fas fa-envelope-open"></i> Invitación Directa </a></li>
+                        @*<li class="mx-auto text-left"><a class="nav-link ml-3" href="@Url.Action("Index","Invitaciones")"><i class="fas fa-envelope-open"></i> Invitaciones a Empleos</a></li>*@
                         <li class="mx-auto text-left" id="notificacionStyle"><a class="ml-3" href="#NotificacionModal" data-toggle="modal"><i class="fas fa-bell"></i> Notificaciones</a> <span id="NroNotificaciones" class="my-span1"></span></li>
                         <li class="mx-auto text-left"><a class="ml-3" href="@Url.Action("Logout","Login")"><i class="fas fa-sign-out-alt"></i> Cerrar Sesion</a></li>
                     }
@@ -227,7 +239,7 @@
     }
     @if (ruta == "Invitaciones")
     {
-        if (action == "Index")
+        if (action == "Index" || action == "IndexFD")
         {
             <script src="~/Scripts/js/InvitacionesIndex.js"></script>
             <script src="~/Scripts/js/InvitadosFD.js"></script>

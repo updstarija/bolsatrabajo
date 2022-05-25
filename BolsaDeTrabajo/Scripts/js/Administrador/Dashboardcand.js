@@ -1,11 +1,10 @@
-﻿var direct = window.location.href.split('/');
-var urlBas = window.location.origin + "/" + direct[3];
+﻿
 $(document).ready(function () {
     $.ajax({
         type: "GET",
         contentType: "application/json; charset-utf-8",
         dataType: "json",
-        url: urlBas + "/DashboardCand",
+        url: urlOficial + "Administradores/DashboardCand",
         success: function (data) {
             graficoscand(data);
         }

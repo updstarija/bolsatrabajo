@@ -9,6 +9,7 @@
         { title: "Estado", width: '5%' },
         { title: "<div class='d-flex flex-nowrap'><select class='custom-select' id='filtroinvitacionFD' onchange='FiltrarInvitacionFD()'><option value='Aceptado'>Aceptados</option><option value='Pendiente'>Pendientes</option><option value='Todos'>Todos</option></select></div>", width: '10%' }
     ],
+    "lengthMenu": [[5, 10, 15, -1], [5, 10, 15, "All"]]
 });
 $("#cargandoinvitacinesFD").show();
 $("#contenidoTInvitacionesFD").hide();
@@ -22,8 +23,7 @@ $(document).ready(function () {
 });
 
 function ActualizarFD() {
-    urlE = "https://localhost:44351/Invitaciones";
-    $.getJSON(urlE +'/getInvitacionFD', function (obj) {
+    $.getJSON(urlOficial + 'Invitaciones/getInvitacionFD', function (obj) {
         ListarFD(obj);
     });
 }
@@ -38,7 +38,7 @@ function ListarFD(obj) {
         "language": {
             "url": "//cdn.datatables.net/plug-ins/1.10.25/i18n/Spanish.json"
         },
-
+        "lengthMenu": [[5, 10, 15, -1], [5, 10, 15, "All"]],
         columns: [
             {
                 data: "atrib1", width: '5%'
@@ -72,15 +72,12 @@ function ListarFD(obj) {
     $("#contenidoTInvitacionesFD").show();
 }
 function verdetallecurriculum(id) {
-    urlE = "https://localhost:44351/Curriculos";
-    $.getJSON(urlE +'/getDetalleCurriculo', { Id: id }, function (obj) {
+    $.getJSON(urlOficial + 'Curriculos/getDetalleCurriculo', { Id: id }, function (obj) {
         cargarInfoCurriculum(obj);
     });
 }
 function imprimirCurriculum(id) {
-    urlE = "https://localhost:44351/Curriculos";
-
-    $.getJSON(urlE +'/getDetalleCurriculo', { Id: id }, function (obj) {
+    $.getJSON(urlOficial + 'Curriculos/getDetalleCurriculo', { Id: id }, function (obj) {
         cargarInfoCurriculum(obj);
         Imprimir();
     });
@@ -176,13 +173,12 @@ function cargarInfoCurriculum(obj) {
 }
 
 function FiltrarInvitacionFD() {
-    urlE = "https://localhost:44351/Invitaciones";
     var estado = $("#filtroinvitacionFD").val();
     if (estado == "Todos") {
         ActualizarFD();
     }
     else {
-        $.getJSON(urlE +'/getByEstadoFD', { cadena: estado }, function (data) {
+        $.getJSON(urlOficial + 'Invitaciones/getByEstadoFD', { cadena: estado }, function (data) {
             ListarFD(data);
         });
     }

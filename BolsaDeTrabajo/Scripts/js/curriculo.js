@@ -1,6 +1,52 @@
-﻿$(function () {
-
+﻿//Validacion de inputs
+$(function () {
+    //datos personales
+    $('#nombreDP').validacion(' abcdefghijklmnñopqrstuvwxyzáéíóú');
+    $('#apellidoDP').validacion(' abcdefghijklmnñopqrstuvwxyzáéíóú');
+    $('#nroDocumentoDP').validacion(' -0123456789abcdefghijklmnñopqrstuvwxyz');
+    $('#correoDP').validacion('.abcdefghijklmnñopqrstuvwxyzáéíóú0123456789@');
+    $('#nacionalidadDP').validacion(' abcdefghijklmnñopqrstuvwxyzáéíóú');
+    $('#movilDP').validacion('0123456789');
+    $('#telefonoDP').validacion(' -0123456789');
+    $('#direccionDP').validacion(' abcdefghijklmnñopqrstuvwxyzáéíóú(")-/.0123456789');
+    //experiencia laboral
+    $('#nombreEmpresaEL').validacion(' abcdefghijklmnñopqrstuvwxyzáéíóú-0123456789()"');
+    $('#cargoEmpresaEL').validacion(' abcdefghijklmnñopqrstuvwxyzáéíóú()-123456789"');
+    $('#industriaEL').validacion(' abcdefghijklmnñopqrstuvwxyzáéíóú()"-');
+    $('#personasAlCargoEL').validacion('0123456789');
+    $('#estadoRegionEL').validacion(' abcdefghijklmnñopqrstuvwxyzáéíóú()"-');
+    $('#ciudadEL').validacion(' abcdefghijklmnñopqrstuvwxyzáéíóú()"-');
+    $('#contactoEL').validacion(' abcdefghijklmnñopqrstuvwxyzáéíóú');
+    $('#descripcionEL').validacion(' .,:;abcdefghijklmnñopqrstuvwxyzáéíóú0123456789""(-)');
+    //habildad
+    $('#nombreH').validacion(' abcdefghijklmnñopqrstuvwxyzáéíóú()-/.0123456789');
+    //informacion adicional
+    $('#tituloIA').validacion(' .:abcdefghijklmnñopqrstuvwxyzáéíóú0123456789-")(');
+    $('#descripcionIA').validacion(' .,:;abcdefghijklmnñopqrstuvwxyzáéíóú0123456789""(-)');
+    //educacion
+    $('#ColegioInstitucionED').validacion(' abcdefghijklmnñopqrstuvwxyzáéíóú-0123456789()"');
+    $('#nivelEstudioED').validacion(' abcdefghijklmnñopqrstuvwxyzáéíóú');
+    $('#paisED').validacion(' abcdefghijklmnñopqrstuvwxyzáéíóú');
+    $('#estadoRegionED').validacion(' abcdefghijklmnñopqrstuvwxyzáéíóú()-"');
+    $('#ciudadED').validacion(' abcdefghijklmnñopqrstuvwxyzáéíóú()-"');
+    //formacion
+    $('#universidadInstitucionES').validacion(' abcdefghijklmnñopqrstuvwxyzáéíóú-0123456789()"');
+    $('#ccsES').validacion(' abcdefghijklmnñopqrstuvwxyzáéíóú-()"0123456789');
+    $('#nivelEstudioES').validacion(' abcdefghijklmnñopqrstuvwxyzáéíóú');
+    $('#paisES').validacion(' abcdefghijklmnñopqrstuvwxyzáéíóú');
+    $('#estadoRegionES').validacion(' abcdefghijklmnñopqrstuvwxyzáéíóú()-"');
+    $('#ciudadES').validacion(' abcdefghijklmnñopqrstuvwxyzáéíóú()-"');
+    //idioma
+    $('#nombreIS').validacion(' abcdefghijklmnñopqrstuvwxyzáéíóú');
+    //informacion general
+    $('#tituloIG').validacion(' abcdefghijklmnñopqrstuvwxyzáéíóú-0123456789()"');
+    $('#paisIG').validacion(' abcdefghijklmnñopqrstuvwxyzáéíóú');
+    $('#estadoRegionED').validacion(' abcdefghijklmnñopqrstuvwxyzáéíóú()-"');
+    $('#presentacionBiografiaIG').validacion(' .,:;abcdefghijklmnñopqrstuvwxyzáéíóú0123456789""(-)');
 });
+
+
+
 var direct = window.location.href.split('/');
 var url = window.location.origin + "/" + direct[3];
 var DatosPersonales = new Array();
@@ -71,6 +117,40 @@ function ContarCaracteres(str, maxCaracteres, e) {
     var p = contenedor.querySelectorAll('#CaracteresDisponibles');
     p[0].innerText = tot + " / " + maxCaracteres;
 }
+
+function verificarCorreo(valor) {
+    var correo = $("#correoDP").val();
+    var expreRegular = /^(([^<>()\[\]\\.,;:\s@”]+(\.[^<>()\[\]\\.,;:\s@”]+)*)|(“.+”))@((\[[0–9]{1,3}\.[0–9]{1,3}\.[0–9]{1,3}\.[0–9]{1,3}])|(([a-zA-Z\-0–9]+\.)+[a-zA-Z]{2,}))$/;
+    var esValido = expreRegular.test(correo);
+    if (esValido == false && correo.length > 0) {
+        $("#estadoCorreo").removeAttr("hidden", "hidden");
+        $("#correoDP").addClass("border border-danger");
+        if (valor == 1) {
+            Toast("error", "su correo no es valido");
+        }
+    } else {
+        $("#estadoCorreo").attr("hidden", "hidden");
+        $("#correoDP").removeClass("border border-danger");
+    }
+    return esValido;
+}
+
+function verificarCelular(valor) {
+    var celu = $("#movilDP").val();
+    if (celu.length > 0 && celu.length < 8) {
+        $("#estadoNumero").removeAttr("hidden", "hidden");
+        $("#movilDP").addClass("border border-danger");
+        if (valor == 1) {
+            Toast("error", "Su número de celular no es valido");
+        }
+        return false;
+    } else {
+        $("#estadoNumero").attr("hidden", "hidden");
+        $("#movilDP").removeClass("border border-danger");
+        return true;
+    }
+}
+
 
 function VerificarFormulario(formClass) {
     var validacion = true;
@@ -223,35 +303,36 @@ function subMenu4() {
 }
 
 $("#formDP").on('submit', function (e) {
-    urlE = "https://localhost:44351/Curriculos";
     e.preventDefault();
     SaveListForms();
     if (statusForms == true) {
-        var DataForms = {
-            "DatosPersonalesC": DatosPersonales[0],
-            "ListExperienciaLaboral": listExperienciaLaboral,
-            "ListHabilidades": listHabilidades,
-            "ListInformacionAdicional": listInformacionAdicional,
-            "EducacionSecundaria": EducacionSecundaria[0],
-            "ListEducacionSuperior": EducacionSuperior,
-            "ListIdiomaSuperior": IdiomaSuperior,
-            "InformacionGeneral": InformacionGeneral[0]
-        }
-        $.ajax({
-            url: urlE + '/Guardar',
-            type: 'POST',
-            dataType: 'json',
-            data: JSON.stringify(DataForms),
-            contentType: 'application/json',
-            success: function (data) {
-                if (data.Tipo == 1) {
-                    Toast("success", data.Msj);
-                    setTimeout(function () {
-                        window.location.href = url + '/Index';
-                    }, 3000);
-                }
+        if (verificarCorreo(1) == true && verificarCelular(1) == true) {
+            var DataForms = {
+                "DatosPersonalesC": DatosPersonales[0],
+                "ListExperienciaLaboral": listExperienciaLaboral,
+                "ListHabilidades": listHabilidades,
+                "ListInformacionAdicional": listInformacionAdicional,
+                "EducacionSecundaria": EducacionSecundaria[0],
+                "ListEducacionSuperior": EducacionSuperior,
+                "ListIdiomaSuperior": IdiomaSuperior,
+                "InformacionGeneral": InformacionGeneral[0]
             }
-        });
+            $.ajax({
+                url: urlOficial + 'Curriculos/Guardar',
+                type: 'POST',
+                dataType: 'json',
+                data: JSON.stringify(DataForms),
+                contentType: 'application/json',
+                success: function (data) {
+                    if (data.Tipo == 1) {
+                        Toast("success", data.Msj);
+                        setTimeout(function () {
+                            window.location.href = urlOficial + 'Curriculos';
+                        }, 1000);
+                    }
+                }
+            });
+        }
     }
     else {
         $.confirm({

@@ -19,6 +19,15 @@ namespace BolsaDeTrabajo.Controllers
             ViewBag.tDepartamentos = db.DepartamentoBDT.ToList();
             return View();
         }
+
+        [Authorize(Roles = "Empresa,Administrador")]
+        public ActionResult IndexFD()
+        {
+            ViewBag.tCategoria = db.CategoriaBDT.ToList();
+            ViewBag.tDepartamentos = db.DepartamentoBDT.ToList();
+            return View();
+        }
+
         [Authorize(Roles = "Empresa,Administrador")]
         public ActionResult Guardar(Invitado obj)
         {
@@ -191,7 +200,7 @@ namespace BolsaDeTrabajo.Controllers
                 obj.atrib3 = item.Curriculum.DatosPersonales.Nombre + " " + item.Curriculum.DatosPersonales.Apellido;
                 obj.atrib4 = item.Curriculum.Titulo;
                 obj.atrib5 = item.Curriculum.DatosPersonales.Nacionalidad;
-                obj.atrib6 = item.Curriculum.DatosPersonales.Sexo;
+                obj.atrib6 = item.Curriculum.DatosPersonales.Sexo == "MASCULINO" ? "<i class='fas fa-male ico-blue tooltip-test w-100 text-center' title='MASCULINO'></i>" : "<i class='fas fa-female ico-red tooltip-test w-100 text-center' title='FEMENINO'></i>";
                 obj.atrib7 = item.Estado;
                 obj.atrib8 = "<div class='w-100 d-flex justify-content-center'><button type='button' class='btn' data-toggle='modal' data-target='#ModalInvitado' onclick='verdetallecurriculum(" + item.Curriculum.Id + ")'><i class='fas fa-eye ico-blue ico-animation fa-lg'></i></button><button type='button' class='btn ' onclick='imprimirCurriculum(" + item.Curriculum.Id + ")'><i class='fas fa-print ico-gray ico-animation fa-lg'></i></button></div>";
                 tabla.Add(obj);
@@ -217,7 +226,7 @@ namespace BolsaDeTrabajo.Controllers
                 obj.atrib3 = item.Curriculum.DatosPersonales.Nombre + " " + item.Curriculum.DatosPersonales.Apellido;
                 obj.atrib4 = item.Curriculum.Titulo;
                 obj.atrib5 = item.Curriculum.DatosPersonales.Nacionalidad;
-                obj.atrib6 = item.Curriculum.DatosPersonales.Sexo;
+                obj.atrib6 = item.Curriculum.DatosPersonales.Sexo == "MASCULINO" ? "<i class='fas fa-male ico-blue tooltip-test w-100 text-center' title='MASCULINO'></i>" : "<i class='fas fa-female ico-red tooltip-test w-100 text-center' title='FEMENINO'></i>"; ;
                 obj.atrib7 = item.Estado;
                 obj.atrib8 = "<div class='w-100 d-flex justify-content-center'><button type='button' class='btn' data-toggle='modal' data-target='#ModalInvitado' onclick='verdetallecurriculum(" + item.Curriculum.Id + ")'><i class='fas fa-eye ico-blue ico-animation fa-lg'></i></button><button type='button' class='btn ' onclick='imprimirCurriculum(" + item.Curriculum.Id + ")'><i class='fas fa-print ico-gray ico-animation fa-lg'></i></button></div>";
                 tabla.Add(obj);
@@ -273,7 +282,7 @@ namespace BolsaDeTrabajo.Controllers
                 Notificacion notificacion = new Notificacion();
                 notificacion.Titulo = "Invitación Aceptada ";
                 notificacion.Descripcion = "El candidato <span>" + invitado.Curriculum.DatosPersonales.Nombre + " " + invitado.Curriculum.DatosPersonales.Apellido + "</span> acepto la invitación a tu empresa <span>" + invitado.Empresa.NombreEmpresa + "</span>.";
-                notificacion.Tipo = "Invitacion";
+                notificacion.Tipo = "InvitacionFD";
                 notificacion.FechaRegistro = DateTime.Now;
                 notificacion.FechaActualizacion = DateTime.Now;
                 notificacion.Estado = "Pendiente";
@@ -311,7 +320,7 @@ namespace BolsaDeTrabajo.Controllers
                 obj.atrib3 = item.Curriculum.DatosPersonales.Nombre + " " + item.Curriculum.DatosPersonales.Apellido;
                 obj.atrib4 = item.Curriculum.Titulo;
                 obj.atrib5 = item.Curriculum.DatosPersonales.Nacionalidad;
-                obj.atrib6 = item.Curriculum.DatosPersonales.Sexo;
+                obj.atrib6 = item.Curriculum.DatosPersonales.Sexo == "MASCULINO" ? "<i class='fas fa-male ico-blue tooltip-test w-100 text-center' title='MASCULINO'></i>" : "<i class='fas fa-female ico-red tooltip-test w-100 text-center' title='FEMENINO'></i>";
                 obj.atrib7 = item.Estado;
                 obj.atrib8 = "<div class='w-100 d-flex justify-content-center'><button type='button' class='btn' data-toggle='modal' data-target='#ModalInvitado' onclick='verdetallecurriculum(" + item.Curriculum.Id + ")'><i class='fas fa-eye ico-blue ico-animation fa-lg'></i></button><button type='button' class='btn ' onclick='imprimirCurriculum(" + item.Curriculum.Id + ")'><i class='fas fa-print ico-gray ico-animation fa-lg'></i></button></div>";
                 tabla.Add(obj);
@@ -337,7 +346,7 @@ namespace BolsaDeTrabajo.Controllers
                 obj.atrib3 = item.Curriculum.DatosPersonales.Nombre + " " + item.Curriculum.DatosPersonales.Apellido;
                 obj.atrib4 = item.Curriculum.Titulo;
                 obj.atrib5 = item.Curriculum.DatosPersonales.Nacionalidad;
-                obj.atrib6 = item.Curriculum.DatosPersonales.Sexo;
+                obj.atrib6 = item.Curriculum.DatosPersonales.Sexo == "MASCULINO" ? "<i class='fas fa-male ico-blue tooltip-test w-100 text-center' title='MASCULINO'></i>" : "<i class='fas fa-female ico-red tooltip-test w-100 text-center' title='FEMENINO'></i>"; ;
                 obj.atrib7 = item.Estado;
                 obj.atrib8 = "<div class='w-100 d-flex justify-content-center'><button type='button' class='btn' data-toggle='modal' data-target='#ModalInvitado' onclick='verdetallecurriculum(" + item.Curriculum.Id + ")'><i class='fas fa-eye ico-blue ico-animation fa-lg'></i></button><button type='button' class='btn ' onclick='imprimirCurriculum(" + item.Curriculum.Id + ")'><i class='fas fa-print ico-gray ico-animation fa-lg'></i></button></div>";
                 tabla.Add(obj);

@@ -25,7 +25,7 @@ $("#formulario").on('submit', function (e) {
         cont = 1;
         e.preventDefault();
         $.ajax({
-            url: url + '/Login/Ingresar',
+            url: urlOficial + 'Login/Ingresar',
             type: 'POST',
             data: new FormData(this),
             dataType: 'json',
@@ -33,21 +33,21 @@ $("#formulario").on('submit', function (e) {
             processData: false,
             success: function (data) {
                 if (data.Tipo == 1) {
-
+                    $("#btnLogin").prop("disabled", true);
                     Toast("success", 'Ingresando...');
                     if (data.RolUsuario == "Candidato") {
                         setTimeout(function () {
-                            window.location.href = url + 'Inicio/Index';
+                            window.location.href = urlOficial + 'Inicio/Index';
                         }, 300);
                     }
                     else if (data.RolUsuario == "Empresa") {
                         setTimeout(function () {
-                            window.location.href = url + 'Inicio/IndexCurriculums';
+                            window.location.href = urlOficial + 'Inicio/IndexCurriculums';
                         }, 300);
                     }
                     else if (data.RolUsuario == "Administrador") {
                         setTimeout(function () {
-                            window.location.href = url + 'Administradores/Index';
+                            window.location.href = urlOficial + 'Administradores/Index';
                         }, 300);
                     }
                 }
@@ -106,7 +106,7 @@ function ConfirmCambiarClave() {
                         var formData = new FormData();
                         formData.append("Correo", Correo);
                         $.ajax({
-                            url: url + '/Login/CambiarClave',
+                            url: urlOficial + 'Login/CambiarClave',
                             type: 'POST',
                             data: formData,
                             dataType: 'json',

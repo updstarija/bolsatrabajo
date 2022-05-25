@@ -1,4 +1,19 @@
-﻿$(function () {
+﻿
+//Validacion de inputs
+$(function () {
+    $('#buscarPersona').validacion(' 0123456789-abcdefghijklmnñopqrstuvwxyz.');
+    $('#nacionalidad').validacion(' abcdefghijklmnñopqrstuvwxyzáéíóú');
+    $('#pais').validacion(' abcdefghijklmnñopqrstuvwxyzáéíóú');
+    $('#estadoRegion').validacion(' abcdefghijklmnñopqrstuvwxyzáéíóú');
+    $('#ciudad').validacion(' abcdefghijklmnñopqrstuvwxyzáéíóú()');
+    $('#descripcion').validacion(' .,:;abcdefghijklmnñopqrstuvwxyzáéíóú0123456789""()');
+    $('#profesionOcupacion').validacion(' abcdefghijklmnñopqrstuvwxyzáéíóú');
+    $('#telefonoCelular').validacion('0123456789');
+    $('#telefonoFijo').validacion(' -0123456789');
+    $('#email').validacion(' .abcdefghijklmnñopqrstuvwxyzáéíóú0123456789@');
+});
+
+$(function () {
     $("#clave2").addClass('d-none');
 });
 var direct = window.location.href.split('/');
@@ -98,8 +113,7 @@ function ActualizarDatosCuentaExistente(data) {
 }
 
 function BuscarPersona() {
-    urlE = "https://localhost:44351/Persona";
-    $.getJSON(urlE + '/Buscar', { texto: $("#buscarPersona").val() },
+    $.getJSON(urlOficial + 'Persona/Buscar', { texto: $("#buscarPersona").val() },
         function (data) {
             console.log(data);
             if (data.Existe == 1) {
@@ -125,7 +139,43 @@ function verificarClave() {
     else return false;
 }
 
+function verificarCorreo(valor) {
+    console.log(valor);
+    var correo = $("#email").val();
+    var expreRegular = /^(([^<>()\[\]\\.,;:\s@”]+(\.[^<>()\[\]\\.,;:\s@”]+)*)|(“.+”))@((\[[0–9]{1,3}\.[0–9]{1,3}\.[0–9]{1,3}\.[0–9]{1,3}])|(([a-zA-Z\-0–9]+\.)+[a-zA-Z]{2,}))$/;
+    var esValido = expreRegular.test(correo);
+    if (esValido == false && correo.length > 0) {
+        $("#estadoCorreo").removeAttr("hidden", "hidden");
+        $("#email").addClass("border border-danger");
+        if (valor == 1) {
+            Toast("error", "su correo no es valido");
+        }
+    } else {
+        $("#estadoCorreo").attr("hidden", "hidden");
+        $("#email").removeClass("border border-danger");
+    }
+    return esValido;
+}
+
+function verificarCelular(valor) {
+    var celu = $("#telefonoCelular").val();
+    if (celu.length > 0 && celu.length < 8) {
+        $("#estadoNumero").removeAttr("hidden", "hidden");
+        $("#telefonoCelular").addClass("border border-danger");
+        if (valor == 1) {
+            Toast("error", "Su número de celular no es valido");
+        }
+        return false;
+    } else {
+        $("#estadoNumero").attr("hidden", "hidden");
+        $("#telefonoCelular").removeClass("border border-danger");
+        return true;
+    }
+}
+
+
 function VerificarFormulario() {
+    console.log("entra a verificar el formulario");
     var validacion = true;
     var forms = document.getElementsByClassName('needs-validation');
     var validation = Array.prototype.filter.call(forms, function (form) {
@@ -138,10 +188,9 @@ function VerificarFormulario() {
 }
 $("#formCandidato").on('submit', function (e) {
     e.preventDefault();
-    urlE = "https://localhost:44351/Candidatos";
-    if (verificarClave() && VerificarFormulario() == true) {
+    if (verificarClave() && VerificarFormulario() == true && verificarCorreo(1) == true && verificarCelular(1) == true) {
         $.ajax({
-            url: urlE + '/Guardar',
+            url: urlOficial + 'Candidatos/Guardar',
             type: 'POST',
             data: new FormData(this),
             dataType: 'json',
@@ -149,9 +198,9 @@ $("#formCandidato").on('submit', function (e) {
             processData: false,
             success: function (data) {
                 if (data.Tipo == 1) {
+                    $("#btnRegistrarCandidato").attr("disabled", true);
                     Toast("success", data.Msj);
-                    urla = "https://localhost:44351/Login";
-                    window.location.href = urla + '/Index';
+                    window.location.href = urlOficial + 'Login';
                     Limpiar();
                 }
                 else if (data.Tipo == 5) {

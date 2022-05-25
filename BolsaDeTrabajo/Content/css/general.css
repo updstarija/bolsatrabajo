@@ -234,6 +234,16 @@ body {
             color: white;
         }
 
+#subMenu {
+    width:200px;
+    background-color: #00377c;
+    color: #B3B6B7;
+}
+    #subMenu:hover {
+        color: white;
+        background-color: #00377c;
+    }
+
 #navInicio #navbarSupportedContent {
     background-color: #00377c;
 }

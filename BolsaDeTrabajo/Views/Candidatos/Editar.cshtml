@@ -10,7 +10,7 @@
         <div class="row mt-5">
             <div class="col-sm-3">
                 <div id="perfil-info00">
-                    <img src="data:image;base64,@System.Convert.ToBase64String(Model.Perfil.Foto)" class="rounded-circle img-perfil-empresa" />
+                    <img src="data:image;base64,@System.Convert.ToBase64String(Model.Perfil.Foto)" class="border rounded-circle img-perfil-empresa" />
                     <h5 class="text-center mt-3">@Model.Nombre @Model.Apellido</h5>
                     <p class="text-center">@Model.Perfil.Usuario.Correo</p>
                 </div>
@@ -140,7 +140,8 @@
                         </div>
                         <div class="col-12 col-sm-3 mt-3">
                             <label for="telefonoCelular">Tel.Celular:</label>
-                            <input type="text" class="form-control" id="telefonoCelular" name="telefonoCelular" value="@Model.Perfil.TelefonoCelular">
+                            <input type="text" class="form-control" oninput="verificarCelular(0)" id="telefonoCelular" name="telefonoCelular" value="@Model.Perfil.TelefonoCelular" maxlength="8">
+                            <div id="estadoNumero" style="font-size:13px;" class="text-danger" hidden="hidden">¡Su número de celular debe tener 8 caracteres!</div>
                         </div>
                         <div class="col-12 col-sm-3 mt-3">
                             <label for="telefonoFijo">Tel.Fijo:</label>
@@ -169,8 +170,8 @@
                     <div class="form-row">
                         <div class="col-12 col-sm-9">
                             <label for="email">Email:</label>
-                            <input type="email" class="form-control" id="email" name="email" value="@Model.Perfil.Usuario.Correo" required>
-                            <div class="invalid-feedback">¡Campo Vacio!</div>
+                            <input type="email" class="form-control" id="email" name="email" oninput="verificarCorreo(0)" value="@Model.Perfil.Usuario.Correo" required>
+                            <div id="estadoCorreo" style="font-size:13px;" class="text-danger" hidden="hidden">¡Correo no valido!</div><div class="invalid-feedback">¡Campo Vacio!</div>
                         </div>
                         <div class="col-12 col-sm-3">
                             <div class="d-flex justify-content-start align-items-end h-100">

@@ -22,11 +22,10 @@ function showFiltrar() {
     }, 300);
 }
 function cargarListaEmpleos(Recargar) {
-    urlE = "https://localhost:44351/Empleos";
     if (Recargar == "true") {
         indexRegistroInicial = 0;
     }
-    $.getJSON(urlE + '/getEmpleos', { Pagina: indexRegistroInicial }, function (data) {
+    $.getJSON(urlOficial + 'Empleos/getEmpleos', { Pagina: indexRegistroInicial }, function (data) {
         var list = data;
         if (list.empleos.length != 0) {
             ListarEmpleos(list, "cargarListaEmpleos('false')");
@@ -52,7 +51,6 @@ function cargarListaEmpleos(Recargar) {
 }
 
 function ListarEmpleos(list, nombreMetodo) {
-    urlE = "https://localhost:44351/Empleos";
     if (indexRegistroInicial == 0) {
         $("#itemsCards").html("");
     }
@@ -75,7 +73,7 @@ function ListarEmpleos(list, nombreMetodo) {
                                     <p>${list.empleos[i].Ciudad}</p>
                                     <p>Experiencia Minima:${list.empleos[i].ExperienciaMinima} años</p>
                                     <p class="read-more">
-                                        <a href="${urlE}/detalleEmpleo?Id=${list.empleos[i].Id}">Leer Mas</a>
+                                        <a href="${urlOficial}Empleos/detalleEmpleo?Id=${list.empleos[i].Id}">Leer Mas</a>
                                     </p>
                                 </div>
                             </div>
@@ -141,9 +139,8 @@ function FiltrarEmpleos(Recargar, NombreFiltro) {
     }
 
     if (VerifValidacion == true) {
-        urlE = "https://localhost:44351/Empleos";
         $.ajax({
-            url: urlE + '/getEmpleosByFiltros',
+            url: urlOficial + 'Empleos/getEmpleosByFiltros',
             type: 'POST',
             dataType: 'json',
             data: JSON.stringify(filtros),

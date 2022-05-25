@@ -1,4 +1,5 @@
-﻿tabla = $('#tCandidatosIndex').DataTable({
+﻿
+tabla = $('#tCandidatosIndex').DataTable({
     columns: [
         { title: "Registro", width: '10%' },
         { title: "Nombre", width: '20%' },
@@ -21,8 +22,7 @@ $(document).ready(function () {
 });
 
 function Actualizar() {
-    urlE = "https://localhost:44351/Administradores";
-    $.getJSON(urlE + '/getTableCandidatos', function (obj) {
+    $.getJSON(urlOficial + 'Administradores/getTableCandidatos', function (obj) {
         console.log(obj);
         Listar(obj);
     });
@@ -71,13 +71,12 @@ function Listar(obj) {
 }
 
 function filtrarCandidatosC() {
-    urlE = "https://localhost:44351/Administradores";
     var val = $("#filtrosCandidatos").val();
     if (val == "Todos") {
         Actualizar()
     }
     else {
-        $.getJSON(urlE + '/FiltrarCandidatos', { Filtro: val }, function (obj) {
+        $.getJSON(urlOficial + 'Administradores/FiltrarCandidatos', { Filtro: val }, function (obj) {
             console.log(obj);
             Listar(obj);
         });
@@ -85,8 +84,7 @@ function filtrarCandidatosC() {
 }
 function verdetallecandidato(id) {
     $("#contenidoDetalle1").html("");
-    urlE = "https://localhost:44351/Administradores";
-    $.getJSON(urlE + '/getCandidato', { Id: id }, function (obj) {
+    $.getJSON(urlOficial + 'Administradores/getCandidato', { Id: id }, function (obj) {
         console.log(obj);
         var agregar = `
              <div class="shadow p-3 mb-5 bg-white rounded">
@@ -138,7 +136,6 @@ function verdetallecandidato(id) {
     });
 }
 function CambioEstado(Select, id) {
-    urlE = "https://localhost:44351/Administradores";
     $.confirm({
         icon: 'fas fa-exclamation-triangle',
         title: 'Modificar Estado',
@@ -154,7 +151,7 @@ function CambioEstado(Select, id) {
                 btnClass: 'btn-orange',
                 action: function () {
                     var val = $(`#cambioestadoC${id}`).val();
-                    $.getJSON(urlE + '/cambioEstado', { Id: id, Estado: val }, function (obj) {
+                    $.getJSON(urlOficial + 'Administradores/cambioEstado', { Id: id, Estado: val }, function (obj) {
                         if (obj.Tipo == 1) {
                             Toast("success", obj.Msj);
                         }

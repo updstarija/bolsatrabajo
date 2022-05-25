@@ -29,17 +29,17 @@
                     <div id="correoCuentaExistente"></div>
                 </div>
             </div>
-        </div>
+        </div> 
         @*<div class="d-flex justify-content-center">
-            <form>
-                <div class="form-group mb-2 d-flex flex-nowrap">
-                    <input type="text" class="form-control" name="buscarPersona" id="buscarPersona" placeholder="Ingrese su CI">
-                    <button type="button" class="btn btnBlueB ml-2" onclick="BuscarPersona()">
-                        <img src="@baseUrl/Content/iconos/person_search.svg" style="width:25px;height:30px;" />
-                    </button>
-                </div>
-            </form>
-        </div>*@
+                <form>
+                    <div class="form-group mb-2 d-flex flex-nowrap">
+                        <input type="text" class="form-control" name="buscarPersona" id="buscarPersona" placeholder="Ingrese su CI">
+                        <button type="button" class="btn btnBlueB ml-2" onclick="BuscarPersona()">
+                            <img src="@baseUrl/Content/iconos/person_search.svg" style="width:25px;height:30px;" />
+                        </button>
+                    </div>
+                </form>
+            </div>*@
     </div>
 
     <div id="Datos_Personales">
@@ -127,10 +127,10 @@
                 <div class="col-12 col-md-3">
                     <label for="imagen">Imagen:</label>
                     <div id="contImg" class="border border-secondary" style="height:168px;"></div>
-                    <img id="foto" class="img-fluid" style="max-height: 168px; min-height: 168px; height: 168px; width:100%" src="" alt="" hidden="hidden">
+                    <img id="foto" class="img-fluid border" style="max-height: 168px; min-height: 168px; height: 168px; width:100%" src="" alt="" hidden="hidden">
                     <div id="div_file_new">
                         <label id="palabras" for="imagen">Seleccionar Imagen</label>
-                        <input type="file" name="imagen" id="imagen" class="form-control-file" onchange="showImg()" required/>
+                        <input type="file" name="imagen" id="imagen" class="form-control-file" onchange="showImg()" required />
                         <div class="invalid-feedback bg-white">¡Campo Vacio!</div>
                     </div>
                 </div>
@@ -143,7 +143,8 @@
                 </div>
                 <div class="col-12 col-md-3">
                     <label for="telefonoCelular">Tel.Celular:</label>
-                    <input type="text" class="form-control" id="telefonoCelular" name="telefonoCelular">
+                    <input type="text" class="form-control" oninput="verificarCelular(0)" id="telefonoCelular" name="telefonoCelular" maxlength="8">
+                    <div id="estadoNumero" style="font-size:13px;" class="text-danger" hidden="hidden">¡Su número de celular debe tener 8 caracteres!</div>
                 </div>
                 <div class="col-12 col-md-3">
                     <label for="telefonoFijo">Tel.Fijo:</label>
@@ -155,8 +156,8 @@
             <div class="form-row">
                 <div class="col-md-6">
                     <label for="email">Email:</label>
-                    <input type="email" class="form-control" id="email" name="email" required>
-                    <div class="invalid-feedback">¡Campo Vacio!</div>
+                    <input type="email" oninput="verificarCorreo(0)" class="form-control" id="email" name="email" required>
+                    <div id="estadoCorreo" style="font-size:13px;" class="text-danger" hidden="hidden">¡Correo no valido!</div><div class="invalid-feedback">¡Campo Vacio!</div>
                 </div>
                 <div class="col-12 col-md-3">
                     <label for="clave">Contraseña:</label>
@@ -169,6 +170,14 @@
                     <div id="clave2" class="invalid-feedback">Las contraseñas no coinciden</div>
                 </div>
             </div>
+            <hr />
+            <div class="form-check">
+                <input class="form-check-input" type="checkbox" value="" id="terminosCondiciones" required>
+                <label class="form-check-label text-dark" for="terminosCondiciones">
+                    He leído y acepto los <a style="text-decoration: underline; cursor: pointer;" class="text-primary" data-toggle="modal" data-target="#modalTerminosCondiciones">Términos y Condiciones de uso</a>
+                </label>
+                <div class="invalid-feedback">¡Debe aceptar los Términos y Condiciones!</div>
+            </div>
             <div class="form-group d-flex justify-content-center py-2 mt-5">
                 <button id="btnRegistrarCandidato" type="submit" class="btn btnBlueR">Registrar</button>
             </div>
@@ -177,3 +186,38 @@
 </div>
 <br />
 <br />
+
+<!-- Modal -->
+<div class="modal fade" id="modalTerminosCondiciones" data-backdrop="static" data-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-scrollable">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="staticBackdropLabel">Términos y Condiciones de Uso</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <h5 class="text-primary text-center" style="text-decoration: underline; font-size:18px;">TÉRMINOS Y CONDICIONES DE USO<br />UPDS TRABAJA</h5>
+                <p class="mt-4"><b>Fecha de publicacion:</b> 14 de mayo del 2022<br /> <b>Fecha de ultima actualizacion:</b> 16 de mayo del 2022</p>
+
+                <p>I. INFORMACION CORPORATIVA</p>
+                <p>
+                    El sitio web https://tarija.upds.edu.bo/UPDSTrabaja es ofrecido por la Univerwsidad Privada Domingo Savio Sede Tarija.
+                    <br />Un texto es una composición de signos codificados en un sistema de escritura que forma una unidad de sentido. También es una composición de caracteres imprimibles generados por un algoritmo de cifrado que, aunque no tienen sentido para cualquier persona.
+                </p>
+
+                <p>II. ACEPTACION</p>
+                <p>Un texto es una composición de signos codificados en un sistema de escritura que forma una unidad de sentido. También es una composición de caracteres imprimibles generados por un algoritmo de cifrado que, aunque no tienen sentido para cualquier persona.</P>
+                <p>Un texto es una composición de signos codificados en un sistema de escritura que forma una unidad de sentido. También es una composición de caracteres imprimibles generados por un algoritmo de cifrado que, aunque no tienen sentido para cualquier persona.</p>
+
+                <p>III. USO DEL SERVICIO</p>
+                <p>Un texto es una composición de signos codificados en un sistema de escritura que forma una unidad de sentido. También es una composición de caracteres imprimibles generados por un algoritmo de cifrado que, aunque no tienen sentido para cualquier persona.</p>
+
+                <p>IV. DATOS, CONTENIDOS, E INFORMACION</p>
+                <p>Un texto es una composición de signos codificados en un sistema de escritura que forma una unidad de sentido. También es una composición de caracteres imprimibles generados por un algoritmo de cifrado que, aunque no tienen sentido para cualquier persona.</p>
+                <p>Un texto es una composición de signos codificados en un sistema de escritura que forma una unidad de sentido. También es una composición de caracteres imprimibles generados por un algoritmo de cifrado que, aunque no tienen sentido para cualquier persona.</p>
+            </div>
+        </div>
+    </div>
+</div>

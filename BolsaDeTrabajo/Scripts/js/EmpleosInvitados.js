@@ -23,8 +23,7 @@ $(document).ready(function () {
 });
 
 function ActualizarLI(id) {
-    urlE = "https://localhost:44351/Invitaciones";
-    $.getJSON(urlE +'/getlistainvitados', { Id: id }, function (obj) {
+    $.getJSON(urlOficial + 'Invitaciones/getlistainvitados', { Id: id }, function (obj) {
         ListarLI(obj);
     });
 }
@@ -71,14 +70,12 @@ function ListarLI(obj) {
     $("#contenidoTInvitados").show();
 }
 function verdetallecurriculum(id) {
-    urlE = "https://localhost:44351/Curriculos";
-    $.getJSON(urlE +'/getDetalleCurriculo', { Id: id }, function (obj) {
+    $.getJSON(urlOficial + 'Curriculos/getDetalleCurriculo', { Id: id }, function (obj) {
         cargarInfoCurriculum(obj);
     });
 }
 function imprimirCurriculum(id) {
-    urlE = "https://localhost:44351/Curriculos";
-    $.getJSON(urlE +'/getDetalleCurriculo', { Id: id }, function (obj) {
+    $.getJSON(urlOficial + 'Curriculos/getDetalleCurriculo', { Id: id }, function (obj) {
         cargarInfoCurriculum(obj);
         Imprimir();
     });
@@ -174,14 +171,13 @@ function cargarInfoCurriculum(obj) {
 }
 
 function FiltrarInvitacion() {
-    urlE = "https://localhost:44351/Invitaciones";
     var estado = $("#filtroinvitacion").val();
     var id = $("#IdEmpleo").val();
     if (estado == "Todos") {
         ActualizarLI(id);
     }
     else {
-        $.getJSON(urlE +'/getByEstado', { Id: id, cadena: estado }, function (data) {
+        $.getJSON(urlOficial + 'Invitaciones/getByEstado', { Id: id, cadena: estado }, function (data) {
             ListarLI(data);
         });
     }

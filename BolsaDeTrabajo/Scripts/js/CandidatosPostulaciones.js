@@ -21,8 +21,7 @@ $(document).ready(function () {
 });
 
 function Actualizar() {
-    urlE = "https://localhost:44351/Candidatos";
-    $.getJSON(urlE + '/getTablePostulaciones', function (obj) {
+    $.getJSON(urlOficial + 'Candidatos/getTablePostulaciones', function (obj) {
         Listar(obj);
     });
     $("#filtrosPostulacionesCandidato").val("Todos");
@@ -68,20 +67,18 @@ function Listar(obj) {
     $("#contenidoTPostulaciones").show();
 }
 function FiltrarPostulaciones() {
-    urlE = "https://localhost:44351/Candidatos";
     var estado = $("#filtrosPostulacionesCandidato").val();
     if (estado == "Todos") {
         Actualizar();
     }
     else {
-        $.getJSON(urlE + '/getTablePostulacionesByEstado', { Estado: estado }, function (data) {
+        $.getJSON(urlOficial + 'Candidatos/getTablePostulacionesByEstado', { Estado: estado }, function (data) {
             Listar(data);
         });
     }
 }
 
 function CancelarPostulacion(IdPostulante) {
-    urlE = "https://localhost:44351/Postulantes";
     $.confirm({
         icon: 'fas fa-exclamation-triangle',
         title: 'Cancelar Postulación',
@@ -100,7 +97,7 @@ function CancelarPostulacion(IdPostulante) {
                     formData.append("Estado", "Cancelado");
                     formData.append("IdPostulante", IdPostulante);
                     $.ajax({
-                        url: urlE + '/ActualizarEstado',
+                        url: urlOficial + 'Postulantes/ActualizarEstado',
                         type: 'POST',
                         data: formData,
                         dataType: 'json',

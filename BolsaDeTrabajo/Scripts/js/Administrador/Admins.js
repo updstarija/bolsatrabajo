@@ -1,4 +1,18 @@
-﻿tabla = $('#tAdministradores').DataTable({
+﻿/*validaciones de entrada*/
+$(function () {
+    $('#Nombre').validacion(' abcdefghijklmnñopqrstuvwxyzáéíóú');
+    $('#Apellido').validacion(' abcdefghijklmnñopqrstuvwxyzáéíóú');
+    $('#NroDocumento').validacion(' abcdefghijklmnñopqrstuvwxyz-0123456789');
+    $('#Descripcion').validacion(' abcdefghijklmnñopqrstuvwxyzáéíóú0123456789.:;()""');
+    $('#Pais').validacion(' abcdefghijklmnñopqrstuvwxyzáéíóú');
+    $('#EstadoRegion').validacion(' abcdefghijklmnñopqrstuvwxyzáéíóú');
+    $('#Ciudad').validacion(' abcdefghijklmnñopqrstuvwxyzáéíóú()');
+    $('#TelefonoCelular').validacion('0123456789');
+    $('#Direccion').validacion(' abcdefghijklmnñopqrstuvwxyzáéíóú()/.0123456789');
+    $('#Correo').validacion('abcdefghijklmnñopqrstuvwxyzáéíóú0123456789@.');
+});
+
+tabla = $('#tAdministradores').DataTable({
     columns: [
         { title: "Registro", width: '10%' },
         { title: "Nombre", width: '20%' },
@@ -22,8 +36,7 @@ $(document).ready(function () {
 });
 
 function Actualizar() {
-    urlE = "https://localhost:44351/Administradores";
-    $.getJSON(urlE + '/getTableAdmins', function (obj) {
+    $.getJSON(urlOficial + 'Administradores/getTableAdmins', function (obj) {
         Listar(obj);
     });
     $("#estadoAdministrador").val("Todos");
@@ -74,20 +87,18 @@ function Listar(obj) {
     $("#contenidoTAdministradores").show();
 }
 function FiltrarUsuarios() {
-    urlE = "https://localhost:44351/Administradores";
     var estado = $("#estadoAdministrador").val();
     if (estado == "Todos") {
         Actualizar();
     }
     else {
-        $.getJSON(urlE + '/getTableAdminsByEstado', { Estado: estado }, function (data) {
+        $.getJSON(urlOficial + 'Administradores/getTableAdminsByEstado', { Estado: estado }, function (data) {
             Listar(data);
         });
     }
 }
 
 function ActualizarEstado(Select, IdAdministrador) {
-    urlE = "https://localhost:44351/Administradores";
     $.confirm({
         icon: 'fas fa-exclamation-triangle',
         title: 'Modificar Estado',
@@ -107,7 +118,7 @@ function ActualizarEstado(Select, IdAdministrador) {
                     formData.append("Estado", $("#" + idSelect).val());
                     formData.append("IdAdministrador", IdAdministrador);
                     $.ajax({
-                        url: urlE + '/EditarEstadoAdmin',
+                        url: urlOficial + 'Administradores/EditarEstadoAdmin',
                         type: 'POST',
                         data: formData,
                         dataType: 'json',
@@ -139,6 +150,11 @@ var validarKey = true;
 var validarClaves = false;
 
 function Limpiar() {
+    $("#estadoCorreo").attr("hidden", "hidden");
+    $("#Correo").removeClass("border border-danger");
+    $("#estadoNumero").attr("hidden", "hidden");
+    $("#telefonoCelular").removeClass("border border-danger");
+    $("#btnGuardarAdmin").prop("disabled", false);
     $("#foto").attr("hidden", "hidden");
     $("#contImg").removeAttr("hidden", "hidden");
     $("#ModalRegistrarAdministrador").modal('show');
@@ -225,39 +241,75 @@ function VerificarFormulario() {
     return validacion;
 }
 
+function verificarCorreo(valor) {
+    console.log(valor);
+    var correo = $("#Correo").val();
+    var expreRegular = /^(([^<>()\[\]\\.,;:\s@”]+(\.[^<>()\[\]\\.,;:\s@”]+)*)|(“.+”))@((\[[0–9]{1,3}\.[0–9]{1,3}\.[0–9]{1,3}\.[0–9]{1,3}])|(([a-zA-Z\-0–9]+\.)+[a-zA-Z]{2,}))$/;
+    var esValido = expreRegular.test(correo);
+    if (esValido == false && correo.length > 0) {
+        $("#estadoCorreo").removeAttr("hidden", "hidden");
+        $("#Correo").addClass("border border-danger");
+        if (valor == 1) {
+            Toast("error", "su correo no es valido");
+        }
+    } else {
+        $("#estadoCorreo").attr("hidden", "hidden");
+        $("#Correo").removeClass("border border-danger");
+    }
+    return esValido;
+}
+
+function verificarCelular(valor) {
+    var celu = $("#TelefonoCelular").val();
+    if (celu.length > 0 && celu.length < 8) {
+        $("#estadoNumero").removeAttr("hidden", "hidden");
+        $("#telefonoCelular").addClass("border border-danger");
+        if (valor == 1) {
+            Toast("error", "Su número de celular no es valido");
+        }
+        return false;
+    } else {
+        $("#estadoNumero").attr("hidden", "hidden");
+        $("#telefonoCelular").removeClass("border border-danger");
+        return true;
+    }
+}
+
 $("#FormAdministrador").on('submit', function (e) {
-    urlE = "https://localhost:44351/Administradores";
     e.preventDefault();
     if (VerificarFormulario() == true && verificarClave() == true) {
-        $.ajax({
-            url: urlE + '/GuardarAdmin',
-            type: 'POST',
-            data: new FormData(this),
-            dataType: 'json',
-            contentType: false,
-            processData: false,
-            success: function (data) {
-                if (data.Tipo == 1) {
-                    Toast("success", data.Msj);
-                    $("#ModalRegistrarAdministrador").modal('hide');
-                    Actualizar();
+        if (verificarCorreo(1) == true && verificarCelular(1) == true) {
+            $.ajax({
+                url: urlOficial + 'Administradores/GuardarAdmin',
+                type: 'POST',
+                data: new FormData(this),
+                dataType: 'json',
+                contentType: false,
+                processData: false,
+                success: function (data) {
+                    if (data.Tipo == 1) {
+                        $("#btnGuardarAdmin").prop("disabled", true);
+                        Toast("success", data.Msj);
+                        $("#ModalRegistrarAdministrador").modal('hide');
+                        Actualizar();
+                    }
+                    else if (data.Tipo == 4) {
+                        $("#btnGuardarAdmin").prop("disabled", true);
+                        Toast("success", data.Msj);
+                        $("#ModalRegistrarAdministrador").modal('hide');
+                        setTimeout(function () {
+                            window.location.href = urlOficial + 'Login/Logout';
+                        }, 3000);
+                    }
+                    else if (data.Tipo == 5) {
+                        Toast("error", data.Msj);
+                    }
+                    else {
+                        Toast("error", data.Msj);
+                    }
                 }
-                else if (data.Tipo == 4) {
-                    Toast("success", data.Msj);
-                    $("#ModalRegistrarAdministrador").modal('hide');
-                    setTimeout(function () {
-                        urla = "https://localhost:44351/Login";
-                        window.location.href = urla + '/Logout';
-                    }, 3000);
-                }
-                else if (data.Tipo == 5) {
-                    Toast("error", data.Msj);
-                }
-                else {
-                    Toast("error", data.Msj);
-                }
-            }
-        });
+            });
+        }
     }
     else {
         Toast("error", "¡Debe llenar los siguientes campos!");
@@ -265,10 +317,14 @@ $("#FormAdministrador").on('submit', function (e) {
 });
 
 function CargarDatosAdministrador(IdAdministrador) {
-    urlE = "https://localhost:44351/Administradores";
+    $("#estadoCorreo").attr("hidden", "hidden");
+    $("#Correo").removeClass("border border-danger");
+    $("#estadoNumero").attr("hidden", "hidden");
+    $("#telefonoCelular").removeClass("border border-danger");
+    $("#btnGuardarAdmin").prop("disabled", false);
     $("#contImg").attr("hidden", "hidden");
     $("#foto").removeAttr("hidden", "hidden");
-    $.getJSON(urlE + '/getAdmin', { Id: IdAdministrador }, function (obj) {
+    $.getJSON(urlOficial + 'Administradores/getAdmin', { Id: IdAdministrador }, function (obj) {
 
         $('#FormAdministrador').trigger("reset");
         $("#FormAdministrador").removeClass('was-validated');
@@ -404,8 +460,7 @@ function cargarInfoAdmin(obj) {
 }
 
 function VerAdministrador(IdEmpresa) {
-    urlE = "https://localhost:44351/Administradores";
-    $.getJSON(urlE + '/getAdmin', { Id: IdEmpresa }, function (obj) {
+    $.getJSON(urlOficial + 'Administradores/getAdmin', { Id: IdEmpresa }, function (obj) {
         cargarInfoAdmin(obj);
         $("#ModalAdministrador").modal("show");
     });

@@ -71,12 +71,14 @@
                     <div class="form-row">
                         <div class="col-12 col-md-4">
                             <label for="sitio_web_empresa">Sitio Web:</label>
-                            <input type="text" class="form-control" id="sitio_web_empresa" name="sitio_web_empresa">
+                            <input type="text" class="form-control" oninput="verificarURL(0)" id="sitio_web_empresa" name="sitio_web_empresa">
+                            <div style="font-size:13px;" class="text-danger" id="estadoUrl" hidden="hidden">¡Sitio web no valido!</div>
                             <div class="invalid-feedback">¡Campo Vacio!</div>
                         </div>
                         <div class="col-12 col-md-4">
                             <label for="telefonoCelular">Tel.Celular:</label>
-                            <input type="text" class="form-control" id="telefonoCelular" name="telefonoCelular">
+                            <input type="text" class="form-control" oninput="verificarCelular(0)" id="telefonoCelular" name="telefonoCelular" minlength="8" maxlength="8">
+                            <div id="estadoNumero" style="font-size:13px;" class="text-danger" hidden="hidden">¡Su número de celular debe tener 8 caracteres!</div>
                         </div>
                         <div class="col-12 col-md-4">
                             <label for="telefonoFijo">Tel.Fijo:</label>
@@ -113,11 +115,11 @@
                         </div>
                         <div class="col-12 col-md-4">
                             <label>Imagen:</label>
-                            <img id="foto" class="img-fluid" style="max-height: 168px; min-height: 168px; height: 168px; width:100%" src="" alt="">
+                            <img id="foto" class="img-fluid border" style="max-height: 168px; min-height: 168px; height: 168px; width:100%" src="" alt="">
                             <div id="div_file_new">
                                 <label id="palabras" for="imagen">Seleccionar Imagen</label>
                                 <input type="file" name="imagen" id="imagen" class="form-control-file" onchange="showImg()" />
-                                <div class="invalid-feedback">¡Campo Vacio!</div>
+                                <div class="invalid-feedback bg-white">¡Campo Vacio!</div>
                             </div>
                         </div>
                         <div class="col-12 col-md-12">
@@ -131,7 +133,8 @@
                     <div class="form-row">
                         <div class="col-12 col-sm-12">
                             <label for="correo_empresa">Correo:</label>
-                            <input type="email" class="form-control" id="correo_empresa" name="correo_empresa" required>
+                            <input type="email" class="form-control" oninput="verificarCorreo(0)" id="correo_empresa" name="correo_empresa" required>
+                            <div id="estadoCorreo" style="font-size:13px;" class="text-danger" hidden="hidden">¡Correo no valido!</div>
                             <div class="invalid-feedback">¡Campo Vacio!</div>
                         </div>
                         <div class="col-12 col-sm-6">

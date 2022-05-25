@@ -13,8 +13,7 @@ function ContarCaracteres(str, maxCaracteres, e) {
 }
 
 function CargarDatos() {
-    urlE = "https://localhost:44351/Candidatos";
-    $.getJSON(urlE + '/getCandidato', { Id: $("#idCandidato").val() }, function (data) {
+    $.getJSON(urlOficial + 'Candidatos/getCandidato', { Id: $("#idCandidato").val() }, function (data) {
         var obj = data;
         if (obj != null) {
             $("#tipoDocumento").val(obj.TipoDeDocumento);
@@ -77,6 +76,39 @@ document.getElementById("imagen").onchange = function (e) {
     }
 };
 
+function verificarCorreo(valor) {
+    var correo = $("#email").val();
+    var expreRegular = /^(([^<>()\[\]\\.,;:\s@”]+(\.[^<>()\[\]\\.,;:\s@”]+)*)|(“.+”))@((\[[0–9]{1,3}\.[0–9]{1,3}\.[0–9]{1,3}\.[0–9]{1,3}])|(([a-zA-Z\-0–9]+\.)+[a-zA-Z]{2,}))$/;
+    var esValido = expreRegular.test(correo);
+    if (esValido == false && correo.length > 0) {
+        $("#estadoCorreo").removeAttr("hidden", "hidden");
+        $("#email").addClass("border border-danger");
+        if (valor == 1) {
+            Toast("error", "su correo no es valido");
+        }
+    } else {
+        $("#estadoCorreo").attr("hidden", "hidden");
+        $("#email").removeClass("border border-danger");
+    }
+    return esValido;
+}
+
+function verificarCelular(valor) {
+    var celu = $("#telefonoCelular").val();
+    if (celu.length > 0 && celu.length < 8) {
+        $("#estadoNumero").removeAttr("hidden", "hidden");
+        $("#telefonoCelular").addClass("border border-danger");
+        if (valor == 1) {
+            Toast("error", "Su número de celular no es valido");
+        }
+        return false;
+    } else {
+        $("#estadoNumero").attr("hidden", "hidden");
+        $("#telefonoCelular").removeClass("border border-danger");
+        return true;
+    }
+}
+
 function verificarClave() {
     if ($("#clave").val() == $("#confirmClave").val()) {
         return true;
@@ -97,45 +129,43 @@ function VerificarFormulario() {
 }
 
 $("#formCandidato").on('submit', function (e) {
-    console.log("formCandidato");
-    urlE = "https://localhost:44351/Candidatos";
     e.preventDefault();
     validarKey = VerificarFormulario();
     if (validarClaves == true) {
         validarKey = verificarClave();
     }
     if (validarKey == true) {
-        $.ajax({
-            url: urlE + '/Guardar',
-            type: 'POST',
-            data: new FormData(this),
-            dataType: 'json',
-            contentType: false,
-            processData: false,
-            success: function (data) {
-                if (data.Tipo == 1) {
-                    Toast("success", data.Msj);
-                    setTimeout(function () {
-                        $("#ModalActualizarCandidato").modal('hide');
-                        urla = "https://localhost:44351/Candidatos";
-                        window.location.href = urla + '/Editar';
-                    }, 3000);
+        if (verificarCelular(1) == true && verificarCorreo(1) == true) {
+            $.ajax({
+                url: urlOficial + 'Candidatos/Guardar',
+                type: 'POST',
+                data: new FormData(this),
+                dataType: 'json',
+                contentType: false,
+                processData: false,
+                success: function (data) {
+                    if (data.Tipo == 1) {
+                        Toast("success", data.Msj);
+                        setTimeout(function () {
+                            $("#ModalActualizarCandidato").modal('hide');
+                            window.location.href = urlOficial + 'Candidatos/Editar';
+                        }, 2000);
+                    }
+                    else if (data.Tipo == 4) {
+                        Toast("success", data.Msj);
+                        setTimeout(function () {
+                            window.location.href = urlOficial + 'Login/Logout';
+                        }, 3000);
+                    }
+                    else if (data.Tipo == 5) {
+                        Toast("error", data.Msj);
+                    }
+                    else {
+                        Toast("error", data.Msj);
+                    }
                 }
-                else if (data.Tipo == 4) {
-                    Toast("success", data.Msj);
-                    setTimeout(function () {
-                        urla = "https://localhost:44351/Login";
-                        window.location.href = urla + '/Logout';
-                    }, 3000);
-                }
-                else if (data.Tipo == 5) {
-                    Toast("error", data.Msj);
-                }
-                else {
-                    Toast("error", data.Msj);
-                }
-            }
-        });
+            });
+        }
     }
     else {
         $('#clave2').removeClass('d-none');

@@ -229,11 +229,11 @@ namespace BolsaDeTrabajo.Controllers
                 obj.atrib3 = item.Nombre + " " + item.Apellido;
                 obj.atrib4 = item.NroDocumento;
                 obj.atrib5 = item.FechaNacimiento.ToString("dd/MM/yyyy");
-                obj.atrib6 = item.Sexo == "MASCULINO" ? "<i class='fas fa-male ico-blue'></i>" : "<i class='fas fa-female ico-red'></i>";
+                obj.atrib6 = item.Sexo == "Masculino" ? "<i class='fas fa-male ico-blue tooltip-test w-100 text-center' title='MASCULINO'></i>" : "<i class='fas fa-female ico-red tooltip-test w-100 text-center' title='FEMENINO'></i>";
                 obj.atrib7 = item.Perfil.Usuario.Correo;
                 string activ = item.Perfil.Estado == "Activo" ? "selected" : "";
                 string inactiv = item.Perfil.Estado == "Inactivo" ? "selected" : "";
-                obj.atrib8 = @"<select class='w-auto style-select' id='Administrador" + item.Id + @"' name='Administrador[]' onchange='ActualizarEstado(this," + item.Id + @")'> 
+                obj.atrib8 = @"<select class='custom-select' id='Administrador" + item.Id + @"' name='Administrador[]' onchange='ActualizarEstado(this," + item.Id + @")'> 
                                 <option " + activ + @" value='Activo'>Activo</option>
                                 <option " + inactiv + @" value='Inactivo'>Inactivo</option>
                             </select>";
@@ -338,7 +338,7 @@ namespace BolsaDeTrabajo.Controllers
                 string activ = item.Perfil.Estado == "Activo" ? "selected" : "";
                 string desaprob = item.Perfil.Estado == "Desaprobado" ? "selected" : "";
                 obj.atrib8 = @"
-                            <select class='w-auto style-select' id='Empresa" + item.Id + @"' name='Empresa[]' onchange='ActualizarEstado(this," + item.Id + @")'> 
+                            <select class='custom-select' id='Empresa" + item.Id + @"' name='Empresa[]' onchange='ActualizarEstado(this," + item.Id + @")'> 
                                 <option " + activ + @" value='Activo'>Activo</option>
                                 <option " + desaprob + @" value='Desaprobado'>Desaprobado</option>
                             </select>
@@ -477,7 +477,7 @@ namespace BolsaDeTrabajo.Controllers
                 string inactiv = item.Estado == "Inactivo" ? "selected" : "";
                 string vencid = item.Estado == "Vencido" ? "selected" : "";
                 obj.atrib9 += @"
-                            <select class='w-auto style-select' id='Empleo" + item.Id + @"' name='Empleo[]' onchange='ActualizarEstadoEmpleo(this," + item.Id + @")'> 
+                            <select class='custom-select' id='Empleo" + item.Id + @"' name='Empleo[]' onchange='ActualizarEstadoEmpleo(this," + item.Id + @")'> 
                                 <option " + activ + @" value='Activo'>Activo</option>
                                 <option " + inactiv + @" value='Inactivo'>Inactivo</option>
                                 <option disabled " + vencid + @" value='Vencido'>Vencidos</option>
@@ -557,7 +557,7 @@ namespace BolsaDeTrabajo.Controllers
                 obj.atrib2 = item.FechaRegistro.ToString("dd/MM/yyyy");
                 obj.atrib3 = item.Curriculum.Candidato.Nombre + ' ' + item.Curriculum.Candidato.Apellido;
                 obj.atrib4 = item.Curriculum.Candidato.Nacionalidad;
-                obj.atrib5 = item.Curriculum.Candidato.Sexo;
+                obj.atrib5 = item.Curriculum.Candidato.Sexo == "Masculino" ? "<i class='fas fa-male ico-blue tooltip-test w-100 text-center' title='MASCULINO'></i>" : "<i class='fas fa-female ico-red tooltip-test w-100 text-center' title='FEMENINO'></i>";
                 obj.atrib6 = item.Estado;
                 obj.atrib7 = "<div class='d-flex flex-nowrap'><button  type='button'class='btn btn-sm btn-link' data-toggle='modal' data-target='#ModalPostulante' onclick='VerPostulante(" + item.Id + ")'><i class='fas fa-eye ico-blue ico-animation fa-lg'></i></button> <button type='button' class='btn btn-sm btn-link' onclick='VerCurriculum(" + item.Id + ")'><i class='fas fa-print ico-gray ico-animation fa-lg'></i></i></button></div>";
                 tabla.Add(obj);
@@ -581,7 +581,7 @@ namespace BolsaDeTrabajo.Controllers
                 obj.atrib2 = item.FechaRegistro.ToString("dd/MM/yyyy");
                 obj.atrib3 = item.Curriculum.Candidato.Nombre + ' ' + item.Curriculum.Candidato.Apellido;
                 obj.atrib4 = item.Curriculum.Candidato.Nacionalidad;
-                obj.atrib5 = item.Curriculum.Candidato.Sexo;
+                obj.atrib5 = item.Curriculum.Candidato.Sexo == "Masculino" ? "<i class='fas fa-male ico-blue tooltip-test w-100 text-center' title='MASCULINO'></i>" : "<i class='fas fa-female ico-red tooltip-test w-100 text-center' title='FEMENINO'></i>";
                 obj.atrib6 = item.Estado;
                 obj.atrib7 = "<div class='d-flex flex-nowrap'><button  type='button'class='btn btn-sm btn-link' data-toggle='modal' data-target='#ModalPostulante' onclick='VerPostulante(" + item.Id + ")'><i class='fas fa-eye ico-blue ico-animation fa-lg'></i></button> <button type='button' class='btn btn-sm btn-link' onclick='VerCurriculum(" + item.Id + ")'><i class='fas fa-print ico-gray ico-animation fa-lg'></i></i></button></div>";
                 tabla.Add(obj);
@@ -824,11 +824,11 @@ namespace BolsaDeTrabajo.Controllers
                 obj.atrib6 = "<div class='ml-3' style='width:100%;margin:0;'><button type='button' class='btn  ml-3' data-toggle='modal' data-target='#ModalCurriculum' title='Curriculums'   onclick='verdetallecurriculums(" + item.Id + ")'><i class='fas fa-eye ico-blue ico-animation fa-lg'></i></button><a href = '" + baseUrl + "Administradores/PostulacionesIndex?Id=" + item.Id + "' class='tooltip-test' title='Postulaciones'><i class='fas ico-animation ico-blue fa-users'></i></a><button type='button' class='btn ml-3' title='Imprimir'   onclick='imprimirCurriculum(" + item.Id + ")'><i class='fas fa-print ico-gray ico-animation fa-lg'></i></button></div>";
                 if (item.Estado == "Activo")
                 {
-                    obj.atrib7 = "<div class='d-flex flex-nowrap'><select id='cambioCurriculums" + item.Id + "' onchange='CambioEstadoCurriculumCandidato(this," + item.Id + ")' class='form-select form-select-lg mb-3' aria-label='.form-select-lg example'><option value = " + item.Estado + "> " + item.Estado + " </option><option value = 'Inactivo'> Inactivo </option></select></div>";
+                    obj.atrib7 = "<div class='d-flex flex-nowrap'><select id='cambioCurriculums" + item.Id + "' onchange='CambioEstadoCurriculumCandidato(this," + item.Id + ")' class='custom-select' aria-label='.form-select-lg example'><option value = " + item.Estado + "> " + item.Estado + " </option><option value = 'Inactivo'> Inactivo </option></select></div>";
                 }
                 else
                 {
-                    obj.atrib7 = "<div class='d-flex flex-nowrap'><select id='cambioCurriculums" + item.Id + "'' onchange='CambioEstadoCurriculumCandidato(this," + item.Id + ")' class='form-select form-select-lg mb-3' aria-label='.form-select-lg example'><option value = " + item.Estado + "> " + item.Estado + " </option><option value = 'Activo'> Activo </option></select></div>";
+                    obj.atrib7 = "<div class='d-flex flex-nowrap'><select id='cambioCurriculums" + item.Id + "'' onchange='CambioEstadoCurriculumCandidato(this," + item.Id + ")' class='custom-select' aria-label='.form-select-lg example'><option value = " + item.Estado + "> " + item.Estado + " </option><option value = 'Activo'> Activo </option></select></div>";
                 }
                 tabla.Add(obj);
             }
@@ -890,117 +890,169 @@ namespace BolsaDeTrabajo.Controllers
 
         }
 
-        public JsonResult DashboardEmpresa()
+        public ActionResult StatisticsEmpresas()
         {
-            SqlConnection con = new SqlConnection("Data Source=10.77.48.5;Initial Catalog=UPDS_BolsaDeTrabajo;User ID=sa;Password=Control123+;");
-            SqlCommand cmd = new SqlCommand();
-            cmd.CommandText = "select COUNT(Estado) from Perfil where Perfil.Estado='activo' and  Perfil.Tipo='empresa';";
-            cmd.CommandType = CommandType.Text;
-            cmd.Connection= con;
-            con.Open();
-            SqlConnection co = new SqlConnection("Data Source=10.77.48.5;Initial Catalog=UPDS_BolsaDeTrabajo;User ID=sa;Password=Control123+;");
-            SqlCommand cm = new SqlCommand();
-            cm.CommandText = "select COUNT(Estado) from Perfil where Perfil.Estado='desaprobado' and  Perfil.Tipo='empresa';";
-            cm.CommandType = CommandType.Text;
-            cm.Connection = co;
-            co.Open();
-
-            DataTable a=new DataTable();
-            a.Load(cmd.ExecuteReader());
-            con.Close();
-            DataTable b = new DataTable();
-            b.Load(cm.ExecuteReader());
-            co.Close();
-            object[] data = new object[2];
-            foreach (DataRow dr in a.Rows)
+            int activa = db.Empresa.Count(x => x.Perfil.Tipo == "EMPRESA" && x.Perfil.Estado == "Activo");
+            int desaprobada = db.Empresa.Count(x => x.Perfil.Tipo == "EMPRESA" && x.Perfil.Estado == "Desaprobado");
+            var o = new
             {
-                data[0]=new object[] { "Activos", dr[0] };
-            }
-            foreach (DataRow r in b.Rows)
-            {
-                data[1] = new object[] { "Inactivos", r[0] };
-            }
-            return Json(data, JsonRequestBehavior.AllowGet);
+                activa,
+                desaprobada
+            };
+            return Json(o, JsonRequestBehavior.AllowGet);
         }
 
-        public JsonResult DashboardAdmin()
+        public ActionResult StatisticsCandidatos()
         {
-            SqlConnection con = new SqlConnection("Data Source=10.77.48.5;Initial Catalog=UPDS_BolsaDeTrabajo;User ID=sa; Password=Control123+;");
-            SqlCommand cmd = new SqlCommand();
-            cmd.CommandText = "select COUNT(Estado) from Perfil where Perfil.Estado='activo' and  Perfil.Tipo='administrador';";
-            cmd.CommandType = CommandType.Text;
-            cmd.Connection = con;
-            con.Open();
-            SqlConnection co = new SqlConnection("Data Source=10.77.48.5;Initial Catalog=UPDS_BolsaDeTrabajo;User ID=sa; Password=Control123+;");
-            SqlCommand cm = new SqlCommand();
-            cm.CommandText = "select COUNT(Estado) from Perfil where Perfil.Estado='inactivo' and  Perfil.Tipo='administrador';";
-            cm.CommandType = CommandType.Text;
-            cm.Connection = co;
-            co.Open();
-
-            DataTable a = new DataTable();
-            a.Load(cmd.ExecuteReader());
-            con.Close();
-            DataTable b = new DataTable();
-            b.Load(cm.ExecuteReader());
-            co.Close();
-            object[] data = new object[2];
-            foreach (DataRow dr in a.Rows)
+            int activo = db.Candidato.Count(x => x.Perfil.Tipo == "CANDIDATO" && x.Perfil.Estado == "Activo");
+            int inicativo = db.Candidato.Count(x => x.Perfil.Tipo == "CANDIDATO" && x.Perfil.Estado == "Inactivo");
+            var o = new
             {
-                data[0] = new object[] { "Activos", dr[0] };
-            }
-            foreach (DataRow r in b.Rows)
-            {
-                data[1] = new object[] { "Inactivos", r[0] };
-            }
-            return Json(data, JsonRequestBehavior.AllowGet);
+                activo,
+                inicativo
+            };
+            return Json(o, JsonRequestBehavior.AllowGet);
         }
 
-        public JsonResult DashboardCand()
+        public ActionResult StatisticsAdministradores()
         {
-            SqlConnection con = new SqlConnection("Data Source=10.77.48.5;Initial Catalog=UPDS_BolsaDeTrabajo;User ID=sa; Password=Control123+;");
-            SqlCommand cmd = new SqlCommand();
-            cmd.CommandText = "select COUNT(Tipo) from Perfil where Perfil.Tipo='administrador';";
-            cmd.CommandType = CommandType.Text;
-            cmd.Connection = con;
-            con.Open();
-            SqlConnection co = new SqlConnection("Data Source=10.77.48.5;Initial Catalog=UPDS_BolsaDeTrabajo;User ID=sa; Password=Control123+;");
-            SqlCommand cm = new SqlCommand();
-            cm.CommandText = "select COUNT(Tipo) from Perfil where Perfil.Tipo='empresa';";
-            cm.CommandType = CommandType.Text;
-            cm.Connection = co;
-            co.Open();
-            SqlConnection c = new SqlConnection("Data Source=10.77.48.5;Initial Catalog=UPDS_BolsaDeTrabajo;User ID=sa; Password=Control123+;");
-            SqlCommand ce = new SqlCommand();
-            ce.CommandText = "select COUNT(Tipo) from Perfil where Perfil.Tipo='candidato';";
-            ce.CommandType = CommandType.Text;
-            ce.Connection = c;
-            c.Open();
-
-            DataTable a = new DataTable();
-            a.Load(cmd.ExecuteReader());
-            con.Close();
-            DataTable b = new DataTable();
-            b.Load(cm.ExecuteReader());
-            co.Close();
-            DataTable d = new DataTable();
-            d.Load(ce.ExecuteReader());
-            c.Close();
-            object[] data = new object[3];
-            foreach (DataRow dr in a.Rows)
+            int activo = db.Administrador.Count(x => x.Perfil.Tipo == "ADMINISTRADOR" && x.Perfil.Estado == "Activo");
+            int inicativo = db.Administrador.Count(x => x.Perfil.Tipo == "ADMINISTRADOR" && x.Perfil.Estado == "Inactivo");
+            var o = new
             {
-                data[0] = new object[] { "Administrador", dr[0] };
-            }
-            foreach (DataRow r in b.Rows)
-            {
-                data[1] = new object[] { "Empresas", r[0] };
-            }
-            foreach (DataRow re in d.Rows)
-            {
-                data[2] = new object[] { "Candidatos", re[0] };
-            }
-            return Json(data, JsonRequestBehavior.AllowGet);
+                activo,
+                inicativo
+            };
+            return Json(o, JsonRequestBehavior.AllowGet);
         }
+
+        public ActionResult StatisticsTotal()
+        {
+            int empresas = db.Empresa.Count(x => x.Perfil.Tipo == "EMPRESA");
+            int candidatos = db.Candidato.Count(x => x.Perfil.Tipo == "CANDIDATO");
+            int administradores = db.Administrador.Count(x => x.Perfil.Tipo == "ADMINISTRADOR");
+            int total = empresas + candidatos + administradores;
+            var o = new
+            {
+                empresas,
+                candidatos,
+                administradores,
+                total
+            };
+            return Json(o, JsonRequestBehavior.AllowGet);
+        }
+
+        //public JsonResult DashboardEmpresa()
+        //{
+        //    SqlConnection con = new SqlConnection("Data Source=10.77.48.5;Initial Catalog=UPDS_BolsaDeTrabajo;User ID=sa;Password=Control123+;");
+        //    SqlCommand cmd = new SqlCommand();
+        //    cmd.CommandText = "select COUNT(Estado) from Perfil where Perfil.Estado='activo' and  Perfil.Tipo='empresa';";
+        //    cmd.CommandType = CommandType.Text;
+        //    cmd.Connection= con;
+        //    con.Open();
+        //    SqlConnection co = new SqlConnection("Data Source=10.77.48.5;Initial Catalog=UPDS_BolsaDeTrabajo;User ID=sa;Password=Control123+;");
+        //    SqlCommand cm = new SqlCommand();
+        //    cm.CommandText = "select COUNT(Estado) from Perfil where Perfil.Estado='desaprobado' and  Perfil.Tipo='empresa';";
+        //    cm.CommandType = CommandType.Text;
+        //    cm.Connection = co;
+        //    co.Open();
+
+        //    DataTable a=new DataTable();
+        //    a.Load(cmd.ExecuteReader());
+        //    con.Close();
+        //    DataTable b = new DataTable();
+        //    b.Load(cm.ExecuteReader());
+        //    co.Close();
+        //    object[] data = new object[2];
+        //    foreach (DataRow dr in a.Rows)
+        //    {
+        //        data[0]=new object[] { "Activos", dr[0] };
+        //    }
+        //    foreach (DataRow r in b.Rows)
+        //    {
+        //        data[1] = new object[] { "Inactivos", r[0] };
+        //    }
+        //    return Json(data, JsonRequestBehavior.AllowGet);
+        //}
+
+        //public JsonResult DashboardAdmin()
+        //{
+        //    SqlConnection con = new SqlConnection("Data Source=10.77.48.5;Initial Catalog=UPDS_BolsaDeTrabajo;User ID=sa; Password=Control123+;");
+        //    SqlCommand cmd = new SqlCommand();
+        //    cmd.CommandText = "select COUNT(Estado) from Perfil where Perfil.Estado='activo' and  Perfil.Tipo='administrador';";
+        //    cmd.CommandType = CommandType.Text;
+        //    cmd.Connection = con;
+        //    con.Open();
+        //    SqlConnection co = new SqlConnection("Data Source=10.77.48.5;Initial Catalog=UPDS_BolsaDeTrabajo;User ID=sa; Password=Control123+;");
+        //    SqlCommand cm = new SqlCommand();
+        //    cm.CommandText = "select COUNT(Estado) from Perfil where Perfil.Estado='inactivo' and  Perfil.Tipo='administrador';";
+        //    cm.CommandType = CommandType.Text;
+        //    cm.Connection = co;
+        //    co.Open();
+
+        //    DataTable a = new DataTable();
+        //    a.Load(cmd.ExecuteReader());
+        //    con.Close();
+        //    DataTable b = new DataTable();
+        //    b.Load(cm.ExecuteReader());
+        //    co.Close();
+        //    object[] data = new object[2];
+        //    foreach (DataRow dr in a.Rows)
+        //    {
+        //        data[0] = new object[] { "Activos", dr[0] };
+        //    }
+        //    foreach (DataRow r in b.Rows)
+        //    {
+        //        data[1] = new object[] { "Inactivos", r[0] };
+        //    }
+        //    return Json(data, JsonRequestBehavior.AllowGet);
+        //}
+
+        //public JsonResult DashboardCand()
+        //{
+        //    SqlConnection con = new SqlConnection("Data Source=10.77.48.5;Initial Catalog=UPDS_BolsaDeTrabajo;User ID=sa; Password=Control123+;");
+        //    SqlCommand cmd = new SqlCommand();
+        //    cmd.CommandText = "select COUNT(Tipo) from Perfil where Perfil.Tipo='administrador';";
+        //    cmd.CommandType = CommandType.Text;
+        //    cmd.Connection = con;
+        //    con.Open();
+        //    SqlConnection co = new SqlConnection("Data Source=10.77.48.5;Initial Catalog=UPDS_BolsaDeTrabajo;User ID=sa; Password=Control123+;");
+        //    SqlCommand cm = new SqlCommand();
+        //    cm.CommandText = "select COUNT(Tipo) from Perfil where Perfil.Tipo='empresa';";
+        //    cm.CommandType = CommandType.Text;
+        //    cm.Connection = co;
+        //    co.Open();
+        //    SqlConnection c = new SqlConnection("Data Source=10.77.48.5;Initial Catalog=UPDS_BolsaDeTrabajo;User ID=sa; Password=Control123+;");
+        //    SqlCommand ce = new SqlCommand();
+        //    ce.CommandText = "select COUNT(Tipo) from Perfil where Perfil.Tipo='candidato';";
+        //    ce.CommandType = CommandType.Text;
+        //    ce.Connection = c;
+        //    c.Open();
+
+        //    DataTable a = new DataTable();
+        //    a.Load(cmd.ExecuteReader());
+        //    con.Close();
+        //    DataTable b = new DataTable();
+        //    b.Load(cm.ExecuteReader());
+        //    co.Close();
+        //    DataTable d = new DataTable();
+        //    d.Load(ce.ExecuteReader());
+        //    c.Close();
+        //    object[] data = new object[3];
+        //    foreach (DataRow dr in a.Rows)
+        //    {
+        //        data[0] = new object[] { "Administrador", dr[0] };
+        //    }
+        //    foreach (DataRow r in b.Rows)
+        //    {
+        //        data[1] = new object[] { "Empresas", r[0] };
+        //    }
+        //    foreach (DataRow re in d.Rows)
+        //    {
+        //        data[2] = new object[] { "Candidatos", re[0] };
+        //    }
+        //    return Json(data, JsonRequestBehavior.AllowGet);
+        //}
     }
 }
 

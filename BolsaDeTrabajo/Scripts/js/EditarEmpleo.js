@@ -7,8 +7,7 @@ var direct = window.location.href.split('/');
 var url = window.location.origin + "/" + direct[3];
 
 function CargarDatos() {
-    urlE = "https://localhost:44351/Empleos";
-    $.getJSON(urlE + '/getEmpleo', { Id: $("#Id").val() }, function (data) {
+    $.getJSON(urlOficial + 'Empleos/getEmpleo', { Id: $("#Id").val() }, function (data) {
         var obj = data;
         if (obj != null) {
             var listIdCat = new Array();
@@ -78,13 +77,12 @@ function ContarCaracteres(str, maxCaracteres, e) {
 }
 
 $("#formRegistrarEmpleo").on('submit', function (e) {
-    urlE = "https://localhost:44351/Empleos";
     var Empleo = saveDatesForm('formRegistrarEmpleo')[0];
     e.preventDefault();
     var obj = new FormData(this);
     if (VerificarFormulario() == true) {
         $.ajax({
-            url: urlE + '/Guardar',
+            url: urlOficial + 'Empleos/Guardar',
             type: 'POST',
             data: JSON.stringify(Empleo),
             dataType: 'json',
@@ -93,7 +91,7 @@ $("#formRegistrarEmpleo").on('submit', function (e) {
                 if (data.Tipo == 1) {
                     Toast("success", data.Msj);
                     setTimeout(function () {
-                        window.location.href = urlE + '/Index';
+                        window.location.href = urlOficial + 'Empleos/Index';
                     }, 3000);
                 }
             }

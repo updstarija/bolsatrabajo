@@ -5,7 +5,6 @@ var direct = window.location.href.split('/');
 var url = window.location.origin + "/" + direct[3];
 
 function Listar(lista) {
-    urlEdir = "https://localhost:44351";
     $("#itemsCurriculosC").html("");
     for (var i = 0; i < lista.length; i++) {
         var obj = lista[i];
@@ -31,7 +30,7 @@ function Listar(lista) {
                         </td>
                         <td>
                             <div class="d-flex flex-nowrap">
-                                <a class='btn tooltip-test px-1' title='EDITAR' class="mr-1" href="${urlEdir}/Curriculos/Editar?id=${obj.DatosPersonalesC.idCurriculum}"><i class="fas fa-edit ico-gray ico-animation fa-lg"></i></a>
+                                <a class='btn tooltip-test px-1' title='EDITAR' class="mr-1" href="${urlOficial}Curriculos/Editar?id=${obj.DatosPersonalesC.idCurriculum}"><i class="fas fa-edit ico-gray ico-animation fa-lg"></i></a>
                                <button type="button" class='btn tooltip-test px-1' title='ELIMINAR' onclick=EliminarCurriculum('${obj.DatosPersonalesC.idCurriculum}')><i class="fas fa-trash ico-gray ico-animation fa-lg"></i></button>
                                 <button  type='button'class='btn tooltip-test px-1' title='VER' data-toggle='modal' data-target='#ModalCurriculo' onclick='VerCurriculo(" ${obj.DatosPersonalesC.idCurriculum}")'><i class='fas fa-eye ico-blue ico-animation fa-lg'></i></button>
                             </div>
@@ -46,20 +45,18 @@ function Listar(lista) {
 
 
 function CargarDatos() {
-    urlE = "https://localhost:44351/Curriculos";
-    $.getJSON(urlE + '/getCurriculos', function (data) {
+    $.getJSON(urlOficial + 'Curriculos/getCurriculos', function (data) {
         if (data.TotalRegistro != 0) {
             Listar(data.curriculums);
         }
     });
 }
 function ActualizarPrivacidad(idSelect, idCurriculum) {
-    urlE = "https://localhost:44351/Curriculos";
     var formData = new FormData();
     formData.append("privacidad", $("#" + idSelect).val());
     formData.append("IdCurriculum", idCurriculum);
     $.ajax({
-        url: urlE + '/EditarPrivacidad',
+        url: urlOficial + 'Curriculos/EditarPrivacidad',
         type: 'POST',
         data: formData,
         dataType: 'json',
@@ -74,7 +71,6 @@ function ActualizarPrivacidad(idSelect, idCurriculum) {
 }
 
 function EliminarCurriculum(id) {
-    urlE = "https://localhost:44351/Curriculos";
     $.confirm({
         icon: 'fas fa-exclamation-triangle',
         title: 'Eliminar Curriculum',
@@ -89,15 +85,11 @@ function EliminarCurriculum(id) {
                 text: 'Confirmar',
                 btnClass: 'btn-red',
                 action: function () {
-                    $.getJSON(urlE + '/EliminarCurriculo', { Id: id }, function (data) {
+                    $.getJSON(urlOficial + 'Curriculos/EliminarCurriculo', { Id: id }, function (data) {
                         if (data.Tipo == 1) {
                             Toast("success", data.Msj);
-                            setTimeout(function () {
-                                actualizar();
-                            }, 3000);
-
+                            actualizar();
                         }
-
                     });
                 }
             },
@@ -198,8 +190,7 @@ function cargarInfoCurriculum(obj) {
 }
 
 function VerCurriculo(IdCurriculo) {
-    urlE = "https://localhost:44351/Curriculos";
-    $.getJSON(urlE + '/getDetalleCurriculo', { Id: IdCurriculo }, function (obj) {
+    $.getJSON(urlOficial + 'Curriculos/getDetalleCurriculo', { Id: IdCurriculo }, function (obj) {
         cargarInfoCurriculum(obj);
         $("#ModalCurriculo").modal("show");
     });

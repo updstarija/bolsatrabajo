@@ -1,13 +1,21 @@
-﻿tabla = $('#tEmpleosIndex').DataTable({
+﻿//Validacion de inputs
+$(function () {
+    $('#Titulo').validacion(' .,abcdefghijklmnñopqrstuvwxyzáéíóú0123456789-()""');
+    $('#Descripcion').validacion(' .,:;abcdefghijklmnñopqrstuvwxyzáéíóú0123456789""()');
+    $('#Ciudad').validacion(' abcdefghijklmnñopqrstuvwxyzáéíóú()');
+    $('#CorreoEnvioPostulaciones').validacion(' .abcdefghijklmnñopqrstuvwxyzáéíóú0123456789@');
+});
+
+tabla = $('#tEmpleosIndex').DataTable({
     columns: [
         { title: "Registro", width: '10%' },
         { title: "Actualización", width: '10%' },
-        { title: "Titulo", width: '20%' },
+        { title: "Titulo", width: '30%' },
         { title: "Contrato", width: '10%' },
-        { title: "Correo", width: '10%' },
+        //{ title: "Correo", width: '10%' },
         { title: "<i class='fas fa-users'></i>", width: '5%' },
         { title: "Expiración", width: '10%' },
-        { title: "Estado", width: '10%' },
+        { title: "Estado", width: '15%' },
         { title: "<div class='d-flex flex-nowrap'><select class='custom-select' id='filtrosEmpleosC' onchange='FiltrarEmpleos()'><option value='Activo'>Activos</option><option value='Inactivo'>Inactivos</option><option value='Vencido'>Vencidos</option><option value='Todos'>Todos</option></select></div>", width: '10%' }
     ],
 });
@@ -21,8 +29,7 @@ $(document).ready(function () {
 });
 
 function Actualizar() {
-    urlE = "https://localhost:44351/Administradores";
-    $.getJSON(urlE + '/getTableEmpleosByEmpresa', { Id: $("#IdEmpresaEstatic").val() }, function (obj) {
+    $.getJSON(urlOficial + 'Administradores/getTableEmpleosByEmpresa', { Id: $("#IdEmpresaEstatic").val() }, function (obj) {
         Listar(obj);
     });
     $("#filtrosEmpleosC").val("Todos");
@@ -49,14 +56,14 @@ function Listar(obj) {
                 sortable: false
             },
             {
-                data: "atrib4", width: '20%'
+                data: "atrib4", width: '30%'
             },
             {
                 data: "atrib5", width: '10%'
             },
-            {
-                data: "atrib6", width: '10%'
-            },
+            //{
+            //    data: "atrib6", width: '10%'
+            //},
             {
                 data: "atrib7", width: '10%',
                 sortable: false
@@ -66,7 +73,7 @@ function Listar(obj) {
                 sortable: false
             },
             {
-                data: "atrib9", width: '10%',
+                data: "atrib9", width: '15%',
                 sortable: false
             },
             {
@@ -82,13 +89,12 @@ function Listar(obj) {
 }
 
 function FiltrarEmpleos() {
-    urlE = "https://localhost:44351/Administradores";
     var estado = $("#filtrosEmpleosC").val();
     if (estado == "Todos") {
         Actualizar();
     }
     else {
-        $.getJSON(urlE + '/getTableEmpleosByEstado', { Estado: estado, Id: $("#IdEmpresaEstatic").val() }, function (data) {
+        $.getJSON(urlOficial + 'Administradores/getTableEmpleosByEstado', { Estado: estado, Id: $("#IdEmpresaEstatic").val() }, function (data) {
             Listar(data);
         });
     }
@@ -131,17 +137,37 @@ function cargarInfoEmpleo(obj) {
 }
 
 function VerEmpleo(IdEmpleo) {
-    urlE = "https://localhost:44351/Empleos";
-    $.getJSON(urlE + '/getEmpleo', { Id: IdEmpleo }, function (obj) {
+    $.getJSON(urlOficial + 'Empleos/getEmpleo', { Id: IdEmpleo }, function (obj) {
         cargarInfoEmpleo(obj);
         $("#ModalEmpleo").modal("show");
     });
 }
 
 function Limpiar() {
+    $("#btnEmpleoGuardar").prop("disabled", false);
     $("#ModalRegistrarEmpleo").modal('show');
     $('#formRegistrarEmpleo').trigger("reset");
     $("#formRegistrarEmpleo").removeClass('was-validated');
+    $("#estadoCorreo").attr("hidden", "hidden");
+    $("#CorreoEnvioPostulaciones").removeClass("border border-danger");
+}
+
+function verificarCorreo(valor) {
+    console.log(valor);
+    var correo = $("#CorreoEnvioPostulaciones").val();
+    var expreRegular = /^(([^<>()\[\]\\.,;:\s@”]+(\.[^<>()\[\]\\.,;:\s@”]+)*)|(“.+”))@((\[[0–9]{1,3}\.[0–9]{1,3}\.[0–9]{1,3}\.[0–9]{1,3}])|(([a-zA-Z\-0–9]+\.)+[a-zA-Z]{2,}))$/;
+    var esValido = expreRegular.test(correo);
+    if (esValido == false && correo.length > 0) {
+        $("#estadoCorreo").removeAttr("hidden", "hidden");
+        $("#CorreoEnvioPostulaciones").addClass("border border-danger");
+        if (valor == 1) {
+            Toast("error", "su correo no es valido");
+        }
+    } else {
+        $("#estadoCorreo").attr("hidden", "hidden");
+        $("#CorreoEnvioPostulaciones").removeClass("border border-danger");
+    }
+    return esValido;
 }
 
 function VerificarFormulario() {
@@ -199,26 +225,28 @@ function ContarCaracteres(str, maxCaracteres, e) {
 }
 
 $("#formRegistrarEmpleo").on('submit', function (e) {
-    urlE = "https://localhost:44351/Empleos";
     e.preventDefault();
     var Empleo = saveDatesForm('formRegistrarEmpleo')[0];
     var obj = new FormData(this);
     if (VerificarFormulario() == true) {
-        $.ajax({
-            url: urlE + '/Guardar',
-            type: 'POST',
-            data: JSON.stringify(Empleo),
-            dataType: 'json',
-            contentType: 'application/json',
-            success: function (data) {
-                console.log(data);
-                if (data) {
-                    $("#ModalRegistrarEmpleo").modal('hide');
-                    Toast("success", data.Msj);
-                    Actualizar();
+        if (verificarCorreo(1) == true) {
+            $.ajax({
+                url: urlOficial + 'Empleos/Guardar',
+                type: 'POST',
+                data: JSON.stringify(Empleo),
+                dataType: 'json',
+                contentType: 'application/json',
+                success: function (data) {
+                    console.log(data);
+                    if (data) {
+                        $("#btnEmpleoGuardar").prop("disabled", true);
+                        $("#ModalRegistrarEmpleo").modal('hide');
+                        Toast("success", data.Msj);
+                        Actualizar();
+                    }
                 }
-            }
-        });
+            });
+        }
     }
     else {
         Toast("error", "¡Debe llenar los siguientes campos!");
@@ -226,8 +254,10 @@ $("#formRegistrarEmpleo").on('submit', function (e) {
 });
 
 function CargarDatosEmpleo(IdEmpleo) {
-    urlE = "https://localhost:44351/Empleos";
-    $.getJSON(urlE + '/getEmpleo', { Id: IdEmpleo }, function (obj) {
+    $("#estadoCorreo").attr("hidden", "hidden");
+    $("#CorreoEnvioPostulaciones").removeClass("border border-danger");
+    $("#btnEmpleoGuardar").prop("disabled", false);
+    $.getJSON(urlOficial + 'Empleos/getEmpleo', { Id: IdEmpleo }, function (obj) {
         $("#formRegistrarEmpleo").removeClass('was-validated');
         $("#Titulo").val(obj.Titulo);
         $("#Id").val(obj.Id);
@@ -254,7 +284,6 @@ function CargarDatosEmpleo(IdEmpleo) {
 }
 
 function ActualizarEstadoEmpleo(Select, IdEmp) {
-    urlE = "https://localhost:44351/Administradores";
     $.confirm({
         icon: 'fas fa-exclamation-triangle',
         title: 'Modificar Estado',
@@ -270,7 +299,7 @@ function ActualizarEstadoEmpleo(Select, IdEmp) {
                 btnClass: 'btn-orange',
                 action: function () {
                     var idSelect = Select.id;
-                    $.getJSON(urlE + '/ActualizarEstadoEmpleoByEmpresa', { IdEmpleo: IdEmp, Estado: $("#" + idSelect).val() }, function (obj) {
+                    $.getJSON(urlOficial + 'Administradores/ActualizarEstadoEmpleoByEmpresa', { IdEmpleo: IdEmp, Estado: $("#" + idSelect).val() }, function (obj) {
                         if (data.Tipo == 1) {
                             Toast("success", data.Msj);
                         }
@@ -288,7 +317,6 @@ function ActualizarEstadoEmpleo(Select, IdEmp) {
 }
 
 function EliminarEmpleo(IdEmpleo) {
-    urlE = "https://localhost:44351/Empleos";
     $.confirm({
         icon: 'fas fa-exclamation-triangle',
         title: 'Eliminar Empleo',
@@ -303,7 +331,7 @@ function EliminarEmpleo(IdEmpleo) {
                 text: 'Confirmar',
                 btnClass: 'btn-red',
                 action: function () {
-                    $.getJSON(urlE + '/EliminarEmpleo', { Id: IdEmpleo }, function (data) {
+                    $.getJSON(urlOficial + 'Empleos/EliminarEmpleo', { Id: IdEmpleo }, function (data) {
                         if (data.Tipo == 1) {
                             Toast("success", data.Msj);
                             setTimeout(function () {

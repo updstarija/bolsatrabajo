@@ -444,6 +444,7 @@
     <Content Include="Scripts\js\Administrador\Empresas.js" />
     <Content Include="Scripts\js\Administrador\AdministrarCandidato.js" />
     <Content Include="Scripts\js\Administrador\AdministrarCurriculums.js" />
+    <Content Include="Scripts\js\Administrador\home.js" />
     <Content Include="Scripts\js\Administrador\PostulantesByEmpleo.js" />
     <Content Include="Scripts\js\Administrador\Admins.js" />
     <Content Include="Scripts\js\CandidatoPostulacion.js" />
@@ -458,6 +459,7 @@
     <Content Include="Scripts\js\EditarEmpresa.js" />
     <Content Include="Scripts\js\EmpleosIndex.js" />
     <Content Include="Scripts\js\EmpleosInvitados.js" />
+    <Content Include="Scripts\js\enlace.js" />
     <Content Include="Scripts\js\general.js" />
     <Content Include="Scripts\js\inicio.js" />
     <Content Include="Scripts\js\InicioCurriculums.js" />
@@ -474,6 +476,7 @@
     <Content Include="Scripts\js\registroCandidato.js" />
     <Content Include="Scripts\js\registroEmpresa.js" />
     <Content Include="Scripts\js\listaPostulantes.js" />
+    <Content Include="Scripts\js\validacion.js" />
     <Content Include="Scripts\modernizr-2.8.3.js" />
     <Content Include="Scripts\popper-utils.js" />
     <Content Include="Scripts\popper-utils.min.js" />
@@ -607,6 +610,7 @@
     <Content Include="Views\Administradores\EmpleosByEmpresa.cshtml" />
     <Content Include="Views\Administradores\PostulantesByEmpleo.cshtml" />
     <Content Include="Views\Administradores\Admins.cshtml" />
+    <Content Include="Views\Invitaciones\IndexFD.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

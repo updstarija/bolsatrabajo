@@ -159,7 +159,8 @@ function cargarEmpleo(obj) {
         empleo += `<p><b>Telefono Fijo:</b> ${obj.Empresa.Perfil.TelefonoFijo}</p>`;
     }
     empleo += `<p><b>Pagina Web:</b></p>
-        <p>${obj.Empresa.SitioWeb}</p>
+
+        <a href="${obj.Empresa.SitioWeb}" target="_blank">${obj.Empresa.SitioWeb}</a>
         </div>
         </div>
         <div class="col-12 col-sm-8">
@@ -196,8 +197,7 @@ function cargarEmpleo(obj) {
 }
 
 function VerPostulante(idPostulante) {
-    urlE = "https://localhost:44351/Postulantes";
-    $.getJSON(urlE + '/GetById', { IdPostulante: idPostulante }, function (obj) {
+    $.getJSON(urlOficial + 'Postulantes/GetById', { IdPostulante: idPostulante }, function (obj) {
         cargarInfoPostulante(obj);
     });
 }

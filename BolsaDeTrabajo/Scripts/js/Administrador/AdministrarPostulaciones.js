@@ -1,4 +1,5 @@
-﻿tabla = $('#tPostulacionesC').DataTable({
+﻿
+tabla = $('#tPostulacionesC').DataTable({
     columns: [
         { title: "#", width: '5%' },
         { title: "Registro", width: '10%' },
@@ -22,8 +23,7 @@ $(document).ready(function () {
 });
 
 function Actualizar(id) {
-    urlE = "https://localhost:44351/Administradores";
-    $.getJSON(urlE + '/GetPostulaciones', { Id: id }, function (obj) {
+    $.getJSON(urlOficial + 'Administradores/GetPostulaciones', { Id: id }, function (obj) {
         Listar(obj);
     });
     $("#filtrosPostulacionesCandidato").val("Todos");
@@ -69,7 +69,6 @@ function Listar(obj) {
     $("#contenidoTPostulaciones").show();
 }
 function FiltrarPostulaciones() {
-    urlE = "https://localhost:44351/Administradores";
     var estado = $("#filtrosPostulacionesCandidato").val();
     var id = $("#idValor").val();
     if (estado == "Todos") {
@@ -77,15 +76,14 @@ function FiltrarPostulaciones() {
         Actualizar(id);
     }
     else {
-        $.getJSON(urlE + '/GetPostulacionesByEstado', { Id: id, Estado: estado }, function (data) {
+        $.getJSON(urlOficial + 'Administradores/GetPostulacionesByEstado', { Id: id, Estado: estado }, function (data) {
             Listar(data);
         });
     }
 }
 function verdetalleEmpleo(id) {
     $("#DetalleEmpleo").html('');
-    urlE = "https://localhost:44351/Empleos";
-    $.getJSON(urlE + '/getEmpleo', { Id: id }, function (obj) {
+    $.getJSON(urlOficial + 'Empleos/getEmpleo', { Id: id }, function (obj) {
         console.log(obj);
         var empleo = `
         <div class="row">
@@ -97,13 +95,13 @@ function verdetalleEmpleo(id) {
         </div>
         <p class="text-center mt-3 ">${obj.Ciudad}, ${obj.EstadoRegion}, ${obj.Pais}</p>`;
         if (obj.Empresa.Perfil.TelefonoCelular != null) {
-            empleo += `<p class="font-weight-bold">Telefono Celular: ${obj.Empresa.Perfil.TelefonoCelular}</p>`;
+            empleo += `<p><b>Telefono Celular:</b> ${obj.Empresa.Perfil.TelefonoCelular}</p>`;
         }
         if (obj.Empresa.Perfil.TelefonoFijo != null) {
-            empleo += `<p class="font-weight-bold">Telefono Fijo: ${obj.Empresa.Perfil.TelefonoFijo}</p>`;
+            empleo += `<p><b>Telefono Fijo:</b> ${obj.Empresa.Perfil.TelefonoFijo}</p>`;
         }
         empleo += `<p><b>Pagina Web:</b></p>
-        <p class="font-weight-bold">${obj.Empresa.SitioWeb}</p>
+        <a href="${obj.Empresa.SitioWeb}" target="_blank">${obj.Empresa.SitioWeb}</a>
         </div>
         </div>
         <div class="col-12 col-sm-8">

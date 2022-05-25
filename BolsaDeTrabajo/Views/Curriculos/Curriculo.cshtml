@@ -5,11 +5,11 @@
 }
 <div class="container-personalizado">
     <br />
-    <h1 class="text-center">Curriculum</h1>
+        <h1 class="text-center">Curriculum</h1>
     <br />
     <ul class="nav nav-tabs" id="myTab" role="tablist">
-        <li class="nav-item"  onclick="subMenu1()">
-            <a class="nav-link active font-weight-bold pintarSubMenu" style="color: black;"  id="dp-tab" data-toggle="tab"
+        <li class="nav-item" onclick="subMenu1()">
+            <a class="nav-link active font-weight-bold pintarSubMenu" style="color: black;" id="dp-tab" data-toggle="tab"
                href="#Datos_Personales" role="tab" aria-controls="Datos_Personales" aria-selected="true">Datos Personales</a>
         </li>
         <li class="nav-item" onclick="subMenu2()">
@@ -66,8 +66,8 @@
                             </div>
                             <div class="mt-3">
                                 <label for="correoDP">Correo:</label>
-                                <input type="text" class="form-control" id="correoDP" name="correoDP" value="@Model.Perfil.Usuario.Correo" required>
-                                <div class="invalid-feedback">¡Campo Vacio!</div>
+                                <input type="text" class="form-control" oninput="verificarCorreo(0)" id="correoDP" name="correoDP" value="@Model.Perfil.Usuario.Correo" required>
+                                <div id="estadoCorreo" style="font-size:13px;" class="text-danger" hidden="hidden">¡Correo no valido!</div><div class="invalid-feedback">¡Campo Vacio!</div>
                             </div>
                         </div>
                         <div class="col-12 col-sm-3">
@@ -83,7 +83,8 @@
                             </div>
                             <div class="mt-3">
                                 <label for="movilDP">Movil:</label>
-                                <input type="text" class="form-control" id="movilDP" name="movilDP" value="@Model.Perfil.TelefonoCelular">
+                                <input type="text" oninput="verificarCelular(0)" class="form-control" id="movilDP" name="movilDP" maxlength="8" value="@Model.Perfil.TelefonoCelular">
+                                <div id="estadoNumero" style="font-size:13px;" class="text-danger" hidden="hidden">¡Su número de celular debe tener 8 caracteres!</div>
                             </div>
                         </div>
                         <div class="col-12 col-sm-3">
@@ -119,7 +120,7 @@
                             <div class="mt-3">
                                 <label for="imagenDP">Imagen:</label>
                                 <div id="contImg" class="border border-secondary bg-white" style="height:177px;"></div>
-                                <img id="fotoDP" class="img-fluid" style="max-height: 177px; min-height: 177px; height: 177px; width: 100% " src="" alt="" hidden="hidden">
+                                <img id="fotoDP" class="img-fluid border" style="max-height: 177px; min-height: 177px; height: 177px; width: 100% " src="" alt="" hidden="hidden">
                                 <div id="div_file_new">
                                     <label for="imagenDP">Selecione una imagen</label>
                                     <input type="file" name="imagenDP" id="imagenDP" class="form-control-file" onchange="showImg()" required>
@@ -137,7 +138,7 @@
                         <div class="col-12 col-sm-3 mt-3">
                             <label for="licenciaVehiculoDP">Licencia para Vehiculos:</label>
                             <select class="custom-select" id="licenciaVehiculoDP" name="licenciaVehiculoDP" required>
-                                <option selected disabled value="0">Seleccione...</option>
+                                <option selected disabled value="">Seleccione...</option>
                                 <option value="Si">Si</option>
                                 <option value="No">No</option>
                             </select>
@@ -145,7 +146,7 @@
                         <div class="col-12 col-sm-3 mt-3">
                             <label for="licenciaMotocicletaDP">Licencia para Motocicleta:</label>
                             <select class="custom-select" id="licenciaMotocicletaDP" name="licenciaMotocicletaDP" required>
-                                <option selected disabled value="0">Seleccione...</option>
+                                <option selected disabled value="">Seleccione...</option>
                                 <option value="Si">Si</option>
                                 <option value="No">No</option>
                             </select>
@@ -612,10 +613,52 @@
                         </div>
                     </div>
                 </div>
+                <div class="form-check mt-5">
+                    <input class="form-check-input" type="checkbox" value="" id="terminosCondiciones" required>
+                    <label class="form-check-label text-dark" for="terminosCondiciones">
+                        He leído y acepto los <a style="text-decoration: underline; cursor: pointer;" class="text-primary" data-toggle="modal" data-target="#modalTerminosCondiciones">Términos y Condiciones de uso</a>
+                    </label>
+                    <div class="invalid-feedback">¡Debe aceptar los Términos y Condiciones!</div>
+                </div>
             </form>
         </div>
         <div class="form-group px-3 py-2">
             <button class="btn btn-block btn-Blue" type="submit" form="formDP">Registrar</button>
+        </div>
+    </div>
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="modalTerminosCondiciones" data-backdrop="static" data-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-scrollable">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="staticBackdropLabel">Términos y Condiciones de Uso</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <h5 class="text-primary text-center" style="text-decoration: underline; font-size:18px;">TÉRMINOS Y CONDICIONES DE USO<br />UPDS TRABAJA</h5>
+                <p class="mt-4"><b>Fecha de publicacion:</b> 14 de mayo del 2022<br /> <b>Fecha de ultima actualizacion:</b> 16 de mayo del 2022</p>
+
+                <p>I. INFORMACION CORPORATIVA</p>
+                <p>
+                    El sitio web https://tarija.upds.edu.bo/UPDSTrabaja es ofrecido por la Univerwsidad Privada Domingo Savio Sede Tarija.
+                    <br />Un texto es una composición de signos codificados en un sistema de escritura que forma una unidad de sentido. También es una composición de caracteres imprimibles generados por un algoritmo de cifrado que, aunque no tienen sentido para cualquier persona.
+                </p>
+
+                <p>II. ACEPTACION</p>
+                <p>Un texto es una composición de signos codificados en un sistema de escritura que forma una unidad de sentido. También es una composición de caracteres imprimibles generados por un algoritmo de cifrado que, aunque no tienen sentido para cualquier persona.</p>
+                <p>Un texto es una composición de signos codificados en un sistema de escritura que forma una unidad de sentido. También es una composición de caracteres imprimibles generados por un algoritmo de cifrado que, aunque no tienen sentido para cualquier persona.</p>
+
+                <p>III. USO DEL SERVICIO</p>
+                <p>Un texto es una composición de signos codificados en un sistema de escritura que forma una unidad de sentido. También es una composición de caracteres imprimibles generados por un algoritmo de cifrado que, aunque no tienen sentido para cualquier persona.</p>
+
+                <p>IV. DATOS, CONTENIDOS, E INFORMACION</p>
+                <p>Un texto es una composición de signos codificados en un sistema de escritura que forma una unidad de sentido. También es una composición de caracteres imprimibles generados por un algoritmo de cifrado que, aunque no tienen sentido para cualquier persona.</p>
+                <p>Un texto es una composición de signos codificados en un sistema de escritura que forma una unidad de sentido. También es una composición de caracteres imprimibles generados por un algoritmo de cifrado que, aunque no tienen sentido para cualquier persona.</p>
+            </div>
         </div>
     </div>
 </div>

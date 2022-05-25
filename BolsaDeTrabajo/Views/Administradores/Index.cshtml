@@ -3,12 +3,52 @@
     ViewBag.Title = "Index";
     Layout = "~/Views/Shared/_LayoutAdministrador.cshtml";
 }
+<div class="row">
+    <div class="col-sm-4">
+        <h5 class="card-title text-center text-primary">Empresas</h5>
+        <div id="cargandoEmpresas" class="text-center">
+            <div class="spinner-border text-primary" role="status">
+                <span class="sr-only">Loading...</span>
+            </div>
+        </div>
+        <canvas class="mt-4" id="myChartEmpresas" style="width:100%; height:280px"></canvas>
+    </div>
+    <div class="col-sm-4">
+        <h5 class="card-title text-center text-primary">Candidatos</h5>
+        <div id="cargandoCandidatos" class="text-center">
+            <div class="spinner-border text-primary" role="status">
+                <span class="sr-only">Loading...</span>
+            </div>
+        </div>
+        <canvas class="mt-4" id="myChartCandidatos" style="width:100%; height:280px"></canvas>
+    </div>
+    <div class="col-sm-4">
+        <h5 class="card-title text-center text-primary">Administradores</h5>
+        <div id="cargandoAdministradores" class="text-center">
+            <div class="spinner-border text-primary" role="status">
+                <span class="sr-only">Loading...</span>
+            </div>
+        </div>
+        <canvas class="mt-4" id="myChartAdministradores" style="width:100%; height:280px"></canvas>
+    </div>
+    <div class="col-sm-12 mt-5">
+        <h5 class="card-title text-center text-primary">Total de Empresas, Candidatos y Administradores</h5>
+        <div id="cargandoTotal" class="text-center">
+            <div class="spinner-border text-primary" role="status">
+                <span class="sr-only">Loading...</span>
+            </div>
+        </div>
+        <canvas class="mt-4" id="myChartTotal" style="width:100%; height:250px"></canvas>
+    </div>
+</div>
+<script src="~/Scripts/js/Administrador/home.js"></script>
 
-<script src="https://code.highcharts.com/highcharts.js"></script>
+@*<script src="https://code.highcharts.com/highcharts.js"></script>
 <script src="https://code.highcharts.com/modules/exporting.js"></script>
 <script src="https://code.highcharts.com/modules/export-data.js"></script>
-<script src="https://code.highcharts.com/modules/accessibility.js"></script>
-    <div id="cargandoindex" class="text-center">
+<script src="https://code.highcharts.com/modules/accessibility.js"></script>*@
+
+    @*<div id="cargandoindex" class="text-center">
         <div class="spinner-border text-primary" role="status">
             <span class="sr-only">Loading...</span>
         </div>
@@ -24,8 +64,9 @@
         <div class="col-sm-12 mt-4">
             <div id="dashboardcand"></div>
         </div>
-    </div>
-<script src="~/Scripts/js/Administrador/DashboardEmpresa.js"></script>
+    </div>*@
+
+@*<script src="~/Scripts/js/Administrador/DashboardEmpresa.js"></script>
 <script src="~/Scripts/js/Administrador/DashboardAdmin.js"></script>
 <script src="https://code.highcharts.com/highcharts.js"></script>
 <script src="https://code.highcharts.com/highcharts-more.js"></script>
@@ -33,4 +74,4 @@
 <script src="https://code.highcharts.com/modules/lollipop.js"></script>
 <script src="https://code.highcharts.com/modules/exporting.js"></script>
 <script src="https://code.highcharts.com/modules/accessibility.js"></script>
-<script src="~/Scripts/js/Administrador/Dashboardcand.js"></script>
+<script src="~/Scripts/js/Administrador/Dashboardcand.js"></script>*@

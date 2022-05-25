@@ -1,4 +1,5 @@
-﻿$(document).ready(function () {
+﻿
+$(document).ready(function () {
     traerEmpleos();
 });
 var direct = window.location.href.split('/');
@@ -22,11 +23,9 @@ function VerificarFormulario() {
     return validacion;
 }
 function traerEmpleos() {
-    urlE = "https://localhost:44351/Empleos";
-
-    $.getJSON(urlE + '/listEmpleos', function (data) {
+    $.getJSON(urlOficial + 'Empleos/listEmpleos', function (data) {
         $("#IdEmpleos").html("");
-        var option = `<option selected  value="-1">Seleccionar un Empleo...</option>`;
+        var option = `<option selected  value="">Seleccionar una opcion...</option><option value="-1">Invitación Directa</option>`;
         for (var i = 0; i < data.empleos.length; i++) {
             option += `<option value="${data.empleos[i].Id}">${data.empleos[i].Titulo}</option>`;
            
@@ -36,7 +35,6 @@ function traerEmpleos() {
 }
 
 function RegistrarInvitacion() {
-    urlE = "https://localhost:44351/Invitaciones";
     if (VerificarFormulario() == true) {
         var obj = {
             IdCurriculum: $("#idValor").val(),
@@ -45,7 +43,7 @@ function RegistrarInvitacion() {
             Carta: $("#CartaInvitacion").val(),
         }
         $.ajax({
-            url: urlE +'/Guardar',
+            url: urlOficial + 'Invitaciones/Guardar',
             type: 'POST',
             dataType: 'json',
             data: JSON.stringify(obj),
@@ -55,9 +53,8 @@ function RegistrarInvitacion() {
                     Toast("success", data.Msj);
                     $("#InvitacionModal").modal('hide');
                     setTimeout(function () {
-                        urla = "https://localhost:44351/IndexCurriculums";
-                        window.location.href = urla + '/IndexCurriculums';
-                    }, 3000);
+                        window.location.href = urlOficial + 'Inicio/IndexCurriculums';
+                    }, 2000);
                 }
             }
         });

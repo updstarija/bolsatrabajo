@@ -13,8 +13,18 @@
         </div>
         <input type="hidden" name="IdEmpleo" id="IdEmpleo" value="@ViewBag.IdEmpleo" />
         <div class="table-responsive" id="contenido">
-            <br />
-            <h2>Lista de postulantes</h2>
+            <nav aria-label="breadcrumb">
+                <ol class="breadcrumb bg-white">
+                    <!--************* Local ****************-->
+                    @*<li class="breadcrumb-item"><a href="https://localhost:44351/Empleos">Publicaciones de Empleos</a></li>
+                    <li class="breadcrumb-item active" aria-current="page">Postulantes</li>*@
+
+                    <!--************* Produccion ****************-->
+                    <li class="breadcrumb-item"><a href="https://tarija.upds.edu.bo/UpdsTrabaja/Empleos">Publicaciones de Empleos</a></li>
+                    <li class="breadcrumb-item active" aria-current="page">Postulantes</li>
+                </ol>
+            </nav>
+            <h2 class="text-center">Postulantes</h2>
             <br />
             <table id="tPostulantes" class="table table-striped display mx-0 mt-3" style="width:100%"></table>
             <div id="divBtnConcluirEmpleo" class="d-flex justify-content-center mt-2">

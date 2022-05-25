@@ -6,8 +6,7 @@ var direct = window.location.href.split('/');
 var url = window.location.origin + "/" + direct[3];
 
 function CargarDatos(id) {
-    urlE = "https://localhost:44351/Invitaciones";
-    $.getJSON(urlE + '/getInvitacion', { Id: id }, function (data) {
+    $.getJSON(urlOficial + 'Invitaciones/getInvitacion', { Id: id }, function (data) {
         var obj = data;
         if (obj != null) {
             VerMensaje(obj.Mensaje);
@@ -38,8 +37,7 @@ function CargarCurriculum(obj) {
 
 function verEmpleo(id, idcur) {
     $("#DetalleEmpleo").html('');
-    urlE = "https://localhost:44351/Empleos";
-    $.getJSON(urlE + '/getEmpleo', { Id: id }, function (obj) {
+    $.getJSON(urlOficial + 'Empleos/getEmpleo', { Id: id }, function (obj) {
         var empleo = `
         <div class="row">
         <div class="col-12 col-sm-4">
@@ -57,7 +55,7 @@ function verEmpleo(id, idcur) {
             empleo += `<p><b>Telefono Fijo:</b> ${obj.Empresa.Perfil.TelefonoFijo}</p>`;
         }
         empleo += `<p><b>Pagina Web:</b></p>
-        <p>${obj.Empresa.SitioWeb}</p>
+        <a href="${obj.Empresa.SitioWeb}" target="_blank">${obj.Empresa.SitioWeb}</a>
         </div>
         </div>
         <div class="col-12 col-sm-8">
@@ -114,7 +112,6 @@ function VerificarFormulario() {
 }
 
 function RegistrarPostulacion() {
-    urlE = "https://localhost:44351/Postulantes";
     if (VerificarFormulario() == true) {
         var obj = {
             PretencionSalarial: $("#PretencionSalarial").val(),
@@ -123,7 +120,7 @@ function RegistrarPostulacion() {
             CartaPresentacion: $("#CartaPresentacion").val()
         }
         $.ajax({
-            url: urlE + '/Guardar',
+            url: urlOficial + 'Postulantes/Guardar',
             type: 'POST',
             data: JSON.stringify(obj),
             dataType: 'json',
@@ -133,16 +130,13 @@ function RegistrarPostulacion() {
                     $("#PostulacionCIModal").modal('hide');
                     Toast("success", data.Msj);
                     setTimeout(function () {
-                        urla = "https://localhost:44351/Invitaciones";
-                        window.location.href = urla + '/Lista';
+                        window.location.href = urlOficial + 'Invitaciones/Lista';
                     }, 3000);
                 }
             }
         });
         var id = $("#idValor").val();
-        urla = "https://localhost:44351/Invitaciones";
-
-        $.getJSON(urla + '/cambiodeestado', { Id: id }, function (data) {
+        $.getJSON(urlOficial + 'Invitaciones/cambiodeestado', { Id: id }, function (data) {
             console.log(data);
         });
     }
@@ -152,17 +146,15 @@ function RegistrarPostulacion() {
 }
 
 function EnviarMensaje() {
-    urlE = "https://localhost:44351/Invitaciones";
     if ($("#ContenidoMensaje").val() != "") {
         var id = $("#idValor").val();
         var mensaje = $("#ContenidoMensaje").val();
-        $.getJSON(urlE + '/enviarMensaje', { mensajeR: mensaje, Id: id }, function (data) {
+        $.getJSON(urlOficial + 'Invitaciones/enviarMensaje', { mensajeR: mensaje, Id: id }, function (data) {
             if (data.Tipo == 1) {
                 $("#MensajeModal").modal('hide');
                 Toast("success", data.Msj);
                 setTimeout(function () {
-                    urla = "https://localhost:44351/Invitaciones";
-                    window.location.href = urla + '/Lista';
+                    window.location.href = urlOficial + 'Invitaciones/Lista';
                 }, 3000);
             }
         });
@@ -173,8 +165,7 @@ function EnviarMensaje() {
 }
 
 function VerificarPostulacion(idemp, idcur) {
-    urlE = "https://localhost:44351/Postulantes";
-    $.getJSON(urlE + '/verificarPostulacion', { IdEmpleo: idemp, IdCurriculum: idcur }, function (data) {
+    $.getJSON(urlOficial + 'Postulantes/verificarPostulacion', { IdEmpleo: idemp, IdCurriculum: idcur }, function (data) {
         if (data == true) {
             $("#btnPostularEmpleo").prop('disabled', true);
             $("#btnPostularEmpleo").text("Usted ya se postulo a este empleo");

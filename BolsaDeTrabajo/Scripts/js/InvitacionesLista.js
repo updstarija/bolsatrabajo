@@ -23,8 +23,7 @@ $(function () {
 });
 
 function Actualizar() {
-    urlE = "https://localhost:44351/Invitaciones";
-    $.getJSON(urlE +'/getLista', function (obj) {
+    $.getJSON(urlOficial + 'Invitaciones/getLista', function (obj) {
         Listar(obj);
     });
     $("#filtrosInvitacionesC").val("Todos");
@@ -69,13 +68,12 @@ function Listar(obj) {
 }
 
 function FiltrarInvitacionesC() {
-    urlE = "https://localhost:44351/Invitaciones";
     var estado = $("#filtrosInvitacionesC").val();
     if (estado == "Todos") {
         Actualizar();
     }
     else {
-        $.getJSON(urlE +'/getListaFiltros', { cadena: estado }, function (data) {
+        $.getJSON(urlOficial + 'Invitaciones/getListaFiltros', { cadena: estado }, function (data) {
             Listar(data);
         });
     }

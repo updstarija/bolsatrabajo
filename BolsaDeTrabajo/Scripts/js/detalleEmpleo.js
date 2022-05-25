@@ -1,4 +1,11 @@
-﻿function ContarCaracteres(str, maxCaracteres, e) {
+﻿//Validacion de inputs
+$(function () {
+    $('#PretencionSalarial').validacion('.,0123456789');
+    $('#CartaPresentacion').validacion(' .,:;abcdefghijklmnñopqrstuvwxyzáéíóú0123456789""()');
+});
+
+
+function ContarCaracteres(str, maxCaracteres, e) {
     var tot = parseInt(maxCaracteres) - str.length;
     $("#CaracteresDispDE").html(tot + " / " + maxCaracteres);
 }
@@ -17,7 +24,6 @@ function VerificarFormulario() {
     return validacion;
 }
 function RegistrarPostulacion() {
-    urlE = "https://localhost:44351/Postulantes";
     if (VerificarFormulario() == true) {
         var obj = {
             PretencionSalarial: $("#PretencionSalarial").val(),
@@ -26,7 +32,7 @@ function RegistrarPostulacion() {
             CartaPresentacion: $("#CartaPresentacion").val()
         }
         $.ajax({
-            url: urlE + '/Guardar',
+            url: urlOficial + 'Postulantes/Guardar',
             type: 'POST',
             data: JSON.stringify(obj),
             dataType: 'json',
@@ -36,9 +42,8 @@ function RegistrarPostulacion() {
                     $("#PostulacionModal").modal('hide');
                     Toast("success", data.Msj);
                     setTimeout(function () {
-                        urla = "https://localhost:44351/Empleos";
-                        window.location.href = urla + '/Index';
-                    }, 3000);
+                        window.location.href = urlOficial + 'Empleos/Index';
+                    }, 1000);
                 }
             }
         });

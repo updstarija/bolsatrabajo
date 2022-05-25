@@ -65,8 +65,8 @@
                             </div>
                             <div class="mt-3">
                                 <label for="correoDP">Correo:</label>
-                                <input type="text" class="form-control" id="correoDP" name="correoDP" required value="@Model.DatosPersonales.Correo">
-                                <div class="invalid-feedback">¡Campo Vacio!</div>
+                                <input type="text" class="form-control" id="correoDP" oninput="verificarCorreo(0)" name="correoDP" required value="@Model.DatosPersonales.Correo">
+                                <div id="estadoCorreo" style="font-size:13px;" class="text-danger" hidden="hidden">¡Correo no valido!</div><div class="invalid-feedback">¡Campo Vacio!</div>
                             </div>
                         </div>
                         <div class="col-12 col-sm-3">
@@ -82,7 +82,8 @@
                             </div>
                             <div class="mt-3">
                                 <label for="movilDP">Movil:</label>
-                                <input type="text" class="form-control" id="movilDP" name="movilDP" value="@Model.DatosPersonales.Movil">
+                                <input type="text" oninput="verificarCelular(0)" class="form-control" id="movilDP" name="movilDP" value="@Model.DatosPersonales.Movil">
+                                <div id="estadoNumero" style="font-size:13px;" class="text-danger" hidden="hidden">¡Su número de celular debe tener 8 caracteres!</div>
                             </div>
                         </div>
                         <div class="col-12 col-sm-3">

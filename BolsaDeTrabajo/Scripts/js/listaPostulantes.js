@@ -1,12 +1,18 @@
-﻿tabla = $('#tPostulantes').DataTable({
+﻿//Validacion de inputs
+$(function () {
+    $('#AsuntoM').validacion(' .,abcdefghijklmnñopqrstuvwxyzáéíóú0123456789-()""');
+    $('#MensajeM').validacion(' .,:;abcdefghijklmnñopqrstuvwxyzáéíóú0123456789""()@');
+});
+
+tabla = $('#tPostulantes').DataTable({
     columns: [
         { title: "<p class='text-center m-0 p-0'>#</p>", width: '5%' },
         { title: "Registro", width: '15%' },
         { title: "Candidato", width: '35%' },
         { title: "Nacionalidad", width: '15%' },
-        { title: "Sexo", width: '10%' },
+        { title: "<i class='fas fa-restroom'></i>", width: '5%' },
         { title: "Aceptado", width: '5%' },
-        { title: "<div class='d-flex flex-nowrap'><select class='custom-select' id='filtrosPostulantesS' onchange='FiltrarPostulantes()'><option value='Aceptado'>Aceptados</option><option value='Pendiente'>Pendientes</option><option value='Todos'>Todos</option></select></div>", width: '15%' }
+        { title: "<div class='d-flex flex-nowrap'><select class='custom-select' id='filtrosPostulantesS' onchange='FiltrarPostulantes()'><option value='Aceptado'>Aceptados</option><option value='Pendiente'>Pendientes</option><option value='Todos'>Todos</option></select></div>", width: '20%' }
     ],
 });
 var direct = window.location.href.split('/');
@@ -23,9 +29,8 @@ $(document).ready(function () {
 });
 
 function estadoEmpleo() {
-    urlE = "https://localhost:44351/Empleos";
     var IdEmpleo = $("#IdEmpleo").val();
-    $.getJSON(urlE + '/getEmpleo', { Id: IdEmpleo }, function (data) {
+    $.getJSON(urlOficial + 'Empleos/getEmpleo', { Id: IdEmpleo }, function (data) {
         var obj = data;
         if (obj != null) {
             if (obj.Estado == "Inactivo") {
@@ -41,8 +46,7 @@ function estadoEmpleo() {
 }
 
 function Actualizar() {
-    urlE = "https://localhost:44351/Postulantes";
-    $.getJSON(urlE + '/GetList', { IdEmpleo: $("#IdEmpleo").val() }, function (o) {
+    $.getJSON(urlOficial + 'Postulantes/GetList', { IdEmpleo: $("#IdEmpleo").val() }, function (o) {
         Listar(o);
     });
     $("#filtrosPostulantesS").val("Todos");
@@ -83,14 +87,14 @@ function Listar(obj) {
                 data: "nacionalidad", width: '15%'
             },
             {
-                data: "sexo", width: '10%'
+                data: "sexo", width: '5%'
             },
             {
                 data: "Aceptado", width: '5%',
                 sortable: false
             },
             {
-                data: "Actions", width: '15%',
+                data: "Actions", width: '20%',
                 sortable: false
             }
         ]
@@ -100,13 +104,12 @@ function Listar(obj) {
 }
 
 function ActualizarEstado(e, idPostulante) {
-    urlE = "https://localhost:44351/Postulantes";
     var estado = e.checked == true ? "Aceptado" : "Pendiente";
     var formData = new FormData();
     formData.append("Estado", estado);
     formData.append("IdPostulante", idPostulante);
     $.ajax({
-        url: urlE + '/ActualizarEstado',
+        url: urlOficial + 'Postulantes/ActualizarEstado',
         type: 'POST',
         data: formData,
         dataType: 'json',
@@ -121,7 +124,6 @@ function ActualizarEstado(e, idPostulante) {
     });
 }
 function FiltrarPostulantes() {
-    urlE = "https://localhost:44351/Postulantes";
     var estado = $("#filtrosPostulantesS").val();
     if (estado == "Todos") {
         Actualizar();
@@ -131,7 +133,7 @@ function FiltrarPostulantes() {
         formData.append("Estado", estado);
         formData.append("IdEmpleo", $("#IdEmpleo").val());
         $.ajax({
-            url: urlE + '/FiltrarPostulantes',
+            url: urlOficial + 'Postulantes/FiltrarPostulantes',
             type: 'POST',
             data: formData,
             dataType: 'json',
@@ -254,29 +256,25 @@ function cargarInfoPostulante(postulante) {
     cargarInfoCurriculum(postulante.Curriculum);
 }
 function VerPostulante(idPostulante) {
-    urlE = "https://localhost:44351/Postulantes";
-    $.getJSON(urlE + '/GetById', { IdPostulante: idPostulante }, function (obj) {
+    $.getJSON(urlOficial + 'Postulantes/GetById', { IdPostulante: idPostulante }, function (obj) {
         cargarInfoPostulante(obj);
         $("#ModalPostulante").modal("show");
     });
 }
 
 function VerCurriculum(idPostulante) {
-    urlE = "https://localhost:44351/Postulantes";
-    $.getJSON(urlE + '/GetById', { IdPostulante: idPostulante }, function (obj) {
+    $.getJSON(urlOficial + 'Postulantes/GetById', { IdPostulante: idPostulante }, function (obj) {
         cargarInfoPostulante(obj);
         $.print('#ContentCurriculo');
     });
 }
 
 function ConcluirEmpleoComfirm() {
-    urlE = "https://localhost:44351/Postulantes";
-    $.getJSON(urlE + '/getListByEstado', { IdEmpleo: $("#IdEmpleo").val() }, function (o) {
+    $.getJSON(urlOficial + 'Postulantes/getListByEstado', { IdEmpleo: $("#IdEmpleo").val() }, function (o) {
         if (o.Postulantes.length != 0) {
             $("#ModalConcluirPostulacion").modal("show");
         }
         else {
-            urla = "https://localhost:44351/Empleos";
             $.confirm({
                 icon: 'fas fa-exclamation-triangle',
                 title: 'Concluir Empleo',
@@ -296,7 +294,7 @@ function ConcluirEmpleoComfirm() {
                             formData.append("EnviarCorreo", "No");
                             formData.append("IdEmpleo", $("#IdEmpleo").val());
                             $.ajax({
-                                url: urla + '/ActualizarEstado',
+                                url: urlOficial + 'Empleos/ActualizarEstado',
                                 type: 'POST',
                                 data: formData,
                                 dataType: 'json',
@@ -306,8 +304,7 @@ function ConcluirEmpleoComfirm() {
                                     if (data.Tipo == 1) {
                                         Toast("success", data.Msj);
                                         setInterval(() => {
-                                            urla = "https://localhost:44351/Empleos";
-                                            window.location.href = urla + '/Index';
+                                            window.location.href = urlOficial + 'Empleos/Index';
                                         }, 3000);
                                     }
                                 }
@@ -343,9 +340,8 @@ function ConcluirEmpleo() {
         formData.append("IdEmpleo", $("#IdEmpleo").val());
         formData.append("Asunto", $("#AsuntoM").val());
         formData.append("Mensaje", $("#MensajeM").val());
-        urlE = "https://localhost:44351/Empleos";
         $.ajax({
-            url: urlE + '/ActualizarEstado',
+            url: urlOficial + 'Empleos/ActualizarEstado',
             type: 'POST',
             data: formData,
             dataType: 'json',
@@ -353,11 +349,10 @@ function ConcluirEmpleo() {
             processData: false,
             success: function (data) {
                 if (data.Tipo == 1) {
+                    $("#btnCE").prop("disabled", true);
                     $("#ModalConcluirPostulacion").modal("hide");
                     Toast("success", data.Msj);
-                    setTimeout(function () {
-                        window.location.href = url + '/Empleos/Index';
-                    }, 3000);
+                    window.location.href = urlOficial + '/Empleos/Index';
                 }
             }
         });

@@ -70,7 +70,14 @@ namespace BolsaDeTrabajo.Controllers
                 }
                 else
                 {
-                    return RedirectToAction("Index", "Invitaciones");
+                    if (notficaciones.Tipo == "Invitacion")
+                    {
+                        return RedirectToAction("Index", "Invitaciones");
+                    }
+                    else
+                    {
+                        return RedirectToAction("IndexFD", "Invitaciones");
+                    }
                 }
             }
         }

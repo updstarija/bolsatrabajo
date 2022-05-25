@@ -99,8 +99,11 @@ namespace BolsaDeTrabajo.Controllers
                         var password = form["clave"];
                         if (password != null)
                         {
-                            EncriptarClass enc = new EncriptarClass();
-                            usuario.Clave = enc.GetSHA256(form["clave"]);
+                            if (password != "")
+                            {
+                                EncriptarClass enc = new EncriptarClass();
+                                usuario.Clave = enc.GetSHA256(form["clave"]);
+                            }
                         }
                         usuario.FechaActualizacion = DateTime.Now;
                         if (IdCandidato == -1)

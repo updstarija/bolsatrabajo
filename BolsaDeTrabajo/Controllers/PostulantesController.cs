@@ -132,11 +132,11 @@ namespace BolsaDeTrabajo.Controllers
                 string sexo = "";
                 if (item.Curriculum.Candidato.Sexo == "Masculino")
                 {
-                    sexo = "<p class='mt-1 text-center'><i class=' fas fa-male'></i></p>";
+                    sexo = "<i class='fas fa-male ico-blue tooltip-test w-100 text-center' title='MASCULINO'></i>";
                 }
                 else
                 {
-                    sexo = "<p class='mt-1 text-center'><i class='fas fa-female'></i></p>";
+                    sexo = "<i class='fas fa-female ico-red tooltip-test w-100 text-center' title='FEMENINO'></i>";
                 }
                 btn = "<div class='d-flex flex-nowrap'><button  type='button'class='btn btn-sm btn-link' data-toggle='modal' data-target='#ModalPostulante' onclick='VerPostulante(" + item.Id + ")'><i class='fas fa-eye ico-blue ico-animation fa-lg'></i></button> <button type='button' class='btn btn-sm btn-link' onclick='VerCurriculum(" + item.Id + ")'><i class='fas fa-print ico-gray ico-animation fa-lg'></i></i></button></div>";
                 btn2 = "<input type='checkbox' class='style-checkbox' id='estadoCandidato" + i + "' " + estado + " onchange='ActualizarEstado(this," + item.Id + ")' " + statusCheckbox + ">";
@@ -271,9 +271,18 @@ namespace BolsaDeTrabajo.Controllers
                 {
                     estado = "";
                 }
+                string sexo = "";
+                if (item.Curriculum.Candidato.Sexo == "Masculino")
+                {
+                    sexo = "<i class='fas fa-male ico-blue tooltip-test w-100 text-center' title='MASCULINO'></i>";
+                }
+                else
+                {
+                    sexo = "<i class='fas fa-female ico-red tooltip-test w-100 text-center' title='FEMENINO'></i>";
+                }
                 btn = "<div class='d-flex flex-nowrap'><button  type='button'class='btn btn-sm btn-link' data-toggle='modal' data-target='#ModalPostulacion' onclick='VerPostulante(" + item.Id + ")'><i class='fas fa-eye ico-blue ico-animation fa-lg'></i></button> <button  type='button' class='btn btn-sm btn-link' onclick='VerCurriculum(" + item.Id + ")'><i class='fas fa-print ico-gray ico-animation fa-lg'></i></i></button></div>";
                 btn2 = "<input type='checkbox' class='style-checkbox' id='estadoCandidato" + i + "' " + estado + " onchange='ActualizarEstado(this," + item.Id + ")' " + statusCheckbox + ">";
-                object[] obj = { i, item.FechaRegistro.ToString("dd/MM/yyyy"), item.Curriculum.Candidato.Nombre + ' ' + item.Curriculum.Candidato.Apellido, item.Curriculum.Candidato.Nacionalidad, item.Curriculum.Candidato.Sexo, btn, btn2 };
+                object[] obj = { i, item.FechaRegistro.ToString("dd/MM/yyyy"), item.Curriculum.Candidato.Nombre + ' ' + item.Curriculum.Candidato.Apellido, item.Curriculum.Candidato.Nacionalidad, sexo, btn, btn2 };
                 tabla.Add(obj);
             }
             return Json(tabla, JsonRequestBehavior.AllowGet);

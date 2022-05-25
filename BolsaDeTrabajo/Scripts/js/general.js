@@ -15,10 +15,7 @@ function hideMenuCuenta() {
 }
 
 function CargarNotificaciones() {
-    urlN = "https://localhost:44351/Notificaciones";
-    urlI = "https://localhost:44351/Invitaciones";
-    console.log(urlI);
-    $.getJSON(urlN + '/getNotificaciones', function (data) {
+    $.getJSON(urlOficial + 'Notificaciones/getNotificaciones', function (data) {
         $("span[id=NroNotificaciones]").text(data.NotificacionesPendientes);
         if (data.Notificacion.length == 0) {
             $("#Notificacion").html("");
@@ -56,13 +53,12 @@ function CargarNotificaciones() {
                     </div>
                     <div id="conentdescripcion">
                     <p>${obj.Descripcion}</p>
-                    <p>Fecha: ${obj.FechaRegistro} <a href="${urlI}/Lista"><i class="fas fa-eye ico-blue ico-animation tooltip-test" title="VER MAS"></i></a></p>
+                    <p>Fecha: ${obj.FechaRegistro} <a class="" href="${urlOficial}Notificaciones/verNotificacion?Id=${obj.Id}"><i class="fas fa-eye ico-blue ico-animation tooltip-test" title="VER MAS"></i></a></p>
                     </div>
                     </div>
                     </div>`;
                 $("#Notificacion").append(notificaciones);
             }
-            //<p>Fecha: ${obj.FechaRegistro} <a href="${urlE}/Lista?Id=${obj.Id}"><i class="fas fa-eye ico-blue ico-animation tooltip-test" title="VER MAS"></i></a></p>
         }
     });
 }

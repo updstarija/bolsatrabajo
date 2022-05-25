@@ -1,12 +1,13 @@
-﻿tabla = $('#tPostulantes').DataTable({
+﻿
+tabla = $('#tPostulantes').DataTable({
     columns: [
         { title: "Id", width: '5%' },
         { title: "Registro", width: '15%' },
         { title: "Candidato", width: '35%' },
         { title: "Nacionalidad", width: '15%' },
-        { title: "Sexo", width: '15%' },
-        { title: "Estado", width: '5%' },
-        { title: "<div class='d-flex flex-nowrap'><select class='custom-select' id='filtrosPostulantesS' onchange='FiltrarPostulantes()'><option value='Aceptado'>Aceptados</option><option value='Pendiente'>Pendientes</option><option value='Todos'>Todos</option></select></div>", width: '10%' }
+        { title: "<i class='fas fa-restroom'></i>", width: '5%' },
+        { title: "Estado", width: '10%' },
+        { title: "<div class='d-flex flex-nowrap'><select class='custom-select' id='filtrosPostulantesS' onchange='FiltrarPostulantes()'><option value='Aceptado'>Aceptados</option><option value='Pendiente'>Pendientes</option><option value='Todos'>Todos</option></select></div>", width: '15%' }
     ],
 });
 
@@ -23,9 +24,7 @@ $(document).ready(function () {
 });
 
 function Actualizar() {
-    urlE = "https://localhost:44351/Administradores";
-
-    $.getJSON(urlE + '/ListaPostulantesByEmpleo', { IdEmpleo: $("#IdEmpleo").val() }, function (o) {
+    $.getJSON(urlOficial + 'Administradores/ListaPostulantesByEmpleo', { IdEmpleo: $("#IdEmpleo").val() }, function (o) {
         Listar(o);
     });
     $("#filtrosPostulantesS").val("Todos");
@@ -54,13 +53,13 @@ function Listar(obj) {
                 data: "atrib4", width: '15%'
             },
             {
-                data: "atrib5", width: '15%'
+                data: "atrib5", width: '5%'
             },
             {
-                data: "atrib6", width: '5%'
+                data: "atrib6", width: '10%'
             },
             {
-                data: "atrib7", width: '10%',
+                data: "atrib7", width: '15%',
                 sortable: false
             }
         ]
@@ -70,7 +69,6 @@ function Listar(obj) {
 }
 
 function FiltrarPostulantes() {
-    urlE = "https://localhost:44351/Administradores";
     var estado = $("#filtrosPostulantesS").val();
     if (estado == "Todos") {
         Actualizar();
@@ -80,7 +78,7 @@ function FiltrarPostulantes() {
         formData.append("Estado", estado);
         formData.append("IdEmpleo", $("#IdEmpleo").val());
         $.ajax({
-            url: urlE + '/ListaPostulantesByEstado',
+            url: urlOficial + 'Administradores/ListaPostulantesByEstado',
             type: 'POST',
             data: formData,
             dataType: 'json',
@@ -203,16 +201,14 @@ function cargarInfoPostulante(postulante) {
     cargarInfoCurriculum(postulante.Curriculum);
 }
 function VerPostulante(idPostulante) {
-    urlE = "https://localhost:44351/Postulantes";
-    $.getJSON(urlE + '/GetById', { IdPostulante: idPostulante }, function (obj) {
+    $.getJSON(urlOficial + 'Postulantes/GetById', { IdPostulante: idPostulante }, function (obj) {
         cargarInfoPostulante(obj);
         $("#ModalPostulante").modal("show");
     });
 }
 
 function VerCurriculum(idPostulante) {
-    urlE = "https://localhost:44351/Postulantes";
-    $.getJSON(urlE + '/GetById', { IdPostulante: idPostulante }, function (obj) {
+    $.getJSON(urlOficial + 'Postulantes/GetById', { IdPostulante: idPostulante }, function (obj) {
         cargarInfoPostulante(obj);
         $.print('#ContentCurriculo');
     });

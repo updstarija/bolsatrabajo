@@ -4,7 +4,7 @@
 var direct = window.location.href.split('/');
 var url = window.location.origin + "/" + direct[3];
 var indexRegistroinicial = 0;
-var nroRegistros = 4;
+var nroRegistros = 6;
 var ultiCards = null;
 var confirmar = true;
 var indexCards = null;
@@ -41,8 +41,7 @@ function agregarListaCurriculums() {
 }
 function cargarListaCurriculums() {
     console.log("contador antes: " + c);
-    urlE = "https://localhost:44351/Curriculos";
-    $.getJSON(urlE + '/getCurriculums', { Pagina: indexRegistroinicial }, function (data) {
+    $.getJSON(urlOficial + 'Curriculos/getCurriculums', { Pagina: indexRegistroinicial }, function (data) {
         var list = data;
         if (list.curriculums.length != 0) {
             c = 1;
@@ -66,7 +65,6 @@ function cargarListaCurriculums() {
 
 function ListarCurriculums(list) {
     $("#cargandoC").show();
-    urlE = "https://localhost:44351/Curriculos";
     if (indexRegistroinicial == 0) {
         $("#itemsCardsCurriculums").html("");
     }
@@ -87,7 +85,7 @@ function ListarCurriculums(list) {
                             <p>${obj.InformacionGeneral.presentacionBiografiaIG.length > 120 ? subcadenaPB : obj.InformacionGeneral.presentacionBiografiaIG}...</p>
                         </div>
                         <div class="pie-card">
-                            <a class="boton-card" href="${urlE}/DetalleCurriculo?Id=${obj.DatosPersonalesC.idCurriculum}""> Ver mas</a>
+                            <a class="boton-card" href="${urlOficial}Curriculos/DetalleCurriculo?Id=${obj.DatosPersonalesC.idCurriculum}""> Ver mas</a>
                         </div>
                     </div>
                 </div>`;
@@ -167,9 +165,8 @@ function FiltrarCurriculums(nombreFiltro) {
     }
 }
 function getFiltrosDC(filtros) {
-    urlE = "https://localhost:44351/Curriculos";
     $.ajax({
-        url: urlE + '/getCurriculumsByFiltros',
+        url: urlOficial + 'Curriculos/getCurriculumsByFiltros',
         type: 'POST',
         dataType: 'json',
         data: JSON.stringify(filtros),

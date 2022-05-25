@@ -1,4 +1,10 @@
-﻿$(document).ready(function () {
+﻿$(function () {
+    $('#SujerirSalarial').validacion('0123456789.,');
+    $('#CartaInvitacion').validacion(' @abcdefghijklmnñopqrstuvwxyzáéíóú0123456789.,:;"()');
+});
+
+
+$(document).ready(function () {
     var valorId = $("#idValor").val();
     mostrarCurriculum(valorId);
  
@@ -7,8 +13,7 @@ var direct = window.location.href.split('/');
 var url = window.location.origin + "/" + direct[3];
 
 function mostrarCurriculum(valorId) {
-    urlE = "https://localhost:44351/Curriculos";
-    $.getJSON(urlE + '/getDetalleCurriculo', { Id: valorId }, function (data) {
+    $.getJSON(urlOficial + 'Curriculos/getDetalleCurriculo', { Id: valorId }, function (data) {
         Cargardatos(data);
     });
 }
@@ -108,8 +113,7 @@ function verificarInvitacionesT(){
     }
 }
 function verificarInvitacion(id, idEmpleo) {
-    urlE = "https://localhost:44351/Invitaciones";
-    $.getJSON(urlE + '/VerificarInvitacion', { Id: id, IdEmpleo: idEmpleo }, function (data) {       
+    $.getJSON(urlOficial + 'Invitaciones/VerificarInvitacion', { Id: id, IdEmpleo: idEmpleo }, function (data) {
         if (data == true) {
             $("#btnPEInvitacion").prop('disabled', true);
             $("#btnPEInvitacion").text("Ya envio una invitacion a este curriculum");

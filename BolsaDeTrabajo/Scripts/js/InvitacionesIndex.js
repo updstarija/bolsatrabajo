@@ -10,6 +10,7 @@
         { title: "Invitados", width: '5%' },
         { title: "<div class='d-flex flex-nowrap'><select class='custom-select' id='filtrosInvitacionesC' onchange='FiltrarEmpleos()'><option value='Activo'>Activos</option><option value='Inactivo'>Inactivos</option><option value='Todos'>Todos</option></select></div>", width: '10%' }
     ],
+    "lengthMenu": [[5, 10, 15, -1], [5, 10, 15, "All"]]
 });
 $("#cargandoinvitacines").show();
 $("#contenidoTInvitaciones").hide();
@@ -23,9 +24,7 @@ $(document).ready(function () {
 });
 
 function Actualizar() {
-    urlE = "https://localhost:44351/Empleos";
-
-    $.getJSON(urlE +'/getTableEmpleos', function (obj) {
+    $.getJSON(urlOficial + 'Empleos/getTableEmpleos', function (obj) {
         Listar(obj);
     });
     $("#filtrosInvitacionesC").val("Todos");
@@ -40,7 +39,7 @@ function Listar(obj) {
         "language": {
             "url": "//cdn.datatables.net/plug-ins/1.10.25/i18n/Spanish.json"
         },
-
+        "lengthMenu": [[5, 10, 15, -1], [5, 10, 15, "All"]],
         columns: [
             {
                 data: "atrib1", width: '5%'
@@ -78,14 +77,12 @@ function Listar(obj) {
 }
 
 function FiltrarEmpleos() {
-    urlE = "https://localhost:44351/Empleos";
-
     var estado = $("#filtrosInvitacionesC").val();
     if (estado == "Todos") {
         Actualizar();
     }
     else {
-        $.getJSON(urlE +'/getByEstadoInvitado', { Estado: estado }, function (data) {
+        $.getJSON(urlOficial + 'Empleos/getByEstadoInvitado', { Estado: estado }, function (data) {
             Listar(data);
         });
     }
@@ -93,9 +90,10 @@ function FiltrarEmpleos() {
 
 
 function CargarDatosEmpleo(IdEmpleo) {
+    $("#estadoCorreo").attr("hidden", "hidden");
+    $("#CorreoEnvioPostulaciones").removeClass("border border-danger");
     $("#ModalRegistrarEmpleo").modal('show');
-    urlE = "https://localhost:44351/Empleos";
-    $.getJSON(urlE + '/getEmpleo', { Id: IdEmpleo }, function (obj) {
+    $.getJSON(urlOficial + 'Empleos/getEmpleo', { Id: IdEmpleo }, function (obj) {
         $("#formRegistrarEmpleo").removeClass('was-validated');
         $("#Titulo").val(obj.Titulo);
         $("#Id").val(obj.Id);
@@ -119,6 +117,24 @@ function CargarDatosEmpleo(IdEmpleo) {
         $("#FechaExpiracion").val(obj.FechaExpiracionHora);
         document.getElementById("Teletrabajo").checked = obj.Teletrabajo == "Si" ? true : false;
     });
+}
+
+function verificarCorreo(valor) {
+    console.log(valor);
+    var correo = $("#CorreoEnvioPostulaciones").val();
+    var expreRegular = /^(([^<>()\[\]\\.,;:\s@”]+(\.[^<>()\[\]\\.,;:\s@”]+)*)|(“.+”))@((\[[0–9]{1,3}\.[0–9]{1,3}\.[0–9]{1,3}\.[0–9]{1,3}])|(([a-zA-Z\-0–9]+\.)+[a-zA-Z]{2,}))$/;
+    var esValido = expreRegular.test(correo);
+    if (esValido == false && correo.length > 0) {
+        $("#estadoCorreo").removeAttr("hidden", "hidden");
+        $("#CorreoEnvioPostulaciones").addClass("border border-danger");
+        if (valor == 1) {
+            Toast("error", "su correo no es valido");
+        }
+    } else {
+        $("#estadoCorreo").attr("hidden", "hidden");
+        $("#CorreoEnvioPostulaciones").removeClass("border border-danger");
+    }
+    return esValido;
 }
 
 function VerificarFormulario() {
@@ -166,27 +182,28 @@ function saveDatesForm(idForm) {
 }
 
 $("#formRegistrarEmpleo").on('submit', function (e) {
-    urlE = "https://localhost:44351/Empleos";
     var Empleo = saveDatesForm('formRegistrarEmpleo')[0];
     e.preventDefault();
     var obj = new FormData(this);
     if (VerificarFormulario() == true) {
-        $.ajax({
-            url: urlE + '/Guardar',
-            type: 'POST',
-            data: JSON.stringify(Empleo),
-            dataType: 'json',
-            contentType: 'application/json',
-            success: function (data) {
-                if (data.Tipo == 1) {
-                    Toast("success", data.Msj);
-                    $("#ModalRegistrarEmpleo").modal('hide');
-                    Actualizar();
-                    setTimeout(function () {
-                    }, 2000);
+        if (verificarCorreo(1) == true) {
+            $.ajax({
+                url: urlOficial + 'Empleos/Guardar',
+                type: 'POST',
+                data: JSON.stringify(Empleo),
+                dataType: 'json',
+                contentType: 'application/json',
+                success: function (data) {
+                    if (data.Tipo == 1) {
+                        Toast("success", data.Msj);
+                        $("#ModalRegistrarEmpleo").modal('hide');
+                        Actualizar();
+                        setTimeout(function () {
+                        }, 2000);
+                    }
                 }
-            }
-        });
+            });
+        }
     }
     else {
         Toast("error", "¡Debe llenar los siguientes campos!");

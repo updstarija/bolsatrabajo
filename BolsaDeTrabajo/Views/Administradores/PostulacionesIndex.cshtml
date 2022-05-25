@@ -13,9 +13,15 @@
 <div class="table-responsive-lg" id="contenidoTPostulaciones">
     <nav aria-label="breadcrumb">
         <ol class="breadcrumb bg-white">
-            <li class="breadcrumb-item"><a href="https://localhost:44351/Administradores/CandidatoIndex">Candidatos</a></li>
-            <li class="breadcrumb-item"><a href="https://localhost:44351/Administradores/CurriculumsIndex?Id=@ViewBag.IdCandidato">@ViewBag.NombreCandidato / Curriculums</a></li>
-            <li class="breadcrumb-item active" aria-current="page">@ViewBag.Nombrecurricumlu / Postulaciones</li>
+            <!--****************************** Local ***************************-->
+            @*<li class="breadcrumb-item"><a href="https://localhost:44351/Administradores/CandidatoIndex">Candidatos</a></li>
+            <li class="breadcrumb-item"><a href="https://localhost:44351/Administradores/CurriculumsIndex?Id=@ViewBag.IdCandidato">Curriculums</a></li>
+            <li class="breadcrumb-item active" aria-current="page">Postulaciones</li>*@
+
+            <!--****************************** publicado ***************************-->
+            <li class="breadcrumb-item"><a href="https://tarija.upds.edu.bo/UpdsTrabaja/Administradores/CandidatoIndex">Candidatos</a></li>
+            <li class="breadcrumb-item"><a href="https://tarija.upds.edu.bo/UpdsTrabaja/Administradores/CurriculumsIndex?Id=@ViewBag.IdCandidato">Curriculums</a></li>
+            <li class="breadcrumb-item active" aria-current="page">Postulaciones</li>
         </ol>
     </nav>
     <h1 class="text-center">Postulaciones</h1>

@@ -11,7 +11,11 @@
             </div>
         </div>
         <div class="table-responsive-lg " id="contenidoTInvitaciones">
-            <br />
+            <nav aria-label="breadcrumb">
+                <ol class="breadcrumb bg-white">
+                    <li class="breadcrumb-item active" aria-current="page">Invitaciones a Empleos</li>
+                </ol>
+            </nav>
             <h1 class="text-center animated fadeInDown">Invitaciones a Empleos</h1>
             <br />
             <table id="tInvitacionesIndex" class="table table-striped display mx-0 my-table-DT animated slideInLeft" style="width:100%"></table>
@@ -20,7 +24,7 @@
 </div>
 
 
-<div class="container-personalizado">
+@*<div class="container-personalizado">
     <div class="shadow-lg p-3 bg-white rounded pl-5 pr-5 pb-5 mt-4">
         <div id="cargandoinvitacinesFD" class="text-center">
             <div class="spinner-border" role="status">
@@ -34,10 +38,10 @@
             <table id="tInvitacionesFD" class="table table-striped display mx-0 my-table-DT animated slideInLeft" style="width:100%"></table>
         </div>
     </div>
-</div>
+</div>*@
 
 
-<div class="modal fade" id="ModalInvitado" data-backdrop="static" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+@*<div class="modal fade" id="ModalInvitado" data-backdrop="static" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-start modal-lg">
         <div class="modal-content">
             <div class="modal-header">
@@ -52,7 +56,7 @@
             </div>
         </div>
     </div>
-</div>
+</div>*@
 
 <div class="modal fade" id="ModalRegistrarEmpleo" data-backdrop="static" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-start modal-xl">
@@ -181,7 +185,8 @@
                     <div class="row">
                         <div class="col-12 col-sm-4 mt-2">
                             <label for="CorreoEnvioPostulaciones">Correo para envio de postulaciones:</label>
-                            <input type="text" class="form-control" id="CorreoEnvioPostulaciones" name="CorreoEnvioPostulaciones" value="ViewBag.Usuario.Email" required>
+                            <input type="text" class="form-control" oninput="verificarCorreo(0)" id="CorreoEnvioPostulaciones" name="CorreoEnvioPostulaciones" value="ViewBag.Usuario.Email" required>
+                            <div id="estadoCorreo" style="font-size:13px;" class="text-danger" hidden="hidden">¡Correo no valido!</div>
                             <div class="invalid-feedback">¡Campo Vacio!</div>
                         </div>
                         <div class="col-12 col-sm-4 mt-2">

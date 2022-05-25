@@ -46,6 +46,7 @@ namespace BolsaDeTrabajo.Controllers
                 //TotalRegistros = item.Postulante.Count();
                 ObjectAnonimo obj = new ObjectAnonimo();
                 i++;
+                string edit = "";
                 obj.atrib1 = i.ToString();
                 obj.atrib2 = item.FechaRegistro.ToString("dd/MM/yyyy");
                 obj.atrib3 = item.FechaExpiracion?.ToString("dd/MM/yyyy");
@@ -59,12 +60,16 @@ namespace BolsaDeTrabajo.Controllers
                 {
 
                     obj.atrib8 += "<a href='" + baseUrl + "Postulantes/Lista?Id=" + item.Id + "'><i class='fas fa-eye ico-blue ico-animation fa-lg'></i></a>";
+                    edit = "<div style='width: 35px'></div>";
                 }
-                obj.atrib9 = @"<div class='d-flex flex-nowrap'>
-                        <button type='button' class='btn tooltip-test px-1' title='EDITAR' data-toggle='modal' data-target='#ModalRegistrarEmpleo' onclick='CargarDatosEmpleo(" + item.Id + @")'><i class='fas fa-edit ico-gray ico-animation fa-lg'></i></button>
-                        <button type='button' class='btn tooltip-test px-1' title='ELIMINAR' onclick=EliminarEmpleo(" + item.Id + @")><i class='fas fa-trash ico-gray ico-animation fa-lg'></i></button>
-                        <button type='button' class='btn tooltip-test px-1' title='INFORMACIÓN' data-toggle='modal' data-target='#ModalEmpleo' onclick='VerEmpleo(" + item.Id + @")'><i class='fas fa-info-circle ico-blue ico-animation fa-lg'></i></button>
-                        </div";
+                else
+                {
+                    edit = "<button type='button' class='btn tooltip-test px-1' title='EDITAR' data-toggle='modal' data-target='#ModalRegistrarEmpleo' onclick='CargarDatosEmpleo(" + item.Id + @")'><i class='fas fa-edit ico-gray ico-animation fa-lg'></i></button>";
+                }
+                obj.atrib9 = @"<div class='d-flex flex-nowrap'>" + edit  +
+                    "<button type='button' class='btn tooltip-test px-1' title='ELIMINAR' onclick=EliminarEmpleo(" + item.Id + @")><i class='fas fa-trash ico-gray ico-animation fa-lg'></i></button>
+                    <button type='button' class='btn tooltip-test px-1' title='INFORMACIÓN' data-toggle='modal' data-target='#ModalEmpleo' onclick='VerEmpleo(" + item.Id + @")'><i class='fas fa-info-circle ico-blue ico-animation fa-lg'></i></button>
+                    </div";
                 tabla.Add(obj);
             }
 

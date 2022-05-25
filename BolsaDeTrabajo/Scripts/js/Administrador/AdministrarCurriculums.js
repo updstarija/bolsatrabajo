@@ -1,4 +1,5 @@
-﻿tabla = $('#tcurriculumscandidato').DataTable({
+﻿
+tabla = $('#tcurriculumscandidato').DataTable({
     columns: [
         { title: "#", width: '5%' },
         { title: "Registro", width: '10%' },
@@ -21,8 +22,7 @@ $(document).ready(function () {
     }, 1000);
 });
 function Actualizar(id) {
-    urlE = "https://localhost:44351/Administradores";
-    $.getJSON(urlE + '/getCurriculums', { Id: id }, function (obj) {
+    $.getJSON(urlOficial + 'Administradores/getCurriculums', { Id: id }, function (obj) {
         Listar(obj);
     });
     $("#filtrosCurriculums").val("Todos");
@@ -68,28 +68,25 @@ function Listar(obj) {
 }
 
 function FiltrosCurriculumsC() {
-    urlE = "https://localhost:44351/Administradores";
     var val = $("#filtrosCurriculums").val();
     var id = $("#idValor").val();
     if (val == "Todos") {
         Actualizar(id);
     }
     else {
-        $.getJSON(urlE + '/FiltrarCurriculums', { Id: id, Filtro: val }, function (obj) {
+        $.getJSON(urlOficial + 'Administradores/FiltrarCurriculums', { Id: id, Filtro: val }, function (obj) {
             Listar(obj);
         });
     }
 
 }
 function verdetallecurriculums(id) {
-    urlE = "https://localhost:44351/Curriculos";
-    $.getJSON(urlE + '/getDetalleCurriculo', { Id: id }, function (obj) {
+    $.getJSON(urlOficial + 'Curriculos/getDetalleCurriculo', { Id: id }, function (obj) {
         cargarInfoCurriculum(obj);
     });
 }
 function imprimirCurriculum(id) {
-    urlE = "https://localhost:44351/Curriculos";
-    $.getJSON(urlE + '/getDetalleCurriculo', { Id: id }, function (obj) {
+    $.getJSON(urlOficial + 'Curriculos/getDetalleCurriculo', { Id: id }, function (obj) {
         cargarInfoCurriculum(obj);
         Imprimir();
     });
@@ -98,7 +95,6 @@ function Imprimir() {
     $.print('#seccionCurriculumC');
 }
 function CambioEstadoCurriculumCandidato(Select, id) {
-    urlE = "https://localhost:44351/Administradores";
     $.confirm({
         icon: 'fas fa-exclamation-triangle',
         title: 'Modificar Estado',
@@ -114,7 +110,7 @@ function CambioEstadoCurriculumCandidato(Select, id) {
                 btnClass: 'btn-orange',
                 action: function () {
                     var val = $(`#cambioCurriculums${id}`).val();
-                    $.getJSON(urlE + '/cambioEstadoCurriculum', { Id: id, Estado: val }, function (obj) {
+                    $.getJSON(urlOficial + 'Administradores/cambioEstadoCurriculum', { Id: id, Estado: val }, function (obj) {
                         if (obj.Tipo == 1) {
                             Toast("success", obj.Msj);
                         }

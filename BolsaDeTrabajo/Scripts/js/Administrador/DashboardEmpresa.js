@@ -1,13 +1,10 @@
-﻿var direct = window.location.href.split('/');
-var urlBas = window.location.origin + "/" + direct[3];
+﻿
 $(document).ready(function () {
-    console.log(urlBas);
-    console.log("empresa");
     $.ajax({
         type: "GET",
         contentType: "application/json; charset-utf-8",
         dataType: "json",
-        url: urlBas+"/DashboardEmpresa",
+        url: urlOficial + "Administradores/DashboardEmpresa",
         success: function (data) {
             graficosempresa(data);
         }

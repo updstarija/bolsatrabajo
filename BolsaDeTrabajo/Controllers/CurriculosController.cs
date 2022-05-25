@@ -17,7 +17,7 @@ namespace BolsaDeTrabajo.Controllers
     {
         // GET: Curriculos
         private UPDS_BDTEntities db = new UPDS_BDTEntities();
-        private int _RegistrosPorPaginas = 4;
+        private int _RegistrosPorPaginas = 6;
         private int _TotalRegistrosFiltrados = 0;
         [Authorize(Roles = "Candidato,Administrador")]
         public ActionResult Index()

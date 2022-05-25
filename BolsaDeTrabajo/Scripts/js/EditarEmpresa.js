@@ -1,4 +1,18 @@
-﻿$(function () {
+﻿//Validacion de inputs
+$(function () {
+    $('#nombre_empresa').validacion(' abcdefghijklmnñopqrstuvwxyzáéíóú0123456789-()""');
+    $('#NIT_empresa').validacion('0123456789');
+    $('#nombre_persona_empresa').validacion(' abcdefghijklmnñopqrstuvwxyzáéíóú');
+    $('#ciudad_empresa').validacion(' abcdefghijklmnñopqrstuvwxyzáéíóú()');
+    $('#direccion_empresa').validacion(' abcdefghijklmnñopqrstuvwxyzáéíóú()-/.0123456789');
+    $('#sitio_web_empresa').validacion(' .:abcdefghijklmnñopqrstuvwxyzáéíóú0123456789//');
+    $('#telefonoCelular').validacion('0123456789');
+    $('#telefonoFijo').validacion(' -0123456789');
+    $('#descripcion_empresa').validacion(' .,:;abcdefghijklmnñopqrstuvwxyzáéíóú0123456789""()');
+    $('#correo_empresa').validacion(' .abcdefghijklmnñopqrstuvwxyzáéíóú0123456789@');
+});
+
+$(function () {
     CargarEmpresa();
 });
 var direct = window.location.href.split('/');
@@ -8,15 +22,20 @@ var validarClaves = false;
 const MAXIMO_TAMANIO_BYTES = 1000000;
 
 function CargarEmpresa() {
-    urlE = "https://localhost:44351/Empresas";
-    $.getJSON(urlE + '/getEmpresa', { Id: $("#id_empresa").val() }, function (obj) {
+    $("#estadoCorreo").attr("hidden", "hidden");
+    $("#correo_empresa").removeClass("border border-danger");
+    $("#estadoUrl").attr("hidden", "hidden");
+    $("#sitio_web_empresa").removeClass("border border-danger");
+    $("#estadoNumero").attr("hidden", "hidden");
+    $("#telefonoCelular").removeClass("border border-danger");
+    $.getJSON(urlOficial + 'Empresas/getEmpresa', { Id: $("#id_empresa").val() }, function (obj) {
         if (obj != null) {
             $("#perfil-info00").html("");
             $("#perfil-info01").html("");
             $("#perfil-info02").html("");
             $("#perfil-info03").html("");
 
-            var perfilInfo0 = "<img src='data:image;base64," + obj.Perfil.Foto + "' class='rounded-circle img-perfil-empresa'/>"+
+            var perfilInfo0 = "<img src='data:image;base64," + obj.Perfil.Foto + "' class='shadow rounded-circle img-perfil-empresa'/>"+
                 "<h5 class='text-center mt-3'>" + obj.NombreEmpresa + "</h5>"+
                 "<p class='text-center'>" + obj.Perfil.Usuario.Correo + "</p>";
 
@@ -106,18 +125,67 @@ function MostrarCamposE() {
     var fila = `
             <div class="col-12 col-sm-6">
                     <label for="clave">Contraseña:</label>
-                    <input type="password" class="form-control is-valid" id="clave" name="clave" value="" required>
+                    <input type="password" class="form-control" id="clave" name="clave" required>
                     <div class="invalid-feedback">¡Campo Vacio!</div>
                 </div>
                 <div class="col-12 col-sm-6">
                     <label for="confirmClave">Confirmar Contraseña:</label>
-                    <input type="password" class="form-control is-valid" id="confirmClave" name="confirmClave" value="" required>
+                    <input type="password" class="form-control" id="confirmClave" name="confirmClave" required>
                     <div id="clave2E" class="invalid-feedback">Las contraseña no coincide.</div>
                 </div>
     `;
     $('#passwordE').append(fila);
     $('#btnMostrarCamposE').addClass('d-none');
     validarClaves = true;
+}
+function verificarCorreo(valor) {
+    var correo = $("#correo_empresa").val();
+    var expreRegular = /^(([^<>()\[\]\\.,;:\s@”]+(\.[^<>()\[\]\\.,;:\s@”]+)*)|(“.+”))@((\[[0–9]{1,3}\.[0–9]{1,3}\.[0–9]{1,3}\.[0–9]{1,3}])|(([a-zA-Z\-0–9]+\.)+[a-zA-Z]{2,}))$/;
+    var esValido = expreRegular.test(correo);
+    if (esValido == false && correo.length > 0) {
+        $("#estadoCorreo").removeAttr("hidden", "hidden");
+        $("#correo_empresa").addClass("border border-danger");
+        if (valor == 1) {
+            Toast("error", "su correo no es valido");
+        }
+    } else {
+        $("#estadoCorreo").attr("hidden", "hidden");
+        $("#correo_empresa").removeClass("border border-danger");
+    }
+    return esValido;
+}
+
+function verificarURL(valor) {
+    var url = $("#sitio_web_empresa").val();
+    var expreRegular = /(ftp|http|https):\/\/(\w+:{0,1}\w*@)?(\S+)(:[0-9]+)?(\/|\/([\w#!:.?+=&%@!\-\/]))?/;
+    var esValido = expreRegular.test(url);
+    if (esValido == false && url.length > 0) {
+        $("#estadoUrl").removeAttr("hidden", "hidden");
+        $("#sitio_web_empresa").addClass("border border-danger");
+        if (valor == 1) {
+            Toast("error", "su sitio web no es valido");
+        }
+    } else {
+        $("#estadoUrl").attr("hidden", "hidden");
+        $("#sitio_web_empresa").removeClass("border border-danger");
+    }
+    return esValido;
+}
+
+function verificarCelular(valor) {
+    var celu = $("#telefonoCelular").val();
+    if (celu.length > 0 && celu.length < 8) {
+        $("#estadoNumero").removeAttr("hidden", "hidden");
+        $("#telefonoCelular").addClass("border border-danger");
+        if (valor == 1) {
+            Toast("error", "Su número de celular no es valido");
+        }
+        return false;
+    } else {
+        $("#estadoNumero").attr("hidden", "hidden");
+        $("#telefonoCelular").removeClass("border border-danger");
+        return true;
+    }
 }
 
 function VerificarFormulario() {
@@ -139,7 +207,6 @@ function verificarClave() {
 }
 
 $("#formEditarEmpresa").on('submit', function (e) {
-    console.log("gardar empres");
     e.preventDefault();
 
     validarKey = VerificarFormulario();
@@ -147,41 +214,37 @@ $("#formEditarEmpresa").on('submit', function (e) {
         validarKey = verificarClave();
     }
     if (validarKey == true) {
-        urlE = "https://localhost:44351/Empresas";
-        var form = new FormData(this);
-        form.append("pais_empresa", "Bolivia");
-        $.ajax({
-            url: urlE + '/Guardar',
-            type: 'POST',
-            data: form,
-            dataType: 'json',
-            contentType: false,
-            processData: false,
-            success: function (data) {
-                if (data.Tipo == 1) {
-                    Toast("success", data.Msj);
-                    $("#ModalActualizarEmpresa").modal('hide');
-                    CargarEmpresa();
-                    setTimeout(function () {
-                        //urla = "https://localhost:44351/Inicio";
-                        //window.location.href = urla + '/IndexCurriculums';
-                    }, 3000);
+        if (verificarURL(1) == 1 && verificarCelular(1) == true && verificarCorreo(1) == true) {
+            var form = new FormData(this);
+            form.append("pais_empresa", "Bolivia");
+            $.ajax({
+                url: urlOficial + 'Empresas/Guardar',
+                type: 'POST',
+                data: form,
+                dataType: 'json',
+                contentType: false,
+                processData: false,
+                success: function (data) {
+                    if (data.Tipo == 1) {
+                        Toast("success", data.Msj);
+                        $("#ModalActualizarEmpresa").modal('hide');
+                        CargarEmpresa();
+                    }
+                    else if (data.Tipo == 4) {
+                        Toast("success", data.Msj);
+                        setTimeout(function () {
+                            window.location.href = urlOficial + 'Login/Logout';
+                        }, 1000);
+                    }
+                    else if (data.Tipo == 5) {
+                        Toast("error", data.Msj);
+                    }
+                    else {
+                        Toast("error", "¡Error al guardar!");
+                    }
                 }
-                else if (data.Tipo == 4) {
-                    Toast("success", data.Msj);
-                    setTimeout(function () {
-                        urla = "https://localhost:44351/Login";
-                        window.location.href = urla + '/Logout';
-                    }, 3000);
-                }
-                else if (data.Tipo == 5) {
-                    Toast("error", data.Msj);
-                }
-                else {
-                    Toast("error", "¡Error al guardar!");
-                }
-            }
-        });
+            });
+        }
     }
     else {
         $('#clave2E').removeClass('d-none');
