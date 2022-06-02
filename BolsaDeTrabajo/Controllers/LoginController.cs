@@ -85,7 +85,7 @@ namespace BolsaDeTrabajo.Controllers
         {
             IAuthenticationManager authenticationManager = HttpContext.GetOwinContext().Authentication;
             authenticationManager.SignOut();
-            return RedirectToAction("Index", "Login");
+            return RedirectToAction("Login", "Home");
         }
 
         [AllowAnonymous]

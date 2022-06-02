@@ -200,7 +200,7 @@ $("#formCandidato").on('submit', function (e) {
                 if (data.Tipo == 1) {
                     $("#btnRegistrarCandidato").attr("disabled", true);
                     Toast("success", data.Msj);
-                    window.location.href = urlOficial + 'Login';
+                    window.location.href = urlOficial + 'Home/Login';
                     Limpiar();
                 }
                 else if (data.Tipo == 5) {

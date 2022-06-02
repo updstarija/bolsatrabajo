@@ -1,13 +1,13 @@
 ﻿
 @{
     ViewBag.Title = "Registrar";
-    Layout = "~/Views/Shared/_LayoutCuenta.cshtml";
+    Layout = "~/Views/Shared/_LayoutPortada.cshtml";
 }
 @{ string baseUrl = new Uri(Request.Url, Url.Content("~")).AbsoluteUri;
     baseUrl = baseUrl.Remove(baseUrl.Length - 1);
 }
 
-<div class="container shadow-lg p-3 bg-white rounded pl-5 pr-5 pb-5 mt-4">
+<div style="margin-top: 100px;" class="container shadow-lg p-3 bg-white rounded pl-5 pr-5 pb-5">
     <h1 class="text-center">Registrar</h1>
     <div id="searchPersona">
         <div class="alert" style="background-color: #0099CC" role="alert">
@@ -29,23 +29,13 @@
                     <div id="correoCuentaExistente"></div>
                 </div>
             </div>
-        </div> 
-        @*<div class="d-flex justify-content-center">
-                <form>
-                    <div class="form-group mb-2 d-flex flex-nowrap">
-                        <input type="text" class="form-control" name="buscarPersona" id="buscarPersona" placeholder="Ingrese su CI">
-                        <button type="button" class="btn btnBlueB ml-2" onclick="BuscarPersona()">
-                            <img src="@baseUrl/Content/iconos/person_search.svg" style="width:25px;height:30px;" />
-                        </button>
-                    </div>
-                </form>
-            </div>*@
+        </div>
     </div>
 
     <div id="Datos_Personales">
         <form id="formCandidato" class="needs-validation" enctype="multipart/form-data" novalidate>
             <h4 class="mt-1 mb-1">PERFIL:</h4>
-            <div class="form-row">
+            <div class="row">
                 <div class="col-12 col-md-6">
                     <label for="nombre">Nombre:</label>
                     <input type="text" class="form-control" id="nombre" name="nombre" readonly required>
@@ -60,10 +50,10 @@
                     <div class="invalid-feedback">¡Campo Vacio!</div>
                 </div>
             </div>
-            <div class="form-row">
+            <div class="row">
                 <div class="col-12 col-md-3">
                     <label for="tipoDocumento">Tipo de Documento:</label>
-                    <select class="custom-select" id="tipoDocumento" name="tipoDocumento" required>
+                    <select class="form-select" id="tipoDocumento" name="tipoDocumento" required>
                         <option selected disabled value="">Cambiar...</option>
                         <option value="CI">Cedula de Identidad</option>
                         <option value="PASAPORTE">Pasaporte</option>
@@ -85,7 +75,7 @@
                 </div>
                 <div class="col-12 col-md-3">
                     <label for="sexo">Sexo:</label>
-                    <select class="custom-select" id="sexo" name="sexo" required>
+                    <select class="form-select" id="sexo" name="sexo" required>
                         <option selected disabled value="">Cambiar...</option>
                         <option value="Masculino">Masculino</option>
                         <option value="Femenino">Femenino</option>
@@ -95,7 +85,7 @@
                     </div>
                 </div>
             </div>
-            <div class="form-row">
+            <div class="row">
                 <div class="col-12 col-md-3">
                     <label for="nacionalidad">Nacionalidad:</label>
                     <input type="text" class="form-control" id="nacionalidad" name="nacionalidad" required>
@@ -117,7 +107,7 @@
                     <div class="invalid-feedback">¡Campo Vacio!</div>
                 </div>
             </div>
-            <div class="form-row">
+            <div class="row">
                 <div class="col-12 col-md-9">
                     <label for="descripcion">Descripcion:</label>
                     <textarea class="form-control" id="descripcion" name="descripcion" minlength="10" maxlength="500" style="resize: none; height: 200px;" required onkeyup="ContarCaracteres($(this).val(),'500',$(this))"></textarea>
@@ -126,8 +116,8 @@
                 </div>
                 <div class="col-12 col-md-3">
                     <label for="imagen">Imagen:</label>
-                    <div id="contImg" class="border border-secondary" style="height:168px;"></div>
-                    <img id="foto" class="img-fluid border" style="max-height: 168px; min-height: 168px; height: 168px; width:100%" src="" alt="" hidden="hidden">
+                    <div id="contImg" class="border border-secondary" style="height:175px;"></div>
+                    <img id="foto" class="img-fluid border" style="max-height: 175px; min-height: 175px; height: 175px; width: 100% " src="" alt="" hidden="hidden">
                     <div id="div_file_new">
                         <label id="palabras" for="imagen">Seleccionar Imagen</label>
                         <input type="file" name="imagen" id="imagen" class="form-control-file" onchange="showImg()" required />
@@ -135,7 +125,7 @@
                     </div>
                 </div>
             </div>
-            <div class="form-row">
+            <div class="row">
                 <div class="col-md-6">
                     <label for="profesionOcupacion">Profesion u ocupación:</label>
                     <input type="text" class="form-control" id="profesionOcupacion" name="profesionOcupacion" required>
@@ -153,7 +143,7 @@
             </div>
             <hr />
             <h4 class="mt-1 mb-1">CUENTA:</h4>
-            <div class="form-row">
+            <div class="row">
                 <div class="col-md-6">
                     <label for="email">Email:</label>
                     <input type="email" oninput="verificarCorreo(0)" class="form-control" id="email" name="email" required>
@@ -174,28 +164,28 @@
             <div class="form-check">
                 <input class="form-check-input" type="checkbox" value="" id="terminosCondiciones" required>
                 <label class="form-check-label text-dark" for="terminosCondiciones">
-                    He leído y acepto los <a style="text-decoration: underline; cursor: pointer;" class="text-primary" data-toggle="modal" data-target="#modalTerminosCondiciones">Términos y Condiciones de uso</a>
+                    He leído y acepto los <a style="text-decoration: underline; cursor: pointer;" class="text-primary" data-bs-toggle="modal" data-bs-target="#modalTerminosCondiciones">Términos y Condiciones de uso</a>
                 </label>
                 <div class="invalid-feedback">¡Debe aceptar los Términos y Condiciones!</div>
             </div>
-            <div class="form-group d-flex justify-content-center py-2 mt-5">
-                <button id="btnRegistrarCandidato" type="submit" class="btn btnBlueR">Registrar</button>
+            <div class="d-grid gap-2 mt-5">
+                <button id="btnRegistrarCandidato" type="submit" class="btn btn-ejecucion-portada">Registrar</button>
             </div>
+            @*<div class="form-group d-flex justify-content-center py-2 mt-5">
+                <button id="btnRegistrarCandidato" type="submit" class="btn btn-ejecucion-portada">Registrar</button>
+            </div>*@
         </form>
     </div>
 </div>
 <br />
-<br />
 
 <!-- Modal -->
-<div class="modal fade" id="modalTerminosCondiciones" data-backdrop="static" data-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+<div class="modal fade" id="modalTerminosCondiciones" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-scrollable">
         <div class="modal-content">
             <div class="modal-header">
                 <h5 class="modal-title" id="staticBackdropLabel">Términos y Condiciones de Uso</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
                 <h5 class="text-primary text-center" style="text-decoration: underline; font-size:18px;">TÉRMINOS Y CONDICIONES DE USO<br />UPDS TRABAJA</h5>
@@ -208,7 +198,7 @@
                 </p>
 
                 <p>II. ACEPTACION</p>
-                <p>Un texto es una composición de signos codificados en un sistema de escritura que forma una unidad de sentido. También es una composición de caracteres imprimibles generados por un algoritmo de cifrado que, aunque no tienen sentido para cualquier persona.</P>
+                <p>Un texto es una composición de signos codificados en un sistema de escritura que forma una unidad de sentido. También es una composición de caracteres imprimibles generados por un algoritmo de cifrado que, aunque no tienen sentido para cualquier persona.</p>
                 <p>Un texto es una composición de signos codificados en un sistema de escritura que forma una unidad de sentido. También es una composición de caracteres imprimibles generados por un algoritmo de cifrado que, aunque no tienen sentido para cualquier persona.</p>
 
                 <p>III. USO DEL SERVICIO</p>
@@ -221,3 +211,7 @@
         </div>
     </div>
 </div>
+
+<div id="preloader3"></div>
+
+<script src="~/Scripts/js/registroCandidato.js"></script>

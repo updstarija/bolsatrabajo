@@ -1,0 +1,137 @@
+﻿<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="shortcut icon" href="~/Content/img/Logos/isologo-color-upds_800x800i.png" />
+    <title>UPDS Trabaja</title>
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Roboto:300,300i,400,400i,500,500i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i" rel="stylesheet">
+    <!-- Vendor CSS Files -->
+    <link href="~/Content/Portada/vendor/aos/aos.css" rel="stylesheet" />
+    <link href="~/Content/Portada/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="~/Content/Portada/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet" />
+    <link href="~/Content/Portada/vendor/boxicons/css/boxicons.min.css" rel="stylesheet" />
+    <link href="~/Content/Portada/vendor/glightbox/css/glightbox.min.css" rel="stylesheet" />
+    <link href="~/Content/Portada/vendor/swiper/swiper-bundle.min.css" rel="stylesheet" />
+    <link href="~/Content/Portada/css/all.css" rel="stylesheet" />
+    <link href="~/Content/Portada/css/style.css" rel="stylesheet" />
+    <link href="~/Content/Portada/css/portada.css" rel="stylesheet" />
+    <link href="~/style.css" rel="stylesheet"/>
+    <link rel="stylesheet" href="~/Content/css/portada.css">
+
+    <script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
+    <script src="~/cute-alert.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-confirm/3.3.2/jquery-confirm.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-confirm/3.3.2/jquery-confirm.min.js"></script>
+    <script src="~/Scripts/js/enlace.js"></script>
+    <script src="~/Scripts/js/validacion.js"></script>
+    <!-- =======================================================
+    * Template Name: BizLand - v3.7.0
+    * Template URL: https://bootstrapmade.com/bizland-bootstrap-business-template/
+    * Author: BootstrapMade.com
+    * License: https://bootstrapmade.com/license/
+    ======================================================== -->
+</head>
+<body>
+    @RenderSection("scripts", required: false)
+    @{
+        var rutap = HttpContext.Current.Request.RequestContext.RouteData.Values["controller"].ToString();
+        var actionp = HttpContext.Current.Request.RequestContext.RouteData.Values["action"].ToString();
+    }
+    <!-- ======= Header ======= -->
+    <header id="header" class="d-flex align-items-center">
+        <div class="container d-flex align-items-center justify-content-between">
+
+            <h1 class="logo"><a style="color: #223B82;" href="@Url.Action("Portada","Home")">UPDS Trabaja<span class="text-dark">.</span></a></h1>
+            <!-- Uncomment below if you prefer to use an image logo -->
+            <!-- <a href="index.html" class="logo"><img src="assets/img/logo.png" alt=""></a>-->
+
+            <nav id="navbar" class="navbar">
+                <ul>
+                    @if (rutap == "Home" && actionp == "Login")
+                    {
+                        <li><a class="nav-link scrollto active" href="@Url.Action("Login","Home")">Iniciar Sesión</a></li>
+                        <li><a class="nav-link scrollto" href="#" data-bs-toggle="modal" data-bs-target="#ModalRegistro">Registrar</a></li>
+                    }
+                    @if (rutap == "Home" && actionp == "Portada")
+                    {
+                        <li><a class="nav-link scrollto active" href="#hero">Home</a></li>
+                        <li><a class="nav-link scrollto" href="#about">Nuestros Beneficios</a></li>
+                        <li><a class="nav-link scrollto" href="#services">Nuestros Profesionales</a></li>
+                        <li><a class="nav-link scrollto " href="#faq">Preguntas Frecuentes</a></li>
+                        <li><a class="nav-link scrollto" href="#contact">Contactos</a></li>
+                        <li><a class="nav-link scrollto" href="@Url.Action("Login","Home")">Iniciar Sesión</a></li>
+                    }
+                    @if ((rutap == "Candidatos" || rutap == "Empresas") && actionp == "Index")
+                    {
+                        <li><a class="nav-link scrollto" href="@Url.Action("Login","Home")">Iniciar Sesión</a></li>
+                        <li><a class="nav-link scrollto active" data-bs-toggle="modal" data-bs-target="#ModalRegistro" href="#">Registrar</a></li>
+                    }
+                </ul>
+                <i class="bi bi-list mobile-nav-toggle"></i>
+            </nav><!-- .navbar -->
+
+        </div>
+    </header>
+    <!-- ======= End Header ======= -->
+    @RenderBody()
+    <!-- Modal -->
+    <div class="modal fade" id="ModalRegistro" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-sm">
+            <div class="modal-content">
+                @*<div class="modal-header">
+                    <h5 class="modal-title" id="staticBackdropLabel">Registrar:</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>*@
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <div class="container-icono shadow">
+                                <a href="@Url.Action("Index","Empresas")"><i class="fas fa-building"></i></a>
+                            </div>
+                            <p class="text-center mt-1">Empresa</p>
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="container-icono shadow">
+                                <a href="@Url.Action("Index","Candidatos")"><i class="fas fa-user-tie"></i></a>
+                            </div>
+                            <p class="text-center mt-1">Candidato</p>
+                        </div>
+                        <div class="col-sm-12">
+                            <hr />
+                            <div class="d-grid gap-2 col-6 mx-auto">
+                                <button class="btn btn-ejecucion-portada" data-bs-dismiss="modal" type="button">Cancelar</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Vendor JS Files -->
+    <script src="~/Content/Portada/vendor/purecounter/purecounter.js"></script>
+    <script src="~/Content/Portada/vendor/aos/aos.js"></script>
+    <script src="~/Content/Portada/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script src="~/Content/Portada/vendor/glightbox/js/glightbox.min.js"></script>
+    <script src="~/Content/Portada/vendor/isotope-layout/isotope.pkgd.min.js"></script>
+    <script src="~/Content/Portada/vendor/swiper/swiper-bundle.min.js"></script>
+    <script src="~/Content/Portada/vendor/waypoints/noframework.waypoints.js"></script>
+    <script src="~/Content/Portada/js/all.js"></script>
+    <script src="~/Content/Portada/js/main.js"></script>
+
+    <script>
+        function Toast(tipo, msj) {
+            cuteToast({
+                type: tipo,
+                message: msj,
+                timer: 5000
+            })
+
+        }
+    </script>
+</body>
+</html>
+@*@RenderBody()*@

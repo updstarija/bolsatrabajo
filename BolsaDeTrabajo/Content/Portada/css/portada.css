@@ -1,0 +1,122 @@
+﻿body {
+    background: #ecf0f3;
+}
+
+
+.wrapper-login {
+    max-width: 420px;
+    min-height: 500px;
+    margin: 100px auto;
+    padding: 40px 25px 25px 25px;
+    background-color: #ecf0f3;
+    border-radius: 15px;
+    box-shadow: 13px 13px 20px #cbced1, -13px -13px 20px #fff;
+}
+
+    .wrapper-login .logo {
+        width: 100px;
+        margin: auto; 
+    }
+
+        .wrapper-login .logo img {
+            width: 100%;
+            height: 100%;
+        }
+
+.wrapper-login .name {
+    font-weight: 600;
+    font-size: 1.4rem;
+    letter-spacing: 1.3px;
+    padding-left: 10px;
+    color: #555;
+}
+
+    .wrapper-login .form-field input {
+        width: 100%;
+        display: block;
+        border: none;
+        outline: none;
+        background: none;
+        font-size: 1.2rem;
+        color: #666;
+        padding: 10px 15px 10px 10px;
+    }
+
+    .wrapper-login .form-field .icon-login {
+        margin-top:15px;
+        color: #223B82;
+    }
+
+    .wrapper-login .form-field {
+        padding-left: 10px;
+        margin-bottom: 20px;
+        border-radius: 20px;
+        border: 1px solid #223B82;
+        background-color: white;
+    }
+
+    .wrapper-login .form-field .fas {
+        color: #555;
+    }
+
+    .wrapper-login .btn {
+        box-shadow: none;
+        width: 100%;
+        height: 50px;
+        background-color: #223B82;
+        color: #fff;
+        border-radius: 25px;
+        box-shadow: 3px 3px 3px #b1b1b1, -3px -3px 3px #fff;
+        letter-spacing: 1.3px;
+    }
+
+        .wrapper-login .btn:hover {
+            background-color: #0085C0;
+        }
+
+    .wrapper-login a {
+        text-decoration: none;
+        font-size: 0.9rem;
+        color: #0085C0;
+    }
+
+    .wrapper-login a:hover {
+        color: #039BE5;
+    }
+
+
+
+.container-icono {
+    text-align: center;
+    color: #223B82;
+    border-radius: 15%;
+    font-size: 6rem;
+    transition-duration: 0.5s;
+}
+
+    .container-icono a{
+        text-decoration: none;
+        cursor: pointer;
+    }
+
+    .container-icono:hover {
+        color: white;
+        background-color: #223B82;
+        transition: all 1s;
+        -webkit-transform: rotateY(180deg);
+        -webkit-transform-style: preserve-3d;
+        transform: rotateY(180deg);
+        transform-style: preserve-3d;
+    }
+
+    .container-icono:hover a{
+        color: white;
+    }
+
+
+@media(max-width: 380px) {
+    .wrapper-login {
+        margin: 30px 20px;
+        padding: 40px 15px 15px 15px;
+    }
+}

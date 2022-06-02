@@ -61,11 +61,10 @@ document.getElementById("imagen").onchange = function (e) {
 };
 
 function verificarCorreo(valor) {
-    console.log(valor);
     var correo = $("#correo_empresa").val();
     var expreRegular = /^(([^<>()\[\]\\.,;:\s@”]+(\.[^<>()\[\]\\.,;:\s@”]+)*)|(“.+”))@((\[[0–9]{1,3}\.[0–9]{1,3}\.[0–9]{1,3}\.[0–9]{1,3}])|(([a-zA-Z\-0–9]+\.)+[a-zA-Z]{2,}))$/;
     var esValido = expreRegular.test(correo);
-    if (esValido == false && correo.length > 0) {
+    if (esValido == false) {
         $("#estadoCorreo").removeAttr("hidden", "hidden");
         $("#correo_empresa").addClass("border border-danger");
         if (valor == 1) {
@@ -82,17 +81,23 @@ function verificarURL(valor) {
     var url = $("#sitio_web_empresa").val();
     var expreRegular = /(ftp|http|https):\/\/(\w+:{0,1}\w*@)?(\S+)(:[0-9]+)?(\/|\/([\w#!:.?+=&%@!\-\/]))?/;
     var esValido = expreRegular.test(url);
-    if (esValido == false && url.length > 0) {
-        $("#estadoUrl").removeAttr("hidden", "hidden");
-        $("#sitio_web_empresa").addClass("border border-danger");
-        if (valor == 1) {
-            Toast("error", "su sitio web no es valido");
+    if (url.length > 0) {
+        if (esValido == false) {
+            $("#estadoUrl").removeAttr("hidden", "hidden");
+            $("#sitio_web_empresa").addClass("border border-danger");
+            if (valor == 1) {
+                Toast("error", "su sitio web no es valido");
+            }
+        } else {
+            $("#estadoUrl").attr("hidden", "hidden");
+            $("#sitio_web_empresa").removeClass("border border-danger");
         }
+        return esValido;
     } else {
         $("#estadoUrl").attr("hidden", "hidden");
         $("#sitio_web_empresa").removeClass("border border-danger");
+        return true;
     }
-    return esValido;
 }
 
 function verificarCelular(valor) {
@@ -140,9 +145,7 @@ $("#formRegistrarEmpresa").on('submit', function (e) {
                     if (data.Tipo == 1) {
                         $("#btnRegistrarEmpresa").attr("disabled", true);
                         Toast("success", data.Msj);
-                        window.location.href = urlOficial + 'Login';
-                        //setTimeout(function () {
-                        //}, 3000);
+                        window.location.href = urlOficial + 'Home/Login';
                     }
                     else if (data.Tipo == 5) {
                         Toast("error", data.Msj);

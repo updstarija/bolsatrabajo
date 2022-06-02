@@ -6,6 +6,22 @@
     --gray-bg-color: #E6E6E6;
 }
 
+/********************************/
+.spinner {
+    width: 56px;
+    height: 56px;
+    border-radius: 50%;
+    background: radial-gradient(farthest-side,#47aaff 94%,#0000) top/9px 9px no-repeat, conic-gradient(#0000 30%,#47aaff);
+    -webkit-mask: radial-gradient(farthest-side,#0000 calc(100% - 9px),#000 0);
+    animation: spinner-c7wet2 1s infinite linear;
+}
+
+@keyframes spinner-c7wet2 {
+    100% {
+        transform: rotate(1turn);
+    }
+}
+/*******************************/
 
 html {
     scroll-behavior: smooth;
@@ -158,6 +174,15 @@ body {
         transform: scale(1.1);
     }
 
+
+.btn-ejecucion-portada {
+    background-color: #223B82;
+    color: white;
+}
+    .btn-ejecucion-portada:hover {
+        color: white;
+        background-color: #0085C0;
+    }
 
 
 /*LOGIN*/
@@ -412,7 +437,6 @@ body {
 #div_file_new {
     background-color: #00377c;
     color: #ffffff;
-    border-radius: 2px;
     text-align: center;
 }
 

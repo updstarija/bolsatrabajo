@@ -15,8 +15,8 @@ namespace BolsaDeTrabajo.Models
 
         public bool enviarCorreo(string mensaje, string asunto, string destinatario, string ruta, string rutaReporte)
         {
-            string emisor = "alejandro.echenique@upds.edu.bo";
-            string password = "P@$$w0rd11";
+            string emisor = "prueba.upds.tarija@gmail.com";
+            string password = "Control321+";
             var exito = true;
             try
             {

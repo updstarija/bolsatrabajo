@@ -16,7 +16,7 @@ namespace BolsaDeTrabajo
             routes.MapRoute(
                 name: "Default",
                 url: "{controller}/{action}/{id}",
-                defaults: new { controller = "Login", action = "Index", id = UrlParameter.Optional }
+                defaults: new { controller = "Home", action = "Portada", id = UrlParameter.Optional }
             );
         }
     }

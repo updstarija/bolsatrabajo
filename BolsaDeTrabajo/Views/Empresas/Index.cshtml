@@ -1,14 +1,14 @@
 ﻿
 @{
     ViewBag.Title = "Registrar";
-    Layout = "~/Views/Shared/_LayoutCuenta.cshtml";
+    Layout = "~/Views/Shared/_LayoutPortada.cshtml";
 }
 
-<div class="container shadow-lg p-3 bg-white rounded pl-5 pr-5 pb-5 mt-4">
+<div style="margin-top: 100px;" class="container shadow-lg p-3 bg-white rounded pl-5 pr-5 pb-5">
     <h1 class="text-center">Registro de Empresa</h1>
     <form id="formRegistrarEmpresa" class="needs-validation" enctype="multipart/form-data" novalidate>
         <h4 class="mt-2 mb-2">Perfil:</h4>
-        <div class="form-row">
+        <div class="row">
             <div class="col-12 col-md-9">
                 <label for="nombre_empresa">Nombre:</label>
                 <input type="text" class="form-control" id="nombre_empresa" name="nombre_empresa" required>
@@ -21,7 +21,7 @@
                 <div class="invalid-feedback">¡Campo Vacio!</div>
             </div>
         </div>
-        <div class="form-row">
+        <div class="row">
             <div class="col-12 col-md-9">
                 <label for="nombre_persona_empresa">Nombre Persona Responsable:</label>
                 <input type="text" class="form-control" id="nombre_persona_empresa" name="nombre_persona_empresa" required>
@@ -33,10 +33,10 @@
                 <div class="invalid-feedback">¡Campo Vacio!</div>
             </div>
         </div>
-        <div class="form-row">
+        <div class="row">
             <div class="col-12 col-md-3">
                 <label for="estadoregion">Departamento:</label>
-                <select class="custom-select" id="estadoregion" name="estadoregion" required>
+                <select class="form-select" id="estadoregion" name="estadoregion" required>
                     <option selected disabled value="">Seleccionar Departamento...</option>
                     @foreach (var item in ViewBag.tDepartamentos)
                     {
@@ -56,7 +56,7 @@
                 <div class="invalid-feedback">¡Campo Vacio!</div>
             </div>
         </div>
-        <div class="form-row">
+        <div class="row">
             <div class="col-12 col-md-6">
                 <label for="sitio_web_empresa">Sitio Web:</label>
                 <input type="text" oninput="verificarURL(0)" class="form-control" id="sitio_web_empresa" name="sitio_web_empresa">
@@ -73,7 +73,7 @@
                 <input type="text" class="form-control" id="telefonoFijo" name="telefonoFijo">
             </div>
         </div>
-        <div class="form-row">
+        <div class="row">
             <div class="col-md-9">
                 <label for="descripcion_empresa">Descripcion:</label>
                 <textarea class="form-control" id="descripcion_empresa" name="descripcion_empresa" minlength="10" maxlength="500" style="resize: none; height: 200px;" required onkeyup="ContarCaracteres($(this).val(),'500',$(this))"></textarea>
@@ -82,8 +82,8 @@
             </div>
             <div class="col-md-3">
                 <label for="imagen">Imagen:</label>
-                <div id="contImg" class="border border-secondary" style="height:168px;"></div>
-                <img id="foto" class="img-fluid border" style="max-height: 168px; min-height: 168px; height: 168px; width:100%" src="" alt="" hidden="hidden">
+                <div id="contImg" class="border border-secondary" style="height: 175px;"></div>
+                <img id="foto" class="img-fluid border" style="max-height: 175px; min-height: 175px; height: 175px; width: 100% " src="" alt="" hidden="hidden">
                 <div id="div_file_new">
                     <label id="palabras" for="imagen">Seleccionar Imagen</label>
                     <input type="file" name="imagen" id="imagen" class="form-control-file" onchange="showImg()" required />
@@ -93,7 +93,7 @@
         </div>
         <hr />
         <h4 class="mt-2 mb-2">Cuenta:</h4>
-        <div class="form-row">
+        <div class="row">
             <div class="col-12 col-sm-6">
                 <label for="correo_empresa">Correo:</label>
                 <input type="email" class="form-control" oninput="verificarCorreo(0)" id="correo_empresa" name="correo_empresa" required>
@@ -109,32 +109,34 @@
         <div class="form-check">
             <input class="form-check-input" type="checkbox" value="" id="terminosCondiciones" required>
             <label class="form-check-label text-dark" for="terminosCondiciones">
-                He leído y acepto los <a style="text-decoration: underline; cursor: pointer;" class="text-primary" data-toggle="modal" data-target="#modalTerminosCondiciones">Términos y Condiciones de uso</a>
+                He leído y acepto los <a style="text-decoration: underline; cursor: pointer;" class="text-primary" data-bs-toggle="modal" data-bs-target="#modalTerminosCondiciones">Términos y Condiciones de uso</a>
             </label>
             <div class="invalid-feedback">¡Debe aceptar los Términos y Condiciones!</div>
         </div>
-        <div class="form-group d-flex justify-content-center py-3 mt-5">
-            <button id="btnRegistrarEmpresa" type="submit" class="btn btnBlueR">
+        <div class="d-grid gap-2 mt-5">
+            <button id="btnRegistrarEmpresa" type="submit" class="btn btn-ejecucion-portada">
                 Registrar
                 Empresa
             </button>
         </div>
+        @*<div class="form-group d-flex justify-content-center py-3 mt-5">
+            <button id="btnRegistrarEmpresa" type="submit" class="btn btn-ejecucion-portada">
+                Registrar
+                Empresa
+            </button>
+        </div>*@
     </form>
 </div>
 <br />
-<br />
-
 
 
 <!-- Modal -->
-<div class="modal fade" id="modalTerminosCondiciones" data-backdrop="static" data-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+<div class="modal fade" id="modalTerminosCondiciones" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-scrollable">
         <div class="modal-content">
             <div class="modal-header">
                 <h5 class="modal-title" id="staticBackdropLabel">Términos y Condiciones de Uso</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
                 <h5 class="text-primary text-center" style="text-decoration: underline; font-size:18px;">TÉRMINOS Y CONDICIONES DE USO<br />UPDS TRABAJA</h5>
@@ -160,3 +162,7 @@
         </div>
     </div>
 </div>
+
+<div id="preloader4"></div>
+
+<script src="~/Scripts/js/registroEmpresa.js"></script>
