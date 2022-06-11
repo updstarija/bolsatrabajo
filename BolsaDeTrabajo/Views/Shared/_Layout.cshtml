@@ -43,11 +43,11 @@
             <img src="~/Content/img/Logos/upds-blanco.png" alt="logo-upds" width="40" height="40" class="mt-1 mb-1 mr-3" />
             @if (Usuario.Rol == "Candidato")
             {
-                <a style="text-decoration:none;" class="navbar-brand" href="@Url.Action("Index","Inicio")">UPDS</a>
+                <a style="text-decoration:none;" class="navbar-brand" href="@Url.Action("Index","Inicio")">Inicio</a>
             }
             @if (Usuario.Rol == "Empresa")
             {
-                <a style="text-decoration:none;" class="navbar" href="@Url.Action("IndexCurriculums","Inicio")">UPDS</a>
+                <a style="text-decoration:none;" class="navbar" href="@Url.Action("IndexCurriculums","Inicio")">Inicio</a>
             }
             <button class="navbar-toggler btn-back-transparent" style="color:white;" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
                     aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">

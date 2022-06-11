@@ -9,10 +9,10 @@
         <h3 class="text-center">Perfil</h3>
         <div class="row mt-5">
             <div class="col-sm-3">
-                <div id="perfil-info00">
-                    <img src="data:image;base64,@System.Convert.ToBase64String(Model.Perfil.Foto)" class="border rounded-circle img-perfil-empresa" />
-                    <h5 class="text-center mt-3">@Model.Nombre @Model.Apellido</h5>
-                    <p class="text-center">@Model.Perfil.Usuario.Correo</p>
+                <div id="perfil-info00" class="text-center">
+                    <img src="data:image;base64,@System.Convert.ToBase64String(Model.Perfil.Foto)" class="border rounded-circle img-perfil-empresa"/>
+                    <h5>@Model.Nombre @Model.Apellido</h5>
+                    <p>@Model.Perfil.Usuario.Correo</p>
                 </div>
             </div>
             <div class="col-sm-9">

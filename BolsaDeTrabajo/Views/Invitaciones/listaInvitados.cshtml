@@ -14,11 +14,11 @@
         </div>
         <div class="table-responsive-lg" id="contenidoTInvitados">
             <nav aria-label="breadcrumb">
-                <ol class="breadcrumb bg-white">
+                <ol class="breadcrumb bg-white d-flex justify-content-end">
 
                     <!--************* Local ****************-->
                     @*<li class="breadcrumb-item"><a href="https://localhost:44351/Invitaciones">Invitaciones a Empleos</a></li>
-                    <li class="breadcrumb-item active" aria-current="page">Invitados</li>*@
+                <li class="breadcrumb-item active" aria-current="page">Invitados</li>*@
 
                     <!--************* Produccion ****************-->
                     <li class="breadcrumb-item"><a href="https://tarija.upds.edu.bo/UpdsTrabaja/Invitaciones">Invitaciones a Empleos</a></li>
@@ -26,7 +26,15 @@
 
                 </ol>
             </nav>
-            <h1 class="text-center">Invitados</h1>
+            <div class="d-flex flex-row bd-highlight">
+                <div class="bd-highlight container-icono-titulo rounded-circle shadow">
+                    <span class="fas fa-users icono"></span>
+                </div>
+                <div class="ml-2 bd-highlight container-titulos">
+                    <span class="font-weight-bold titulo">Invitados</span><br />
+                    <span class="text-secondary font-italic parrafo">Lista de los candidatos invitados a postularse a un empleo</span>
+                </div>
+            </div>
             <br />
             <table id="tInvitadosLista" class="table table-striped display mx-0 my-table-DT" style="width:100%"></table>
         </div>

@@ -3,7 +3,30 @@
     ViewBag.Title = "Index";
     Layout = "~/Views/Shared/_LayoutAdministrador.cshtml";
 }
-<div class="row">
+<div class="d-flex flex-row bd-highlight mt-3">
+    <div class="bd-highlight container-icono-titulo rounded-circle shadow">
+        <span class="fas fa-home icono"></span>
+    </div>
+    <div class="ml-2 bd-highlight container-titulos">
+        <span class="font-weight-bold titulo">Inicio</span><br />
+        <span class="text-secondary font-italic parrafo">Estadísticas de los roles del sistema</span>
+    </div>
+</div>
+@*<div class="mt-3">
+        <span style="font-size:40px" class="fas fa-home"></span>
+        <span style="font-size: 25px; margin-bottom:-3px; padding:0px;" class="font-weight-bold">Inicio</span>
+        <span style="font-size: 15px; margin-top:-3px; padding:0px;" class="text-secondary font-italic">Estadísticas de los roles del sistema</span>
+</div>*@
+@*<div class="mt-3">
+    <h2>
+        <i class="fas fa-home"></i>
+        <span style="font-size: 25px; margin:0px; padding:0px;" class="font-weight-bold">Inicio</span><br />
+        <span style="font-size: 15px; margin:0px; padding:0px;" class="text-secondary font-italic">Estadísticas de los roles del sistema</span>
+    </h2>
+</div>*@
+@*<h2 class="mt-3 font-weight-bold"><i class="fas fa-home"></i> Inicio</h2>
+<p class="text-secondary font-italic">Estadísticas de los roles del sistema</p>*@
+<div class="row mt-3">
     <div class="col-sm-4 ">
         <h5 class="card-title text-center text-primary">Empresas</h5>
         <div id="cargandoEmpresas" class="text-center">

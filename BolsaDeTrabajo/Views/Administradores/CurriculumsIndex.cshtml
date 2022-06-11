@@ -11,7 +11,7 @@
 </div>
 <div class="table-responsive-lg" id="contenidoTcurriculums">
     <nav aria-label="breadcrumb">
-        <ol class="breadcrumb bg-white">
+        <ol class="breadcrumb bg-white d-flex justify-content-end">
             <!--****************************** Local ***************************-->
             @*<li class="breadcrumb-item"><a href="https://localhost:44351/Administradores/CandidatoIndex">Candidatos</a></li>
             <li class="breadcrumb-item active" aria-current="page">Curriculums</li>*@
@@ -20,8 +20,16 @@
             <li class="breadcrumb-item"><a href="https://tarija.upds.edu.bo/UpdsTrabaja/Administradores/CandidatoIndex">Candidatos</a></li>
             <li class="breadcrumb-item active" aria-current="page">Curriculums</li>
         </ol>
+        <div class="d-flex flex-row bd-highlight">
+            <div class="bd-highlight container-icono-titulo rounded-circle shadow">
+                <span class="fas fa-id-badge icono"></span>
+            </div>
+            <div class="ml-2 bd-highlight container-titulos">
+                <span class="font-weight-bold titulo">Curriculums</span><br />
+                <span class="text-secondary font-italic parrafo">Lista de los curriculums del candidato</span>
+            </div>
+        </div>
     </nav>
-    <h1 class="text-center animated fadeInDown">Curriculums del Candidato</h1>
     <br />
     <table id="tcurriculumscandidato" class="table table-striped display mx-0 my-table-DT animated fadeIn" style="width:100%"></table>
 </div>

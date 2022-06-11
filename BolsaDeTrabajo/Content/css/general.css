@@ -19,12 +19,36 @@ body {
     font-family: Arial, Helvetica, sans-serif;
 }
 
+
 .container-personalizado {
     padding-left: 9%;
     padding-right: 9%;
     margin-bottom: 5%;
 }
 
+@media screen and (max-width: 991px) {
+    .container-personalizado {
+        padding-left: 9%;
+        padding-right: 9%;
+        margin-bottom: 5%;
+    }
+}
+
+@media screen and (max-width: 767px) {
+    .container-personalizado {
+        padding-left: 1%;
+        padding-right: 1%;
+        margin-bottom: 2%;
+    }
+}
+
+@media screen and (max-width: 479px) {
+    .container-personalizado {
+        padding-left: 0%;
+        padding-right: 0%;
+        margin-bottom: 2%;
+    }
+}
 
 #notificacionStyle .my-span1 {
     text-align: center;
@@ -71,6 +95,30 @@ body {
     padding-bottom: 5px;*/
 }
 
+.container-icono-titulo {
+    width: 70px;
+    height: 70px;
+    min-width: 70px;
+    min-height: 70px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 2px solid #00377c;
+}
+
+    .container-icono-titulo .icono {
+        color: #00377c;
+        font-size: 40px;
+    }
+
+.container-titulos .titulo {
+    font-size: 25px;
+    color: #00377c;
+}
+
+.container-titulos .parrafo {
+    font-size: 15px;
+}
 
 .my-table-DT thead {
     background-color: #00377c !important;

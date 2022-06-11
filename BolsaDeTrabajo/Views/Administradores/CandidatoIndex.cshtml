@@ -11,11 +11,19 @@
 </div>
 <div class="table-responsive-lg" id="contenidoTcandidatos">
     <nav aria-label="breadcrumb">
-        <ol class="breadcrumb bg-white">
+        <ol class="breadcrumb bg-white d-flex justify-content-end">
             <li class="breadcrumb-item active" aria-current="page">Candidatos</li>
         </ol>
     </nav>
-    <h1 class="text-center animated fadeInDown">Candidatos</h1>
+    <div class="d-flex flex-row bd-highlight">
+        <div class="bd-highlight container-icono-titulo rounded-circle shadow">
+            <span class="fas fa-id-card icono"></span>
+        </div>
+        <div class="ml-2 bd-highlight container-titulos">
+            <span class="font-weight-bold titulo">Candidatos</span><br />
+            <span class="text-secondary font-italic parrafo">Lista de los candidatos registrados en el sistema</span>
+        </div>
+    </div>
     <br />
     <table id="tCandidatosIndex" class="table table-striped display my-table-DT animated slideInLeft" style="width:100%"></table>
 </div>

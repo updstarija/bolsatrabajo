@@ -12,19 +12,27 @@
 <input type="hidden" name="IdEmpleo" id="IdEmpleo" value="@ViewBag.IdEmpleo" />
 <div class="table-responsive" id="contenido">
     <nav aria-label="breadcrumb">
-        <ol class="breadcrumb bg-white">
+        <ol class="breadcrumb bg-white d-flex justify-content-end">
             <!--****************************** Local ***************************-->
             @*<li class="breadcrumb-item"><a href="https://localhost:44351/Administradores/Empresas">Empresas</a></li>
-            <li class="breadcrumb-item"><a href="https://localhost:44351/Administradores/EmpleosByEmpresa?Id=@ViewBag.IdEmpresa">Publicaciones de Empleos</a></li>
-            <li class="breadcrumb-item active" aria-current="page">Postulantes</li>*@
+                <li class="breadcrumb-item"><a href="https://localhost:44351/Administradores/EmpleosByEmpresa?Id=@ViewBag.IdEmpresa">Publicaciones de Empleos</a></li>
+                <li class="breadcrumb-item active" aria-current="page">Postulantes</li>*@
 
             <!--****************************** publicado ***************************-->
             <li class="breadcrumb-item"><a href="https://tarija.upds.edu.bo/UpdsTrabaja/Administradores/Empresas">Empresas</a></li>
-            <li class="breadcrumb-item"><a href="https://tarija.upds.edu.bo/UpdsTrabaja/Administradores/EmpleosByEmpresa?Id=@ViewBag.IdEmpresa">Publicaciones de Empleos</a></li>
+            <li class="breadcrumb-item"><a href="https://tarija.upds.edu.bo/UpdsTrabaja/Administradores/EmpleosByEmpresa?Id=@ViewBag.IdEmpresa">Empleos</a></li>
             <li class="breadcrumb-item active" aria-current="page">Postulantes</li>
         </ol>
     </nav>
-    <h2 class="text-center">Postulantes</h2>
+    <div class="d-flex flex-row bd-highlight">
+        <div class="bd-highlight container-icono-titulo rounded-circle shadow">
+            <span class="fas fa-users icono"></span>
+        </div>
+        <div class="ml-2 bd-highlight container-titulos">
+            <span class="font-weight-bold titulo">Postulantes</span><br />
+            <span class="text-secondary font-italic parrafo">Lista de los candidatos postulados al empleo</span>
+        </div>
+    </div>
     <br>
     <table id="tPostulantes" class="table table-striped display mx-0 style-table-1" style="width:100%"></table>
 </div>

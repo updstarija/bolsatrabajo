@@ -11,11 +11,21 @@
         </div>
         <div class="table-responsive-lg" id="contenidoTEmpleos">
             <nav aria-label="breadcrumb">
-                <ol class="breadcrumb bg-white">
+                <ol class="breadcrumb bg-white d-flex justify-content-end">
                     <li class="breadcrumb-item active" aria-current="page">Publicaciones de Empleos</li>
                 </ol>
             </nav>
-            <h1 class="text-center animated fadeInDown">Publicaciones de Empleos</h1>
+            <div class="d-flex flex-row bd-highlight">
+                <div class="bd-highlight container-icono-titulo rounded-circle shadow">
+                    <span class="fas fa-globe icono"></span>
+                </div>
+                <div class="ml-2 bd-highlight container-titulos">
+                    <span class="font-weight-bold titulo">Publicaciones de Empleos</span><br />
+                    <span class="text-secondary font-italic parrafo">Lista de los empleos publicados</span>
+                </div>
+            </div>
+            @*<h2 class="font-weight-bold"><i class="fas fa-globe"></i> Publicaciones de Empleos</h2>
+            <p class="text-secondary font-italic">Lista de los empleos publicados</p>*@
             <br />
             <table id="tEmpleosIndex" class="table table-striped display mx-0 my-table-DT animated slideInLeft" style="width:100%"></table>
         </div>
