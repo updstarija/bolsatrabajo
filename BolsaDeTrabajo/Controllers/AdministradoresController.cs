@@ -13,22 +13,50 @@ namespace BolsaDeTrabajo.Controllers
     {
         // GET: Administradores
         private UPDS_BDTEntities db = new UPDS_BDTEntities();
-        [Authorize(Roles = "Administrador")]
+        //[Authorize(Roles = "Administrador")]
         [OutputCache(NoStore = true, Duration = 0, VaryByParam = "None")]
         public ActionResult Index()
         {
-            return View();
+            if (User.Identity.IsAuthenticated)
+            {
+                if ((db.Usuario.SingleOrDefault(x=> x.Correo == User.Identity.Name && x.Rol == "Administrador")) != null)
+                {
+                    return View();
+                }
+                else
+                {
+                    return RedirectToAction("Login", "Home");
+                }
+            }
+            else
+            {
+                return RedirectToAction("Login", "Home");
+            }
         }
 
         /*ADMINISTRAR USUARIOS ADMINS*/
 
-        [Authorize(Roles = "Administrador")]
+        //[Authorize(Roles = "Administrador")]
         [OutputCache(NoStore = true, Duration = 0, VaryByParam = "None")]
         public ActionResult Admins()
         {
-            ViewBag.tCarreras = db.CarreraBDT.ToList();
-            ViewBag.tDepartamentos = db.DepartamentoBDT.ToList();
-            return View();
+            if (User.Identity.IsAuthenticated)
+            {
+                if ((db.Usuario.SingleOrDefault(x => x.Correo == User.Identity.Name && x.Rol == "Administrador")) != null)
+                {
+                    ViewBag.tCarreras = db.CarreraBDT.ToList();
+                    ViewBag.tDepartamentos = db.DepartamentoBDT.ToList();
+                    return View();
+                }
+                else
+                {
+                    return RedirectToAction("Login", "Home");
+                }
+            }
+            else
+            {
+                return RedirectToAction("Login", "Home");
+            }
         }
 
         [Authorize(Roles = "Administrador")]
@@ -180,10 +208,12 @@ namespace BolsaDeTrabajo.Controllers
 
             var Admins = db.Administrador.OrderBy(e => e.Perfil.FechaRegistro).ToList();
             List<ObjectAnonimo> tabla = new List<ObjectAnonimo>();
+            int i = 0;
             foreach (var item in Admins)
             {
+                i++;
                 ObjectAnonimo obj = new ObjectAnonimo();
-                obj.atrib1 = item.Id.ToString();
+                obj.atrib1 = i.ToString();
                 obj.atrib2 = item.Perfil.FechaRegistro.ToString("dd/MM/yyyy");
                 obj.atrib3 = item.Nombre + " " + item.Apellido;
                 obj.atrib4 = item.NroDocumento;
@@ -221,10 +251,12 @@ namespace BolsaDeTrabajo.Controllers
 
             var Admins = db.Administrador.Where(x => x.Perfil.Estado == Estado).OrderBy(e => e.Perfil.FechaRegistro).ToList();
             List<ObjectAnonimo> tabla = new List<ObjectAnonimo>();
+            int i = 0;
             foreach (var item in Admins)
             {
+                i++;
                 ObjectAnonimo obj = new ObjectAnonimo();
-                obj.atrib1 = item.Id.ToString();
+                obj.atrib1 = i.ToString();
                 obj.atrib2 = item.Perfil.FechaRegistro.ToString("dd/MM/yyyy");
                 obj.atrib3 = item.Nombre + " " + item.Apellido;
                 obj.atrib4 = item.NroDocumento;
@@ -276,12 +308,26 @@ namespace BolsaDeTrabajo.Controllers
         }
 
         /**********************************ADMINISTRAR EMPRESAS*******************************/
-        [Authorize(Roles = "Administrador")]
+        //[Authorize(Roles = "Administrador")]
         [OutputCache(NoStore = true, Duration = 0, VaryByParam = "None")]
         public ActionResult Empresas()
         {
-            ViewBag.tDepartamentos = db.DepartamentoBDT.ToList();
-            return View();
+            if (User.Identity.IsAuthenticated)
+            {
+                if ((db.Usuario.SingleOrDefault(x => x.Correo == User.Identity.Name && x.Rol == "Administrador")) != null)
+                {
+                    ViewBag.tDepartamentos = db.DepartamentoBDT.ToList();
+                    return View();
+                }
+                else
+                {
+                    return RedirectToAction("Login", "Home");
+                }
+            }
+            else
+            {
+                return RedirectToAction("Login", "Home");
+            }
         }
         [Authorize(Roles = "Administrador")]
         public ActionResult getTableEmpresas()
@@ -302,10 +348,10 @@ namespace BolsaDeTrabajo.Controllers
                 obj.atrib6 = item.NombrePersonaResponsable;
                 obj.atrib7 = item.Perfil.EstadoRegion;
                 string activ = item.Perfil.Estado == "Activo" ? "selected" : "";
-                string desaprob = item.Perfil.Estado == "Desaprobado" ? "selected" : "";
+                string desaprob = item.Perfil.Estado == "Inactiva" ? "selected" : "";
                 obj.atrib8 = @"<select class='custom-select' id='Empresa" + item.Id + @"' name='Empresa[]' onchange='ActualizarEstado(this," + item.Id + @")'> 
-                                <option " + activ + @" value='Activo'>Aprobada</option>
-                                <option " + desaprob + @" value='Desaprobado'>rechazada</option>
+                                <option " + activ + @" value='Activa'>Activa</option>
+                                <option " + desaprob + @" value='Inactiva'>Inactiva</option>
                             </select>";
                 obj.atrib9 = @"<div class='d-flex flex-nowrap'>
                                 <a class='btn tooltip-test px-1' title='VER EMPLEOS' href='" + baseUrl + "Administradores/EmpleosByEmpresa?Id=" + item.Id + @"'><i class='fas fa-eye ico-gray ico-animation fa-lg'></i></a>
@@ -335,12 +381,12 @@ namespace BolsaDeTrabajo.Controllers
                 obj.atrib5 = item.Perfil.Usuario.Correo;
                 obj.atrib6 = item.NombrePersonaResponsable;
                 obj.atrib7 = item.Perfil.EstadoRegion;
-                string activ = item.Perfil.Estado == "Activo" ? "selected" : "";
-                string desaprob = item.Perfil.Estado == "Desaprobado" ? "selected" : "";
+                string activ = item.Perfil.Estado == "Activa" ? "selected" : "";
+                string desaprob = item.Perfil.Estado == "Inactiva" ? "selected" : "";
                 obj.atrib8 = @"
                             <select class='custom-select' id='Empresa" + item.Id + @"' name='Empresa[]' onchange='ActualizarEstado(this," + item.Id + @")'> 
-                                <option " + activ + @" value='Activo'>Activo</option>
-                                <option " + desaprob + @" value='Desaprobado'>Desaprobado</option>
+                                <option " + activ + @" value='Activa'>Activa</option>
+                                <option " + desaprob + @" value='Inactiva'>Inactiva</option>
                             </select>
                 ";
                 obj.atrib9 = @"
@@ -370,10 +416,9 @@ namespace BolsaDeTrabajo.Controllers
                     Empresa empresa = bd.Empresa.SingleOrDefault(x => x.Id == IdEmpresa);
                     empresa.Perfil.Estado = estado;
                     bd.SaveChanges();
-
                     Correo o = new Correo();
-                    string Asunto = estado == "Activo" ? "Cuenta Habilitada en Bolsa de Trabajo" : "Cuenta Inhabilitada en Bolsa de Trabajo";
-                    string estad = estado == "Activo" ? "Habilitada" : "Inhabilitada por infringir las normas de la pagina";
+                    string Asunto = estado == "Activa" ? "Cuenta Habilitada en Bolsa de Trabajo" : "Cuenta Inhabilitada en Bolsa de Trabajo";
+                    string estad = estado == "Activa" ? "Habilitada" : "Inhabilitada por infringir las normas de la pagina";
                     string textMensaje = empresa.NombreEmpresa + ": Su cuenta " + empresa.Perfil.Usuario.Correo + " a sido " + estad + ". Para más información escribanos al correo UPDS_BolsaDeTrabajo@outlook.com";
                     Mensaje m = new Mensaje();
                     var r = o.enviarCorreo(textMensaje, Asunto, empresa.Perfil.Usuario.Correo, "", "");
@@ -389,16 +434,30 @@ namespace BolsaDeTrabajo.Controllers
             return Json(s, JsonRequestBehavior.AllowGet);
         }
 
-        [Authorize(Roles = "Administrador")]
+        //[Authorize(Roles = "Administrador")]
         public ActionResult EmpleosByEmpresa(int Id)
         {
-            ViewBag.IdEmpresa = Id;
-            ViewBag.tCategoria = db.CategoriaBDT.ToList();
-            ViewBag.tDepartamentos = db.DepartamentoBDT.ToList();
-            ViewBag.NombreEmpresa = db.Empresa.Single(x => x.Id == Id).NombreEmpresa;
-            Usuario ua = db.Usuario.Where(x => x.Id == Id).SingleOrDefault();
-            ViewBag.Correo = ua.Correo;
-            return View();
+            if (User.Identity.IsAuthenticated)
+            {
+                if ((db.Usuario.SingleOrDefault(x => x.Correo == User.Identity.Name && x.Rol == "Administrador")) != null)
+                {
+                    ViewBag.IdEmpresa = Id;
+                    ViewBag.tCategoria = db.CategoriaBDT.ToList();
+                    ViewBag.tDepartamentos = db.DepartamentoBDT.ToList();
+                    ViewBag.NombreEmpresa = db.Empresa.Single(x => x.Id == Id).NombreEmpresa;
+                    Usuario ua = db.Usuario.Where(x => x.Id == Id).SingleOrDefault();
+                    ViewBag.Correo = ua.Correo;
+                    return View();
+                }
+                else
+                {
+                    return RedirectToAction("Login", "Home");
+                }
+            }
+            else
+            {
+                return RedirectToAction("Login", "Home");
+            }
         }
 
         [Authorize(Roles = "Administrador")]
@@ -408,12 +467,12 @@ namespace BolsaDeTrabajo.Controllers
             string baseUrl = new Uri(Request.Url, Url.Content("~")).AbsoluteUri;
             var TotalRegistros = 0;
             List<ObjectAnonimo> tabla = new List<ObjectAnonimo>();
-            //int i = 0;
+            int i = 0;
             foreach (var item in empleos)
             {
                 ObjectAnonimo obj = new ObjectAnonimo();
-                //i++;
-                obj.atrib1 = item.Id.ToString();
+                i++;
+                obj.atrib1 = i.ToString();
                 obj.atrib2 = item.FechaRegistro.ToString("dd/MM/yyyy");
                 obj.atrib3 = item.FechaActualizacion?.ToString("dd/MM/yyyy");
                 obj.atrib4 = item.Titulo;
@@ -428,12 +487,12 @@ namespace BolsaDeTrabajo.Controllers
                 obj.atrib8 = item.FechaExpiracion?.ToString("dd/MM/yyyy HH:mm");
                 string activ = item.Estado == "Activo" ? "selected" : "";
                 string inactiv = item.Estado == "Inactivo" ? "selected" : "";
-                string vencid = item.Estado == "Vencido" ? "selected" : "";
+                string vencid = item.Estado == "Expirado" ? "selected" : "";
                 obj.atrib9 += @"
                             <select class='custom-select' id='Empleo" + item.Id + @"' name='Empleo[]' onchange='ActualizarEstadoEmpleo(this," + item.Id + @")'> 
                                 <option " + activ + @" value='Activo'>Activo</option>
                                 <option " + inactiv + @" value='Inactivo'>Inactivo</option>
-                                <option disabled " + vencid + @" value='Vencido'>Vencidos</option>
+                                <option disabled " + vencid + @" value='Expirado'>Expirado</option>
                             </select>
                 ";
                 obj.atrib10 = @"
@@ -455,12 +514,12 @@ namespace BolsaDeTrabajo.Controllers
             string baseUrl = new Uri(Request.Url, Url.Content("~")).AbsoluteUri;
             var TotalRegistros = 0;
             List<ObjectAnonimo> tabla = new List<ObjectAnonimo>();
-            //int i = 0;
+            int i = 0;
             foreach (var item in empleos)
             {
                 ObjectAnonimo obj = new ObjectAnonimo();
-                //i++;
-                obj.atrib1 = item.Id.ToString();
+                i++;
+                obj.atrib1 = i.ToString();
                 obj.atrib2 = item.FechaRegistro.ToString("dd/MM/yyyy");
                 obj.atrib3 = item.FechaActualizacion?.ToString("dd/MM/yyyy");
                 obj.atrib4 = item.Titulo;
@@ -475,12 +534,12 @@ namespace BolsaDeTrabajo.Controllers
                 obj.atrib8 = item.FechaExpiracion?.ToString("dd/MM/yyyy HH:mm");
                 string activ = item.Estado == "Activo" ? "selected" : "";
                 string inactiv = item.Estado == "Inactivo" ? "selected" : "";
-                string vencid = item.Estado == "Vencido" ? "selected" : "";
+                string vencid = item.Estado == "Expirado" ? "selected" : "";
                 obj.atrib9 += @"
                             <select class='custom-select' id='Empleo" + item.Id + @"' name='Empleo[]' onchange='ActualizarEstadoEmpleo(this," + item.Id + @")'> 
                                 <option " + activ + @" value='Activo'>Activo</option>
                                 <option " + inactiv + @" value='Inactivo'>Inactivo</option>
-                                <option disabled " + vencid + @" value='Vencido'>Vencidos</option>
+                                <option disabled " + vencid + @" value='Expirado'>Expirado</option>
                             </select>
                 ";
                 obj.atrib10 = @"
@@ -524,16 +583,30 @@ namespace BolsaDeTrabajo.Controllers
             return Json(s, JsonRequestBehavior.AllowGet);
         }
 
-        [Authorize(Roles = "Administrador")]
+        //[Authorize(Roles = "Administrador")]
         public ActionResult PostulantesByEmpleo(int Id)
         {
-            UPDS_BDTEntities db = new UPDS_BDTEntities();
-            ViewBag.IdEmpleo = Id;
-            var empleo = db.Empleo.Single(x => x.Id == Id);
-            ViewBag.IdEmpresa = empleo.IdEmpresa;
-            ViewBag.NombreEmpresa = empleo.Empresa.NombreEmpresa;
-            ViewBag.NombreEmpleo = empleo.Titulo;
-            return View();
+            if (User.Identity.IsAuthenticated)
+            {
+                if ((db.Usuario.SingleOrDefault(x => x.Correo == User.Identity.Name && x.Rol == "Administrador")) != null)
+                {
+                    UPDS_BDTEntities db = new UPDS_BDTEntities();
+                    ViewBag.IdEmpleo = Id;
+                    var empleo = db.Empleo.Single(x => x.Id == Id);
+                    ViewBag.IdEmpresa = empleo.IdEmpresa;
+                    ViewBag.NombreEmpresa = empleo.Empresa.NombreEmpresa;
+                    ViewBag.NombreEmpleo = empleo.Titulo;
+                    return View();
+                }
+                else
+                {
+                    return RedirectToAction("Login", "Home");
+                }
+            }
+            else
+            {
+                return RedirectToAction("Login", "Home");
+            }
         }
 
         [Authorize(Roles = "Empresa,Administrador")]
@@ -550,10 +623,12 @@ namespace BolsaDeTrabajo.Controllers
             {
                 postulantes = db.Postulante.Where(x => x.IdEmpleo == IdEmpleo && x.Estado != "Cancelado").ToList();
             }
+            int i = 0;
             foreach (var item in postulantes)
             {
+                i++;
                 ObjectAnonimo obj = new ObjectAnonimo();
-                obj.atrib1 = item.Id.ToString();
+                obj.atrib1 = i.ToString();
                 obj.atrib2 = item.FechaRegistro.ToString("dd/MM/yyyy");
                 obj.atrib3 = item.Curriculum.Candidato.Nombre + ' ' + item.Curriculum.Candidato.Apellido;
                 obj.atrib4 = item.Curriculum.Candidato.Nacionalidad;
@@ -574,10 +649,12 @@ namespace BolsaDeTrabajo.Controllers
             List<ObjectAnonimo> tabla = new List<ObjectAnonimo>();
             Empleo emp = db.Empleo.Where(x => x.Id == IdEmpleo).SingleOrDefault();
             string statusCheckbox = emp.Estado == "Inactivo" ? "disabled" : "";
+            int i = 0;
             foreach (var item in Postulantes)
             {
+                i++;
                 ObjectAnonimo obj = new ObjectAnonimo();
-                obj.atrib1 = item.Id.ToString();
+                obj.atrib1 = i.ToString();
                 obj.atrib2 = item.FechaRegistro.ToString("dd/MM/yyyy");
                 obj.atrib3 = item.Curriculum.Candidato.Nombre + ' ' + item.Curriculum.Candidato.Apellido;
                 obj.atrib4 = item.Curriculum.Candidato.Nacionalidad;
@@ -590,10 +667,24 @@ namespace BolsaDeTrabajo.Controllers
         }
         //ADMINISTRAR CANDIDATOS------------------------------------------------------------------------------------------------
 
-        [Authorize(Roles = "Administrador")]
+        //[Authorize(Roles = "Administrador")]
         public ActionResult CandidatoIndex()
         {
-            return View();
+            if (User.Identity.IsAuthenticated)
+            {
+                if ((db.Usuario.SingleOrDefault(x => x.Correo == User.Identity.Name && x.Rol == "Administrador")) != null)
+                {
+                    return View();
+                }
+                else
+                {
+                    return RedirectToAction("Login", "Home");
+                }
+            }
+            else
+            {
+                return RedirectToAction("Login", "Home");
+            }
         }
         [Authorize(Roles = "Administrador")]
         public ActionResult getTableCandidatos()
@@ -637,14 +728,28 @@ namespace BolsaDeTrabajo.Controllers
             return json;
 
         }
-        [Authorize(Roles = "Administrador")]
+        //[Authorize(Roles = "Administrador")]
         public ActionResult CurriculumsIndex(int Id)
         {
-            UPDS_BDTEntities db = new UPDS_BDTEntities();
-            ViewBag.IdCurriculum = Id;
-            var candidato = db.Candidato.Single(x => x.Id == Id);
-            ViewBag.NombreCandidato = candidato.Nombre + " " + candidato.Apellido;
-            return View(); 
+            if (User.Identity.IsAuthenticated)
+            {
+                if ((db.Usuario.SingleOrDefault(x => x.Correo == User.Identity.Name && x.Rol == "Administrador")) != null)
+                {
+                    UPDS_BDTEntities db = new UPDS_BDTEntities();
+                    ViewBag.IdCurriculum = Id;
+                    var candidato = db.Candidato.Single(x => x.Id == Id);
+                    ViewBag.NombreCandidato = candidato.Nombre + " " + candidato.Apellido;
+                    return View();
+                }
+                else
+                {
+                    return RedirectToAction("Login", "Home");
+                }
+            }
+            else
+            {
+                return RedirectToAction("Login", "Home");
+            }
         }
         [Authorize(Roles = "Administrador")]
         public ActionResult getCurriculums(int Id)
@@ -834,16 +939,30 @@ namespace BolsaDeTrabajo.Controllers
             }
             return Json(tabla, JsonRequestBehavior.AllowGet);
         }
-        [Authorize(Roles = "Administrador")]
+        //[Authorize(Roles = "Administrador")]
         public ActionResult PostulacionesIndex(int Id)
         {
-            UPDS_BDTEntities db = new UPDS_BDTEntities();
-            var curri = db.Curriculum.Single(x => x.Id == Id);
-            ViewBag.IdCandidato = curri.Candidato.Id;
-            ViewBag.NombreCandidato = curri.Candidato.Nombre + " " + curri.Candidato.Apellido;
-            ViewBag.IdCurriculum = Id;
-            ViewBag.Nombrecurricumlu = curri.Titulo;
-            return View();
+            if (User.Identity.IsAuthenticated)
+            {
+                if ((db.Usuario.SingleOrDefault(x => x.Correo == User.Identity.Name && x.Rol == "Administrador")) != null)
+                {
+                    UPDS_BDTEntities db = new UPDS_BDTEntities();
+                    var curri = db.Curriculum.Single(x => x.Id == Id);
+                    ViewBag.IdCandidato = curri.Candidato.Id;
+                    ViewBag.NombreCandidato = curri.Candidato.Nombre + " " + curri.Candidato.Apellido;
+                    ViewBag.IdCurriculum = Id;
+                    ViewBag.Nombrecurricumlu = curri.Titulo;
+                    return View();
+                }
+                else
+                {
+                    return RedirectToAction("Login", "Home");
+                }
+            }
+            else
+            {
+                return RedirectToAction("Login", "Home");
+            }
         }
         [Authorize(Roles = "Administrador")]
         public ActionResult GetPostulaciones(int Id)
@@ -892,8 +1011,8 @@ namespace BolsaDeTrabajo.Controllers
 
         public ActionResult StatisticsEmpresas()
         {
-            int activa = db.Empresa.Count(x => x.Perfil.Tipo == "EMPRESA" && x.Perfil.Estado == "Activo");
-            int desaprobada = db.Empresa.Count(x => x.Perfil.Tipo == "EMPRESA" && x.Perfil.Estado == "Desaprobado");
+            int activa = db.Empresa.Count(x => x.Perfil.Tipo == "EMPRESA" && x.Perfil.Estado == "Activa");
+            int desaprobada = db.Empresa.Count(x => x.Perfil.Tipo == "EMPRESA" && x.Perfil.Estado == "Inactiva");
             var o = new
             {
                 activa,

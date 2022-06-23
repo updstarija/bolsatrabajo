@@ -1,14 +1,9 @@
-﻿//Validacion de inputs
-$(function () {
-    $('#AsuntoM').validacion(' .,abcdefghijklmnñopqrstuvwxyzáéíóú0123456789-()""');
-    $('#MensajeM').validacion(' .,:;abcdefghijklmnñopqrstuvwxyzáéíóú0123456789""()@');
-});
-
+﻿
 tabla = $('#tPostulantes').DataTable({
     columns: [
         { title: "<p class='text-center m-0 p-0'>#</p>", width: '5%' },
-        { title: "Registro", width: '15%' },
         { title: "Candidato", width: '35%' },
+        { title: "Registro", width: '15%' },
         { title: "Nacionalidad", width: '15%' },
         { title: "<i class='fas fa-restroom'></i>", width: '5%' },
         { title: "Aceptado", width: '5%' },
@@ -58,8 +53,8 @@ function Listar(obj) {
     for (var i = 0; i < obj.length; i++) {
         var o = {
             id: obj[i][0],
-            fechaRegistro: obj[i][1],
             nombre: obj[i][2],
+            fechaRegistro: obj[i][1],
             nacionalidad: obj[i][3],
             sexo: obj[i][4],
             Aceptado: obj[i][6],
@@ -78,10 +73,10 @@ function Listar(obj) {
                 data: "id", width: '5%'
             },
             {
-                data: "fechaRegistro", width: '15%'
+                data: "nombre", width: '35%'
             },
             {
-                data: "nombre", width: '35%'
+                data: "fechaRegistro", width: '15%'
             },
             {
                 data: "nacionalidad", width: '15%'

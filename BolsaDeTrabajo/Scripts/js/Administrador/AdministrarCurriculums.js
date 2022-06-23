@@ -2,8 +2,8 @@
 tabla = $('#tcurriculumscandidato').DataTable({
     columns: [
         { title: "#", width: '5%' },
-        { title: "Registro", width: '10%' },
         { title: "Titulo", width: '20%' },
+        { title: "Registro", width: '10%' },
         { title: "Contrato", width: '13%' },
         { title: "Pretencion Salarial", width: '13%' },
         { title: "Mas detalles.", width: '19%' },
@@ -42,10 +42,10 @@ function Listar(obj) {
                 data: "atrib1", width: '5%'
             },
             {
-                data: "atrib2", width: '10%'
+                data: "atrib3", width: '20%'
             },
             {
-                data: "atrib3", width: '20%'
+                data: "atrib2", width: '10%'
             },
             {
                 data: "atrib4", width: '13%'

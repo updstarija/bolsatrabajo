@@ -19,23 +19,50 @@ namespace BolsaDeTrabajo.Controllers
         private UPDS_BDTEntities db = new UPDS_BDTEntities();
         private int _RegistrosPorPaginas = 6;
         private int _TotalRegistrosFiltrados = 0;
-        [Authorize(Roles = "Candidato,Administrador")]
+        //[Authorize(Roles = "Candidato,Administrador")]
         public ActionResult Index()
         {
-            //var curriculum = db.Curriculum.Include(c => c.Candidato).Include(c => c.DatosPersonales).Include(c => c.Educacion);
-            return View();
+            if (User.Identity.IsAuthenticated)
+            {
+                if ((db.Usuario.SingleOrDefault(x => x.Correo == User.Identity.Name && x.Rol == "Candidato")) != null)
+                {
+                    return View();
+                }
+                else
+                {
+                    return RedirectToAction("SinAcceso", "Home");
+                }
+            }
+            else
+            {
+                return RedirectToAction("Login", "Home");
+            }
         }
 
-        [Authorize(Roles = "Candidato,Administrador")]
+        //[Authorize(Roles = "Candidato,Administrador")]
         public ActionResult Curriculo()
         {
-            UsuarioActivo ua = new UsuarioActivo();
-            ua = ua.getUser(User);
-            var us = db.Usuario.SingleOrDefault(u => u.Correo == ua.Email && u.Rol == ua.Rol);
-            var Candidato = db.Candidato.Where(c => c.Id == us.Id).SingleOrDefault();
-            ViewBag.tDepartamentos = db.DepartamentoBDT.ToList();
-            ViewBag.tCarreras = db.CarreraBDT.ToList();
-            return View(Candidato);
+            if (User.Identity.IsAuthenticated)
+            {
+                if ((db.Usuario.SingleOrDefault(x => x.Correo == User.Identity.Name && x.Rol == "Candidato")) != null)
+                {
+                    UsuarioActivo ua = new UsuarioActivo();
+                    ua = ua.getUser(User);
+                    var us = db.Usuario.SingleOrDefault(u => u.Correo == ua.Email && u.Rol == ua.Rol);
+                    var Candidato = db.Candidato.Where(c => c.Id == us.Id).SingleOrDefault();
+                    ViewBag.tDepartamentos = db.DepartamentoBDT.ToList();
+                    ViewBag.tCarreras = db.CarreraBDT.ToList();
+                    return View(Candidato);
+                }
+                else
+                {
+                    return RedirectToAction("SinAcceso", "Home");
+                }
+            }
+            else
+            {
+                return RedirectToAction("Login", "Home");
+            }
         }
         [Authorize(Roles = "Candidato,Administrador")]
         public ActionResult getCurriculos()
@@ -277,20 +304,34 @@ namespace BolsaDeTrabajo.Controllers
             return Json(s, JsonRequestBehavior.AllowGet);
         }
 
-        [Authorize(Roles = "Candidato,Administrador")]
+        //[Authorize(Roles = "Candidato,Administrador")]
         public ActionResult Editar(int? id)
         {
-            if (id == null)
+            if (User.Identity.IsAuthenticated)
             {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                if ((db.Usuario.SingleOrDefault(x => x.Correo == User.Identity.Name && x.Rol == "Candidato")) != null)
+                {
+                    if (id == null)
+                    {
+                        return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                    }
+                    Curriculum curriculum = db.Curriculum.Include(c => c.Candidato).Include(c => c.DatosPersonales).Include(c => c.Educacion).Where(c => c.Id == id).SingleOrDefault();
+                    if (curriculum == null)
+                    {
+                        return HttpNotFound();
+                    }
+                    ViewBag.tCarreras = db.CarreraBDT.ToList();
+                    return View(curriculum);
+                }
+                else
+                {
+                    return RedirectToAction("SinAcceso", "Home");
+                }
             }
-            Curriculum curriculum = db.Curriculum.Include(c => c.Candidato).Include(c => c.DatosPersonales).Include(c => c.Educacion).Where(c => c.Id == id).SingleOrDefault();
-            if (curriculum == null)
+            else
             {
-                return HttpNotFound();
+                return RedirectToAction("Login", "Home");
             }
-            ViewBag.tCarreras = db.CarreraBDT.ToList();
-            return View(curriculum);
         }
 
         // POST: Curriculums/Editar
@@ -627,18 +668,46 @@ namespace BolsaDeTrabajo.Controllers
             }
         }
 
-        [Authorize(Roles = "Empresa,Administrador")]
+        //[Authorize(Roles = "Empresa,Administrador")]
         public ActionResult DetalleCurriculo(int Id)
         {
-            ViewBag.IdCurriculo = Id;
-            return View();
+            if (User.Identity.IsAuthenticated)
+            {
+                if ((db.Usuario.SingleOrDefault(x => x.Correo == User.Identity.Name && x.Rol == "Empresa")) != null)
+                {
+                    ViewBag.IdCurriculo = Id;
+                    return View();
+                }
+                else
+                {
+                    return RedirectToAction("SinAcceso", "Home");
+                }
+            }
+            else
+            {
+                return RedirectToAction("Login", "Home");
+            }
         }
 
-        [Authorize(Roles = "Candidato,Administrador")]
+        //[Authorize(Roles = "Candidato,Administrador")]
         public ActionResult verCurriculo(int Id)
         {
-            ViewBag.IdCurriculo = Id;
-            return View();
+            if (User.Identity.IsAuthenticated)
+            {
+                if ((db.Usuario.SingleOrDefault(x => x.Correo == User.Identity.Name && x.Rol == "Candidato")) != null)
+                {
+                    ViewBag.IdCurriculo = Id;
+                    return View();
+                }
+                else
+                {
+                    return RedirectToAction("SinAcceso", "Home");
+                }
+            }
+            else
+            {
+                return RedirectToAction("Login", "Home");
+            }
         }
 
         [Authorize(Roles = "Candidato,Empresa,Administrador")]

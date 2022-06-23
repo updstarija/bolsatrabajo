@@ -1,16 +1,7 @@
 ﻿
-//Validacion de inputs
 $(function () {
-    $('#buscarPersona').validacion(' 0123456789-abcdefghijklmnñopqrstuvwxyz.');
-    $('#nacionalidad').validacion(' abcdefghijklmnñopqrstuvwxyzáéíóú');
-    $('#pais').validacion(' abcdefghijklmnñopqrstuvwxyzáéíóú');
-    $('#estadoRegion').validacion(' abcdefghijklmnñopqrstuvwxyzáéíóú');
-    $('#ciudad').validacion(' abcdefghijklmnñopqrstuvwxyzáéíóú()');
-    $('#descripcion').validacion(' .,:;abcdefghijklmnñopqrstuvwxyzáéíóú0123456789""()');
-    $('#profesionOcupacion').validacion(' abcdefghijklmnñopqrstuvwxyzáéíóú');
     $('#telefonoCelular').validacion('0123456789');
     $('#telefonoFijo').validacion(' -0123456789');
-    $('#email').validacion(' .abcdefghijklmnñopqrstuvwxyzáéíóú0123456789@');
 });
 
 $(function () {

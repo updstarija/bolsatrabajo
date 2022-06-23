@@ -12,20 +12,48 @@ namespace BolsaDeTrabajo.Controllers
         // GET: Invitaciones
         private UPDS_BDTEntities db = new UPDS_BDTEntities();
 
-        [Authorize(Roles = "Empresa,Administrador")]
+        //[Authorize(Roles = "Empresa,Administrador")]
         public ActionResult Index()
         {
-            ViewBag.tCategoria = db.CategoriaBDT.ToList();
-            ViewBag.tDepartamentos = db.DepartamentoBDT.ToList();
-            return View();
+            if (User.Identity.IsAuthenticated)
+            {
+                if ((db.Usuario.SingleOrDefault(x => x.Correo == User.Identity.Name && x.Rol == "Empresa")) != null)
+                {
+                    ViewBag.tCategoria = db.CategoriaBDT.ToList();
+                    ViewBag.tDepartamentos = db.DepartamentoBDT.ToList();
+                    return View();
+                }
+                else
+                {
+                    return RedirectToAction("SinAcceso", "Home");
+                }
+            }
+            else
+            {
+                return RedirectToAction("Login", "Home");
+            }
         }
 
-        [Authorize(Roles = "Empresa,Administrador")]
+        //[Authorize(Roles = "Empresa,Administrador")]
         public ActionResult IndexFD()
         {
-            ViewBag.tCategoria = db.CategoriaBDT.ToList();
-            ViewBag.tDepartamentos = db.DepartamentoBDT.ToList();
-            return View();
+            if (User.Identity.IsAuthenticated)
+            {
+                if ((db.Usuario.SingleOrDefault(x => x.Correo == User.Identity.Name && x.Rol == "Empresa")) != null)
+                {
+                    ViewBag.tCategoria = db.CategoriaBDT.ToList();
+                    ViewBag.tDepartamentos = db.DepartamentoBDT.ToList();
+                    return View();
+                }
+                else
+                {
+                    return RedirectToAction("SinAcceso", "Home");
+                }
+            }
+            else
+            {
+                return RedirectToAction("Login", "Home");
+            }
         }
 
         [Authorize(Roles = "Empresa,Administrador")]
@@ -93,10 +121,24 @@ namespace BolsaDeTrabajo.Controllers
             return Json(s, JsonRequestBehavior.AllowGet);
         }
         //VER LISTA INVITACIONES DE CANDIDATO
-        [Authorize(Roles = "Candidato,Administrador")]
+        //[Authorize(Roles = "Candidato,Administrador")]
         public ActionResult Lista()
         {
-            return View();
+            if (User.Identity.IsAuthenticated)
+            {
+                if ((db.Usuario.SingleOrDefault(x => x.Correo == User.Identity.Name && x.Rol == "Candidato")) != null)
+                {
+                    return View();
+                }
+                else
+                {
+                    return RedirectToAction("SinAcceso", "Home");
+                }
+            }
+            else
+            {
+                return RedirectToAction("Login", "Home");
+            }
         }
 
         [Authorize(Roles = "Candidato,Administrador")]
@@ -124,24 +166,39 @@ namespace BolsaDeTrabajo.Controllers
                 else
                 {
                     obj.atrib3 = item.Empresa.NombreEmpresa;
-                    obj.atrib4 = "-";
+                    obj.atrib4 = "Invitación Directa";
                 }
                 obj.atrib5 = item.Curriculum.Titulo;
-                obj.atrib6 = item.Mensaje != null ? item.Mensaje.Estado : "-";
+                //obj.atrib6 = item.Mensaje != null ? item.Mensaje.Estado : "-";
+                obj.atrib6 = item.Estado;
                 obj.atrib7 = "<div class='w-100 d-flex justify-content-center'><a href='" + baseUrl + "Invitaciones/Invitacion?Id=" + item.Id + "' class='tooltip-test' title='Ver Invitación'><i class='fas fa-eye ico-blue ico-animation fa-lg'></i></a></div>";
                 tabla.Add(obj);
             }
             return Json(tabla, JsonRequestBehavior.AllowGet);
         }
         //VER INVITACION
-        [Authorize(Roles = "Candidato,Administrador")]
+        //[Authorize(Roles = "Candidato,Administrador")]
         public ActionResult Invitacion(int Id)
         {
-            var Invitado = db.Invitado.SingleOrDefault(x => x.Id == Id);
-            ViewBag.IdInvitado = Id;
-            ViewBag.IdEmpleo = Invitado.IdEmpleo;
-            ViewBag.IdCurriculum = Invitado.IdCurriculum;
-            return View();
+            if (User.Identity.IsAuthenticated)
+            {
+                if ((db.Usuario.SingleOrDefault(x => x.Correo == User.Identity.Name && x.Rol == "Candidato")) != null)
+                {
+                    var Invitado = db.Invitado.SingleOrDefault(x => x.Id == Id);
+                    ViewBag.IdInvitado = Id;
+                    ViewBag.IdEmpleo = Invitado.IdEmpleo;
+                    ViewBag.IdCurriculum = Invitado.IdCurriculum;
+                    return View();
+                }
+                else
+                {
+                    return RedirectToAction("SinAcceso", "Home");
+                }
+            }
+            else
+            {
+                return RedirectToAction("Login", "Home");
+            }
         }
 
         [Authorize(Roles = "Candidato,Empresa,Administrador")]
@@ -178,11 +235,25 @@ namespace BolsaDeTrabajo.Controllers
             return Json(validador, JsonRequestBehavior.AllowGet);
         }
 
-        [Authorize(Roles = "Empresa,Administrador")]
+        //[Authorize(Roles = "Empresa,Administrador")]
         public ActionResult listaInvitados(int id)
         {
-            ViewBag.IdEmpleo = id;
-            return View();
+            if (User.Identity.IsAuthenticated)
+            {
+                if ((db.Usuario.SingleOrDefault(x => x.Correo == User.Identity.Name && x.Rol == "Empresa")) != null)
+                {
+                    ViewBag.IdEmpleo = id;
+                    return View();
+                }
+                else
+                {
+                    return RedirectToAction("SinAcceso", "Home");
+                }
+            }
+            else
+            {
+                return RedirectToAction("Login", "Home");
+            }
         }
 
         [Authorize(Roles = "Empresa,Administrador")]
@@ -274,7 +345,7 @@ namespace BolsaDeTrabajo.Controllers
                 db.SaveChanges();
                 Invitado inv = db.Invitado.SingleOrDefault(x => x.Id == invitacion.Id);
                 inv.idMensajeReceptor = mensaje.Id;
-                inv.Estado = "Respondido";
+                inv.Estado = "Aceptado";
                 //db.Invitado.Add(inv);
                 db.SaveChanges();
 
@@ -296,6 +367,26 @@ namespace BolsaDeTrabajo.Controllers
                 s.Msj = "Mensaje enviado.";
                 Correo c = new Correo();
                 var r = c.enviarCorreo(mensajeR, "Postulacion a Empleo" + ": " + "Respuesta a Invitación", invitacion.Empresa.Perfil.Usuario.Correo, "", "");
+            }
+            catch (Exception ex)
+            {
+                s.Tipo = 3;
+                s.Msj = ex.Message;
+            }
+            return Json(s, JsonRequestBehavior.AllowGet);
+        }
+
+        [Authorize(Roles = "Candidato,Administrador")]
+        public ActionResult RechazarInvitacion(int idInvitado)
+        {
+            status s = new status();
+            try
+            {
+                Invitado inv = db.Invitado.SingleOrDefault(x => x.Id == idInvitado);
+                inv.Estado = "Rechazado";
+                db.SaveChanges();
+                s.Tipo = 1;
+                s.Msj = "Se rechazó la invitación";
             }
             catch (Exception ex)
             {
@@ -362,7 +453,7 @@ namespace BolsaDeTrabajo.Controllers
             ua = ua.getUser(User);
             var us = db.Usuario.SingleOrDefault(u => u.Correo == ua.Email && u.Rol == ua.Rol);
             // && em.IdEmpleo != null
-            var invitado = db.Invitado.Where(em => em.Curriculum.IdCandidato == us.Id && em.Mensaje.Estado == cadena).ToList();
+            var invitado = db.Invitado.Where(em => em.Curriculum.IdCandidato == us.Id && em.Estado == cadena).ToList();
             List<ObjectAnonimo> tabla = new List<ObjectAnonimo>();
             int i = 0;
             foreach (var item in invitado)
@@ -379,14 +470,20 @@ namespace BolsaDeTrabajo.Controllers
                 else
                 {
                     obj.atrib3 = item.Empresa.NombreEmpresa;
-                    obj.atrib4 = "-";
+                    obj.atrib4 = "Invitación Directa";
                 }
                 obj.atrib5 = item.Curriculum.Titulo;
-                obj.atrib6 = item.Mensaje.Estado;
+                obj.atrib6 = item.Estado;
                 obj.atrib7 = "<div class='w-100 d-flex justify-content-center'><a href='" + baseUrl + "Invitaciones/Invitacion?Id=" + item.Id + "' class='tooltip-test' title='Ver Invitación'><i class='fas fa-eye ico-blue ico-animation fa-lg'></i></a></div>";
                 tabla.Add(obj);
             }
             return Json(tabla, JsonRequestBehavior.AllowGet);
+        }
+
+        public ActionResult VerificarEstadoInvitacion(int idInvitado)
+        {
+            var o = db.Invitado.Single(x => x.Id == idInvitado).Estado;
+            return Json(o, JsonRequestBehavior.AllowGet);
         }
     }
 }

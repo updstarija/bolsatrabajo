@@ -1,6 +1,5 @@
 ﻿$(function () {
     $('#SujerirSalarial').validacion('0123456789.,');
-    $('#CartaInvitacion').validacion(' @abcdefghijklmnñopqrstuvwxyzáéíóú0123456789.,:;"()');
 });
 
 

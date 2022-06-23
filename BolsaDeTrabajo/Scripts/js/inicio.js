@@ -59,9 +59,9 @@ function ListarEmpleos(list, nombreMetodo) {
                         <div class="col-12 col-md-6">
                             <div class="blog-card shadow-lg bg-white rounded">
                                 <div class="meta">
-                                    <div class="photo"
-                                         style="background-image: url(data:image;base64,${list.empleos[i].Empresa.Perfil.Foto})">
-                                    </div>
+                                        <div class="photo"
+                                             style="background-image: url(data:image;base64,${list.empleos[i].Empresa.Perfil.Foto})">
+                                        </div>
                                     <ul class="details">
                                         <li class="author"><a href="#"><i class="fas fa-building"></i>  ${list.empleos[i].Empresa.NombreEmpresa}</a></li>
                                         <li class="date"><i class="fas fa-calendar-day"></i> ${list.empleos[i].FechaRegistro}</li>

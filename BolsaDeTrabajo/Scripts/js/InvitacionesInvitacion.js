@@ -1,6 +1,7 @@
 ﻿$(document).ready(function () {
     var id = $("#idValor").val();
     CargarDatos(id);
+    VerificarEstadoInvitacion();
 });
 var direct = window.location.href.split('/');
 var url = window.location.origin + "/" + direct[3];
@@ -18,7 +19,7 @@ function CargarDatos(id) {
 function VerMensaje(obj) {
     $("#viewMensaje").html('');
     var mensaje = `
-        <h2 class="text-center mb-5">${obj.Asunto}</h2>
+        <h2 class="text-center mb-5 mt-5">${obj.Asunto}</h2>
         <div style="display:flex">
         <p style="flex:10%;margin-left:30px;"><b>Emisor:</b> ${obj.Emisor}</p>
         <p style="flex:10%;"><b>Fecha Recibida:</b> ${obj.FechaRegistro}</p>
@@ -164,12 +165,52 @@ function EnviarMensaje() {
     }
 }
 
+function RechazarInvitacion(idInvitado) {
+    $.confirm({
+        icon: 'fas fa-exclamation-triangle',
+        title: 'Rechazar Postulación',
+        theme: 'modern',
+        content: 'Se rechazará la postulación al empleo invitado, ¿Esta Seguro?',
+        type: 'orange',
+        typeAnimated: true,
+        animation: 'rotateYR',
+        closeAnimation: 'scale',
+        buttons: {
+            confirm: {
+                text: 'Confirmar',
+                btnClass: 'btn-orange',
+                action: function () {
+                    $.getJSON(urlOficial + 'Invitaciones/RechazarInvitacion', { idInvitado: idInvitado }, function (data) {
+                        if (data.Tipo == 1) {
+                            Toast("success", data.Msj);
+                            setTimeout(function () {
+                                window.location.href = urlOficial + 'Invitaciones/Lista';
+                            }, 1000);
+                        }
+                    });
+                }
+            },
+            close: {
+                text: 'Cancelar',
+            }
+        }
+    });
+}
+
 function VerificarPostulacion(idemp, idcur) {
     $.getJSON(urlOficial + 'Postulantes/verificarPostulacion', { IdEmpleo: idemp, IdCurriculum: idcur }, function (data) {
         if (data == true) {
             $("#btnPostularEmpleo").prop('disabled', true);
             $("#btnPostularEmpleo").text("Usted ya se postulo a este empleo");
             $("#btnPostularEmpleo").removeClass(" btn-Blue");
+        }
+    });
+}
+
+function VerificarEstadoInvitacion() {
+    $.getJSON(urlOficial + 'Invitaciones/VerificarEstadoInvitacion', { idInvitado: $("#idValor").val() }, function (data) {
+        if (data != "Pendiente") {
+            $("#divOpcionesInvitacion").attr("hidden", "hidden");
         }
     });
 }

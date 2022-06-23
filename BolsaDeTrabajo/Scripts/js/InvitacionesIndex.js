@@ -1,14 +1,14 @@
 ﻿tabla = $('#tInvitacionesIndex').DataTable({
     columns: [
         { title: "#", width: '5%' },
+        { title: "Titulo", width: '25%' },
         { title: "Registro", width: '10%' },
         { title: "Actualización", width: '10%' },
-        { title: "Titulo", width: '25%' },
         { title: "Contrato", width: '15%' },
         { title: "Correo", width: '10%' },
         { title: "Estado", width: '10%' },
         { title: "Invitados", width: '5%' },
-        { title: "<div class='d-flex flex-nowrap'><select class='custom-select' id='filtrosInvitacionesC' onchange='FiltrarEmpleos()'><option value='Activo'>Activos</option><option value='Inactivo'>Inactivos</option><option value='Todos'>Todos</option></select></div>", width: '10%' }
+        { title: "<div class='d-flex flex-nowrap'><select class='custom-select' id='filtrosInvitacionesC' onchange='FiltrarEmpleos()'><option value='Activo'>Activos</option><option value='Inactivo'>Inactivos</option><option value='Expirado'>Expirados</option><option value='Todos'>Todos</option></select></div>", width: '10%' }
     ],
     "lengthMenu": [[5, 10, 15, -1], [5, 10, 15, "All"]]
 });
@@ -45,13 +45,13 @@ function Listar(obj) {
                 data: "atrib1", width: '5%'
             },
             {
+                data: "atrib4", width: '25%'
+            },
+            {
                 data: "atrib2", width: '10%'
             },
             {
                 data: "atrib3", width: '10%'
-            },
-            {
-                data: "atrib4", width: '25%'
             },
             {
                 data: "atrib5", width: '15%'

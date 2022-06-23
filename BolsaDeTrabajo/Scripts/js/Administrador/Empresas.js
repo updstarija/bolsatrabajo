@@ -1,26 +1,19 @@
 ﻿//Validacion de inputs
 $(function () {
-    $('#nombre_empresa').validacion(' abcdefghijklmnñopqrstuvwxyzáéíóú0123456789-()""');
-    $('#NIT_empresa').validacion('0123456789');
-    $('#nombre_persona_empresa').validacion(' abcdefghijklmnñopqrstuvwxyzáéíóú');
-    $('#ciudad_empresa').validacion(' abcdefghijklmnñopqrstuvwxyzáéíóú()');
-    $('#direccion_empresa').validacion(' abcdefghijklmnñopqrstuvwxyzáéíóú()-/.0123456789');
-    $('#sitio_web_empresa').validacion(' .:abcdefghijklmnñopqrstuvwxyzáéíóú0123456789//');
     $('#telefonoCelular').validacion('0123456789');
     $('#telefonoFijo').validacion(' -0123456789');
-    $('#descripcion_empresa').validacion(' .,:;abcdefghijklmnñopqrstuvwxyzáéíóú0123456789""()');
-    $('#correo_empresa').validacion(' .abcdefghijklmnñopqrstuvwxyzáéíóú0123456789@');
 }); 
 
 tabla = $('#tEmpresasC').DataTable({
     columns: [
-        { title: "Registro", width: '10%' },
-        { title: "NIT", width: '10%' },
+        { title: "#", width: '5%' },
         { title: "Empresa", width: '10%' },
+        { title: "Registro", width: '8%' },
+        { title: "NIT", width: '7%' },
         { title: "Representante", width: '10%' },
         { title: "Departamento", width: '10%' },
         { title: "Estado", width: '10%' },
-        { title: "<div class='d-flex flex-nowrap'><select class='custom-select' id='estadoEmpresa' onchange='FiltrarEmpresas()'><option value='Activo'>Activas</option><option value='Desaprobado'>Desaprobadas</option><option value='Todos'>Todos</option></select></div>", width: '10%' }
+        { title: "<div class='d-flex flex-nowrap'><select class='custom-select' id='estadoEmpresa' onchange='FiltrarEmpresas()'><option value='Activa'>Activas</option><option value='Inactiva'>Inactivas</option><option value='Todos'>Todos</option></select></div>", width: '10%' }
     ],
 });
 $("#cargandoEmpresas").show();
@@ -58,14 +51,16 @@ function Listar(obj) {
         },
         columns: [
             {
-                data: "atrib2", width: '10%',
-                sortable: false
-            },
-            {
-                data: "atrib3", width: '10%',
+                data: "atrib1", width: '5%',
             },
             {
                 data: "atrib4", width: '10%',
+            },
+            {
+                data: "atrib2", width: '8%',
+            },
+            {
+                data: "atrib3", width: '7%',
             },
             {
                 data: "atrib6", width: '10%',
@@ -104,9 +99,6 @@ function FiltrarEmpresas() {
                 Listar(obj);
             }
         });
-        //$.getJSON(urlE + '/getTableEmpresasByEstado', { Estado: estado }, function (data) {
-        //    Listar(data);
-        //});
     }
 }
 
@@ -129,16 +121,6 @@ function ActualizarEstado(Select, IdEmpresa) {
                     var idSelect = Select.id;
                     formData.append("Estado", $("#" + idSelect).val());
                     formData.append("IdEmpresa", IdEmpresa);
-                    //$.ajax({
-                    //    url: '/Administradores/getTableEmpresasByEstado',
-                    //    type: 'GET',
-                    //    contentType: 'application/json',
-                    //    dataType: 'json',
-                    //    data: o,
-                    //    success: function (obj) {
-                    //        Listar(obj);
-                    //    }
-                    //});
                     $.ajax({
                         url: urlOficial + 'Administradores/EditarEstadoEmpresa',
                         type: 'POST',

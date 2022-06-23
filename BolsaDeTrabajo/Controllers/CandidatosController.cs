@@ -155,26 +155,57 @@ namespace BolsaDeTrabajo.Controllers
             return Json(s, JsonRequestBehavior.AllowGet);
         }
 
-        [Authorize(Roles = "Candidato,Administrador")]
+        //[Authorize(Roles = "Candidato,Administrador")]
         public ActionResult Editar()
         {
-            var user = db.Usuario.Where(u => u.Correo == User.Identity.Name).SingleOrDefault();
-            if (user == null)
+            if (User.Identity.IsAuthenticated)
             {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                if ((db.Usuario.SingleOrDefault(x => x.Correo == User.Identity.Name && x.Rol == "Candidato")) != null)
+                {
+                    var user = db.Usuario.Single(u => u.Correo == User.Identity.Name);
+                    Candidato candidato = db.Candidato.Where(c => c.Id == user.Id).SingleOrDefault();
+                    return View(candidato);
+                }
+                else
+                {
+                    return RedirectToAction("SinAcceso", "Home");
+                }
             }
-            Candidato candidato = db.Candidato.Where(c => c.Id == user.Id).SingleOrDefault();
-            if (candidato == null)
+            else
             {
-                return HttpNotFound();
+                return RedirectToAction("Login", "Home");
             }
-            return View(candidato);
+            //var user = db.Usuario.Where(u => u.Correo == User.Identity.Name).SingleOrDefault();
+            //if (user == null)
+            //{
+            //    return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            //}
+            //Candidato candidato = db.Candidato.Where(c => c.Id == user.Id).SingleOrDefault();
+            //if (candidato == null)
+            //{
+            //    return HttpNotFound();
+            //}
+            //return View(candidato);
         }
 
-        [Authorize(Roles = "Candidato,Administrador")]
+        //[Authorize(Roles = "Candidato,Administrador")]
         public ActionResult Postulaciones()
         {
-            return View();
+            if (User.Identity.IsAuthenticated)
+            {
+                if ((db.Usuario.SingleOrDefault(x => x.Correo == User.Identity.Name && x.Rol == "Candidato")) != null)
+                {
+                    return View();
+                }
+                else
+                {
+                    return RedirectToAction("SinAcceso", "Home");
+                }
+            }
+            else
+            {
+                return RedirectToAction("Login", "Home");
+            }
         }
 
         [Authorize(Roles = "Candidato,Administrador")]
@@ -240,11 +271,25 @@ namespace BolsaDeTrabajo.Controllers
             return Json(tabla, JsonRequestBehavior.AllowGet);
         }
 
-        [Authorize(Roles = "Candidato,Administrador")]
+        //[Authorize(Roles = "Candidato,Administrador")]
         public ActionResult Postulacion(int IdPostulante)
         {
-            ViewBag.IdPostulante = IdPostulante;
-            return View();
+            if (User.Identity.IsAuthenticated)
+            {
+                if ((db.Usuario.SingleOrDefault(x => x.Correo == User.Identity.Name && x.Rol == "Candidato")) != null)
+                {
+                    ViewBag.IdPostulante = IdPostulante;
+                    return View();
+                }
+                else
+                {
+                    return RedirectToAction("SinAcceso", "Home");
+                }
+            }
+            else
+            {
+                return RedirectToAction("Login", "Home");
+            }
         }
     }
 }

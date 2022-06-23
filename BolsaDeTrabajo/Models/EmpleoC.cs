@@ -160,11 +160,11 @@ namespace BolsaDeTrabajo.Models
                     var verif = DateTime.Compare(strFechaActual, FechaExpiracion);
                     if (verif >= 0)
                     {
-                        item.Estado = "Vencido";
+                        item.Estado = "Expirado";
                         db.SaveChanges();
 
                         Notificacion notificacion = new Notificacion();
-                        notificacion.Titulo = "Empleo Vencido";
+                        notificacion.Titulo = "Empleo Expirado";
                         notificacion.Descripcion = "El empleo <span>'" + item.Titulo + "'</span> con fecha de expiracion <span>" + item.FechaExpiracion + "</span> a vencido, por lo tanto ya no estara disponible para posibles candidatos. Por favor concluya el empleo.";
                         notificacion.Tipo = "Empleo";
                         notificacion.FechaRegistro = DateTime.Now;

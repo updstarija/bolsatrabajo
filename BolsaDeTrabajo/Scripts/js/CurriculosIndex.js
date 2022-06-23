@@ -6,18 +6,23 @@ var url = window.location.origin + "/" + direct[3];
 
 function Listar(lista) {
     $("#itemsCurriculosC").html("");
+    var c = 0;
     for (var i = 0; i < lista.length; i++) {
+        c++;
         var obj = lista[i];
         var content = `
                     <tr>
+                        <td>
+                            ${c}
+                        </td>
+                        <td>
+                            ${obj.InformacionGeneral.tituloIG}
+                        </td>
                         <td>
                             ${obj.InformacionGeneral.FechaRegistro}
                         </td>
                         <td>
                             ${obj.InformacionGeneral.FechaActualizacion}
-                        </td>
-                        <td>
-                            ${obj.InformacionGeneral.tituloIG}
                         </td>
                         <td>
                             ${obj.InformacionGeneral.Carrera.Nombre}

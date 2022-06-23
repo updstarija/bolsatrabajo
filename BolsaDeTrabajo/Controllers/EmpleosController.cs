@@ -19,15 +19,29 @@ namespace BolsaDeTrabajo.Controllers
 
         private UPDS_BDTEntities db = new UPDS_BDTEntities();
         // GET: Empleos
-        [Authorize(Roles = "Empresa,Administrador")]
+        //[Authorize(Roles = "Empresa,Administrador")]
         public ActionResult Index()
         {
-            ViewBag.tCategoria = db.CategoriaBDT.ToList();
-            ViewBag.tDepartamentos = db.DepartamentoBDT.ToList();
-            UsuarioActivo ua = new UsuarioActivo();
-            ua = ua.getUser(User);
-            ViewBag.Usuario = ua;
-            return View();
+            if (User.Identity.IsAuthenticated)
+            {
+                if ((db.Usuario.SingleOrDefault(x => x.Correo == User.Identity.Name && x.Rol == "Empresa")) != null)
+                {
+                    ViewBag.tCategoria = db.CategoriaBDT.ToList();
+                    ViewBag.tDepartamentos = db.DepartamentoBDT.ToList();
+                    UsuarioActivo ua = new UsuarioActivo();
+                    ua = ua.getUser(User);
+                    ViewBag.Usuario = ua;
+                    return View();
+                }
+                else
+                {
+                    return RedirectToAction("SinAcceso", "Home");
+                }
+            }
+            else
+            {
+                return RedirectToAction("Login", "Home");
+            }
         }
 
         [Authorize(Roles = "Empresa,Candidato,Administrador")]
@@ -116,15 +130,29 @@ namespace BolsaDeTrabajo.Controllers
             return Json(tabla, JsonRequestBehavior.AllowGet);
         }
 
-        [Authorize(Roles = "Empresa,Administrador")]
+        //[Authorize(Roles = "Empresa,Administrador")]
         public ActionResult Empleo()
         {
-            ViewBag.tCategoria = db.CategoriaBDT.ToList();
-            ViewBag.tDepartamentos = db.DepartamentoBDT.ToList();
-            UsuarioActivo ua = new UsuarioActivo();
-            ua = ua.getUser(User);
-            ViewBag.Usuario = ua;
-            return View();
+            if (User.Identity.IsAuthenticated)
+            {
+                if ((db.Usuario.SingleOrDefault(x => x.Correo == User.Identity.Name && x.Rol == "Empresa")) != null)
+                {
+                    ViewBag.tCategoria = db.CategoriaBDT.ToList();
+                    ViewBag.tDepartamentos = db.DepartamentoBDT.ToList();
+                    UsuarioActivo ua = new UsuarioActivo();
+                    ua = ua.getUser(User);
+                    ViewBag.Usuario = ua;
+                    return View();
+                }
+                else
+                {
+                    return RedirectToAction("SinAcceso", "Home");
+                }
+            }
+            else
+            {
+                return RedirectToAction("Login", "Home");
+            }
         }
         //EDICION EMPLEO
         [Authorize(Roles = "Candidato,Empresa,Administrador")]
@@ -136,17 +164,24 @@ namespace BolsaDeTrabajo.Controllers
             return Json(empleoC, JsonRequestBehavior.AllowGet);
         }
 
-        [Authorize(Roles = "Candidato,Empresa,Administrador")]
+        //[Authorize(Roles = "Candidato,Empresa,Administrador")]
         public ActionResult detalleEmpleo(int Id)
         {
-            UsuarioActivo ua = new UsuarioActivo();
-            ua = ua.getUser(User);
-            var us = db.Usuario.SingleOrDefault(u => u.Correo == ua.Email && u.Rol == ua.Rol);
-            Empleo empleo = db.Empleo.Where(e => e.Id == Id).SingleOrDefault();
-            ViewBag.Curriculums = db.Curriculum.Where(c => c.IdCandidato == us.Id && c.Estado != "Eliminado").ToList();
-            int valEstado = empleo.Postulante.Where(x => x.Curriculum.IdCandidato == us.Id && x.Estado != "Cancelado").Count();
-            ViewBag.Estado = valEstado == 0 ? "0" : "Registrado";
-            return View(empleo);
+            if (User.Identity.IsAuthenticated)
+            {
+                UsuarioActivo ua = new UsuarioActivo();
+                ua = ua.getUser(User);
+                var us = db.Usuario.SingleOrDefault(u => u.Correo == ua.Email && u.Rol == ua.Rol);
+                Empleo empleo = db.Empleo.Where(e => e.Id == Id).SingleOrDefault();
+                ViewBag.Curriculums = db.Curriculum.Where(c => c.IdCandidato == us.Id && c.Estado != "Eliminado").ToList();
+                int valEstado = empleo.Postulante.Where(x => x.Curriculum.IdCandidato == us.Id && x.Estado != "Cancelado").Count();
+                ViewBag.Estado = valEstado == 0 ? "0" : "Registrado";
+                return View(empleo);
+            }
+            else
+            {
+                return RedirectToAction("Login", "Home");
+            }
         }
 
         [Authorize(Roles = "Empresa,Candidato,Administrador")]
@@ -202,7 +237,7 @@ namespace BolsaDeTrabajo.Controllers
                 else
                 {
 
-                    emp.Estado = "Vencido";
+                    emp.Estado = "Expirado";
                 }
                 //emp.Estado = "Activo";
 
@@ -245,21 +280,35 @@ namespace BolsaDeTrabajo.Controllers
             }
             return Json(s, JsonRequestBehavior.AllowGet);
         }
-        [Authorize(Roles = "Empresa,Administrador")]
+        //[Authorize(Roles = "Empresa,Administrador")]
         public ActionResult Editar(int? id)
         {
-            if (id == null)
+            if (User.Identity.IsAuthenticated)
             {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                if ((db.Usuario.SingleOrDefault(x => x.Correo == User.Identity.Name && x.Rol == "Empresa")) != null)
+                {
+                    if (id == null)
+                    {
+                        return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                    }
+                    Empleo empleo = db.Empleo.Where(c => c.Id == id).SingleOrDefault();
+                    if (empleo == null)
+                    {
+                        return HttpNotFound();
+                    }
+                    ViewBag.tCategoria = db.CategoriaBDT.ToList();
+                    ViewBag.tDepartamentos = db.DepartamentoBDT.ToList();
+                    return View(empleo);
+                }
+                else
+                {
+                    return RedirectToAction("SinAcceso", "Home");
+                }
             }
-            Empleo empleo = db.Empleo.Where(c => c.Id == id).SingleOrDefault();
-            if (empleo == null)
+            else
             {
-                return HttpNotFound();
+                return RedirectToAction("Login", "Home");
             }
-            ViewBag.tCategoria = db.CategoriaBDT.ToList();
-            ViewBag.tDepartamentos = db.DepartamentoBDT.ToList();
-            return View(empleo);
         }
 
         [Authorize(Roles = "Empresa,Administrador")]

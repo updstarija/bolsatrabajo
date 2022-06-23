@@ -1,13 +1,13 @@
 ﻿tabla = $('#tInvitacionesIndex').DataTable({
     columns: [
         { title: "#", width: '5%' },
-        { title: "Fecha", width: '10%' },
         { title: "Empresa", width: '20%' },
+        { title: "Fecha", width: '10%' },
         { title: "Empleo", width: '25%' },
         { title: "Curriculum", width: '20%' },
         { title: "Mensaje", width: '10%' },
         {
-            title: "<div class='d-flex flex-nowrap'><select class='custom-select' id='filtrosInvitacionesC' onchange='FiltrarInvitacionesC()'><option value='Todos'>Todos</option><option value='Visto'>Vistos</option><option value='Pendiente'>Pendientes</option></select></div>", width: '15%'
+            title: "<div class='d-flex flex-nowrap'><select class='custom-select' id='filtrosInvitacionesC' onchange='FiltrarInvitacionesC()'><option value='Todos'>Todos</option><option value='Rechazado'>Rechazados</option><option value='Pendiente'>Pendientes</option><option value='Aceptado'>Aceptados</option></select></div>", width: '15%'
         }
     ],
 });
@@ -43,10 +43,10 @@ function Listar(obj) {
                 data: "atrib1", width: '5%'
             },
             {
-                data: "atrib2", width: '10%'
+                data: "atrib3", width: '20%'
             },
             {
-                data: "atrib3", width: '20%'
+                data: "atrib2", width: '10%'
             },
             {
                 data: "atrib4", width: '25%'

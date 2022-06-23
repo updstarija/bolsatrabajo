@@ -1,6 +1,7 @@
 ﻿
 $(document).ready(function () {
     traerEmpleos();
+    HabilitarSelect(1);
 });
 var direct = window.location.href.split('/');
 var url = window.location.origin + "/" + direct[3];
@@ -25,10 +26,9 @@ function VerificarFormulario() {
 function traerEmpleos() {
     $.getJSON(urlOficial + 'Empleos/listEmpleos', function (data) {
         $("#IdEmpleos").html("");
-        var option = `<option selected  value="">Seleccionar una opcion...</option><option value="-1">Invitación Directa</option>`;
+        var option = `<option selected  value="">Seleccionar una opcion...</option>`;
         for (var i = 0; i < data.empleos.length; i++) {
             option += `<option value="${data.empleos[i].Id}">${data.empleos[i].Titulo}</option>`;
-           
         }
         $("#IdEmpleos").append(option);
     });
@@ -59,4 +59,25 @@ function RegistrarInvitacion() {
             }
         });
     }
+}
+
+function HabilitarSelect(valor) {
+    if (valor == 1) {
+        $("#selectInvitacionNormal").removeAttr("hidden", "hidden");
+        $("#radioInvitacionDirecta").val("NoSelect");
+        if ($("#IdEmpleos").val() == -1) {
+            $("#IdEmpleos").html("");
+            var option = `<option selected  value="">Seleccionar una opcion...</option>`;
+            $("#IdEmpleos").append(option);
+            traerEmpleos();
+        }
+    } else {
+        $("#radioInvitacionDirecta").val("Select");
+        $("#selectInvitacionNormal").attr("hidden", "hidden");
+        $("#IdEmpleos").html("");
+        var option = `<option selected  value="-1">Invitacion Directa</option>`;
+        $("#IdEmpleos").append(option);
+    }
+    console.log("valor idempleo");
+    console.log($("#IdEmpleos").val());
 }

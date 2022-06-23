@@ -1,7 +1,6 @@
 ﻿//Validacion de inputs
 $(function () {
     $('#PretencionSalarial').validacion('.,0123456789');
-    $('#CartaPresentacion').validacion(' .,:;abcdefghijklmnñopqrstuvwxyzáéíóú0123456789""()');
 });
 
 

@@ -1,9 +1,9 @@
 ﻿tabla = $('#tPostulacionesC').DataTable({
     columns: [
         { title: "#", width: '5%' },
-        { title: "Registro", width: '10%' },
         { title: "Empleo", width: '25%' },
         { title: "Empresa", width: '20%' },
+        { title: "Registro", width: '10%' },
         { title: "Curriculo", width: '20%' },
         { title: "Estado", width: '10%' },
         { title: "<div class='d-flex flex-nowrap'><select class='custom-select' id='filtrosPostulacionesCandidato' onchange='FiltrarPostulaciones()'><option value='Aceptado'>Aceptados</option><option value='Pendiente'>Pendientes</option><option value='Todos'>Todos</option></select></div>", width: '10%' }
@@ -43,13 +43,13 @@ function Listar(obj) {
                 data: "atrib1", width: '5%'
             },
             {
-                data: "atrib2", width: '10%'
-            },
-            {
                 data: "atrib3", width: '25%'
             },
             {
                 data: "atrib4", width: '20%'
+            },
+            {
+                data: "atrib2", width: '10%'
             },
             {
                 data: "atrib5", width: '20%'

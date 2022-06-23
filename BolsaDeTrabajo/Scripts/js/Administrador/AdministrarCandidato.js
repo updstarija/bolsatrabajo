@@ -1,13 +1,14 @@
 ﻿
 tabla = $('#tCandidatosIndex').DataTable({
     columns: [
-        { title: "Registro", width: '10%' },
+        { title: "#", width: '5%' },
         { title: "Nombre", width: '20%' },
-        { title: "NroDocumento", width: '13%' },
+        { title: "Registro", width: '8%' },
+        { title: "NroDocumento", width: '10%' },
         { title: "Cuidad", width: '13%' },
         { title: "Mas Info.", width: '9%' },
         { title: "Ver Curriculums", width: '10%' },
-        { title: "<div class='d-flex flex-nowrap'><select class='custom-select' id='filtrosCandidatos' onchange='filtrarCandidatosC()'><option value='Activo'>Activo</option><option value='Inactivo'>Inactivo</option><option value='Todos'>Todos</option></select></div>", width: '10%' }
+        { title: "<div class='d-flex flex-nowrap'><select class='custom-select' id='filtrosCandidatos' onchange='filtrarCandidatosC()'><option value='Activo'>Activos</option><option value='Inactivo'>Inactivos</option><option value='Todos'>Todos</option></select></div>", width: '10%' }
     ],
 });
 $("#cargandocandidatos").show();
@@ -41,13 +42,16 @@ function Listar(obj) {
         columns: [
 
             {
-                data: "atrib2", width: '10%'
+                data: "atrib1", width: '5%'
             },
             {
                 data: "atrib3", width: '20%'
             },
             {
-                data: "atrib4", width: '13%'
+                data: "atrib2", width: '8%'
+            },
+            {
+                data: "atrib4", width: '10%'
             },
             {
                 data: "atrib5", width: '13%'

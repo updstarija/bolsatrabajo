@@ -22,7 +22,7 @@ function StatisticsEmpresas() {
                 labels: ['Empresas'],
                 datasets: [
                     {
-                        label: 'Aprobadas',
+                        label: 'Activas',
                         data: [o.activa],
                         backgroundColor: [
                             'rgba(54, 162, 235, 0.2)'
@@ -33,7 +33,7 @@ function StatisticsEmpresas() {
                         borderWidth: 1
                     },
                     {
-                        label: 'Rechazadas',
+                        label: 'Inactivas',
                         data: [o.desaprobada],
                         backgroundColor: [
                             'rgba(255, 99, 132, 0.2)'
@@ -67,7 +67,7 @@ function StatisticsCandidatos() {
                 labels: ['Candidatos'],
                 datasets: [
                     {
-                        label: 'Aprobados',
+                        label: 'Activos',
                         data: [o.activo],
                         backgroundColor: [
                             'rgba(54, 162, 235, 0.2)'
@@ -78,7 +78,7 @@ function StatisticsCandidatos() {
                         borderWidth: 1
                     },
                     {
-                        label: 'Rechazados',
+                        label: 'Inactivos',
                         data: [o.inicativo],
                         backgroundColor: [
                             'rgba(255, 99, 132, 0.2)'
@@ -123,7 +123,7 @@ function StatisticsAdministradores() {
                         borderWidth: 1
                     },
                     {
-                        label: 'Deshabilitados',
+                        label: 'Inactivos',
                         data: [o.inicativo],
                         backgroundColor: [
                             'rgba(255, 99, 132, 0.2)'

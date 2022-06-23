@@ -1,15 +1,7 @@
 ﻿//Validacion de inputs
 $(function () {
-    $('#nombre_empresa').validacion(' abcdefghijklmnñopqrstuvwxyzáéíóú0123456789-()""');
-    $('#NIT_empresa').validacion('0123456789');
-    $('#nombre_persona_empresa').validacion(' abcdefghijklmnñopqrstuvwxyzáéíóú');
-    $('#ciudad_empresa').validacion(' abcdefghijklmnñopqrstuvwxyzáéíóú()');
-    $('#direccion_empresa').validacion(' abcdefghijklmnñopqrstuvwxyzáéíóú()-/.0123456789');
-    $('#sitio_web_empresa').validacion(' .:abcdefghijklmnñopqrstuvwxyzáéíóú0123456789//');
     $('#telefonoCelular').validacion('0123456789');
     $('#telefonoFijo').validacion(' -0123456789');
-    $('#descripcion_empresa').validacion(' .,:;abcdefghijklmnñopqrstuvwxyzáéíóú0123456789""()');
-    $('#correo_empresa').validacion(' .abcdefghijklmnñopqrstuvwxyzáéíóú0123456789@');
 });
 
 $(function () {

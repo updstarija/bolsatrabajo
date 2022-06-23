@@ -45,6 +45,9 @@ function CargarNotificaciones() {
                 else if (obj.Tipo == "Empleo") {
                     notificaciones += `<i class="fas fa-business-time"></i>`;
                 }
+                else if (obj.Tipo == "Curriculum") {
+                    notificaciones += `<i class="fas fa-id-badge"></i>`;
+                }
 
                 notificaciones += `</div>`;
                 notificaciones += `<div id="descripcion">

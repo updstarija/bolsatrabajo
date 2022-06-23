@@ -14,16 +14,45 @@ namespace BolsaDeTrabajo.Controllers
         // GET: Postulantes
         private UPDS_BDTEntities db = new UPDS_BDTEntities();
 
-        [Authorize(Roles = "Empresa,Administrador")]
+        //[Authorize(Roles = "Empresa,Administrador")]
         public ActionResult Index()
         {
-            return View();
+            if (User.Identity.IsAuthenticated)
+            {
+                if ((db.Usuario.SingleOrDefault(x => x.Correo == User.Identity.Name && x.Rol == "Empresa")) != null)
+                {
+
+                    return View();
+                }
+                else
+                {
+                    return RedirectToAction("SinAcceso", "Home");
+                }
+            }
+            else
+            {
+                return RedirectToAction("Login", "Home");
+            }
         }
-        [Authorize(Roles = "Empresa,Administrador")]
+        //[Authorize(Roles = "Empresa,Administrador")]
         public ActionResult Lista(int Id)
         {
-            ViewBag.IdEmpleo = Id;
-            return View();
+            if (User.Identity.IsAuthenticated)
+            {
+                if ((db.Usuario.SingleOrDefault(x => x.Correo == User.Identity.Name && x.Rol == "Empresa")) != null)
+                {
+                    ViewBag.IdEmpleo = Id;
+                    return View();
+                }
+                else
+                {
+                    return RedirectToAction("SinAcceso", "Home");
+                }
+            }
+            else
+            {
+                return RedirectToAction("Login", "Home");
+            }
         }
         [Authorize(Roles = "Candidato,Empresa,Administrador")]
         [HttpPost]

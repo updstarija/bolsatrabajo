@@ -6,6 +6,21 @@
 
 <div class="container-personalizado">
     <div class="shadow-lg p-3 bg-white rounded pl-5 pr-5 pb-5 mt-4">
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb bg-white d-flex justify-content-end">
+                <li class="breadcrumb-item"><a href="https://tarija.upds.edu.bo/UpdsTrabaja/Invitaciones/Lista">Invitaciones</a></li>
+                <li class="breadcrumb-item active" aria-current="page">Detalle invitación</li>
+            </ol>
+        </nav>
+        <div class="d-flex flex-row bd-highlight">
+            <div class="bd-highlight container-icono-titulo rounded-circle shadow">
+                <span class="fas fa-envelope icono"></span>
+            </div>
+            <div class="ml-2 bd-highlight container-titulos">
+                <span class="font-weight-bold titulo">Detalle invitación</span><br />
+                <span class="text-secondary font-italic parrafo">Se muestra el detalle del empleo al que se le ha invitado</span>
+            </div>
+        </div>
         <input type="hidden" id="idValor" value="@ViewBag.IdInvitado" />
         <div class="mb-3" style="font-family:Arial;" id="viewMensaje">
 
@@ -19,7 +34,14 @@
                     }
                     else
                     {
-                        <button id="btnPE" type="button" class="btn btn-Blue btn-block" data-toggle="modal" data-target="#MensajeModal">Mandar mensaje</button>
+                        <div class="row w-100" id="divOpcionesInvitacion">
+                            <div class="col-12 py-1 py-sm-0 col-sm-7 px-1">
+                                <button id="btnPE" type="button" class="btn btn-Blue btn-block" data-toggle="modal" data-target="#MensajeModal">Mandar mensaje</button>
+                            </div>
+                            <div class="col-12 py-1 py-sm-0 col-sm-5 px-1">
+                                <button type="button" class="btn btn-secondary btn-block" onclick="RechazarInvitacion(@ViewBag.IdInvitado)">Rechazar Invitación</button>
+                            </div>
+                        </div>
                     }
                 </div>
             </div>

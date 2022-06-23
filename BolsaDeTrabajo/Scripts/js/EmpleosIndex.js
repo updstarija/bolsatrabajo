@@ -1,21 +1,15 @@
-﻿//Validacion de inputs
-$(function () {
-    $('#Titulo').validacion(' .,abcdefghijklmnñopqrstuvwxyzáéíóú0123456789-()""');
-    $('#Descripcion').validacion(' .,:;abcdefghijklmnñopqrstuvwxyzáéíóú0123456789""()');
-    $('#Ciudad').validacion(' abcdefghijklmnñopqrstuvwxyzáéíóú()');
-    $('#CorreoEnvioPostulaciones').validacion(' .abcdefghijklmnñopqrstuvwxyzáéíóú0123456789@');
-});
-
+﻿
 tabla = $('#tEmpleosIndex').DataTable({
     columns: [
-        { title: "Registro", width: '10%' },
-        { title: "Expiración", width: '10%' },
+        { title: "#", width: '5%' },
         { title: "Titulo", width: '25%' },
+        { title: "Registro", width: '7%' },
+        { title: "Expiración", width: '8%' },
         { title: "Contrato", width: '15%' },
         { title: "Correo", width: '10%' },
         { title: "Estado", width: '10%' },
         { title: "Postulantes", width: '5%' },
-        { title: "<div class='d-flex flex-nowrap'><select class='custom-select' id='filtrosEmpleosC' onchange='FiltrarEmpleos()'><option value='Activo'>Activos</option><option value='Inactivo'>Inactivos</option><option value='Vencido'>Vencidos</option><option value='Todos'>Todos</option></select></div>", width: '10%' }
+        { title: "<div class='d-flex flex-nowrap'><select class='custom-select' id='filtrosEmpleosC' onchange='FiltrarEmpleos()'><option value='Activo'>Activos</option><option value='Inactivo'>Inactivos</option><option value='Expirado'>Expirados</option><option value='Todos'>Todos</option></select></div>", width: '10%' }
     ],
 });
 $("#cargandoEmpleos").show();
@@ -47,13 +41,16 @@ function Listar(obj) {
 
         columns: [
             {
-                data: "atrib2", width: '10%'
-            },
-            {
-                data: "atrib3", width: '10%'
+                data: "atrib1", width: '5%'
             },
             {
                 data: "atrib4", width: '25%'
+            },
+            {
+                data: "atrib2", width: '7%'
+            },
+            {
+                data: "atrib3", width: '8%'
             },
             {
                 data: "atrib5", width: '15%'

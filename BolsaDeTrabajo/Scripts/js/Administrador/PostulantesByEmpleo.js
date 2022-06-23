@@ -1,9 +1,9 @@
 ﻿
 tabla = $('#tPostulantes').DataTable({
     columns: [
-        { title: "Id", width: '5%' },
-        { title: "Registro", width: '15%' },
+        { title: "#", width: '5%' },
         { title: "Candidato", width: '35%' },
+        { title: "Registro", width: '15%' },
         { title: "Nacionalidad", width: '15%' },
         { title: "<i class='fas fa-restroom'></i>", width: '5%' },
         { title: "Estado", width: '10%' },
@@ -43,11 +43,11 @@ function Listar(obj) {
                 data: "atrib1", width: '5%'
             },
             {
-                data: "atrib2", width: '15%',
-                sortable: false
+                data: "atrib3", width: '35%'
             },
             {
-                data: "atrib3", width: '35%'
+                data: "atrib2", width: '15%',
+                sortable: false
             },
             {
                 data: "atrib4", width: '15%'

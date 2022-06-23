@@ -26,7 +26,7 @@ namespace BolsaDeTrabajo.Controllers
             if (ua.Rol == "Candidato")
             {
                 var us = db.Usuario.SingleOrDefault(u => u.Correo == ua.Email && u.Rol == ua.Rol);
-                var noticaciones = db.Notificacion.Where(x => (x.Invitado.Curriculum.Candidato.Id == us.Id || x.Postulante.Curriculum.Candidato.Id == us.Id || x.Curriculum.IdCandidato == us.Id) && x.Receptor == "Candidato").OrderByDescending(x => x.FechaRegistro).Take(10).ToList();
+                var noticaciones = db.Notificacion.Where(x => (x.Invitado.Curriculum.Candidato.Id == us.Id || x.Postulante.Curriculum.Candidato.Id == us.Id || x.Curriculum.IdCandidato == us.Id) && x.Receptor == "Candidato" && x.Estado == "Pendiente").OrderByDescending(x => x.FechaRegistro).Take(10).ToList();
                 lista.Notificacion = lista.CargarLista(noticaciones);
                 //var noticaciones2 = db.Notificacion.Where(x => x.Postulante.Curriculum.Candidato.Id == us.Id).OrderByDescending(x => x.FechaRegistro).ToList();
                 //lista.Notificacion = lista.CargarLista(noticaciones2);
@@ -34,7 +34,7 @@ namespace BolsaDeTrabajo.Controllers
             else if (ua.Rol == "Empresa")
             {
                 var us = db.Usuario.SingleOrDefault(u => u.Correo == ua.Email && u.Rol == ua.Rol);
-                var noticaciones = db.Notificacion.Where(x => (x.Postulante.Empleo.Empresa.Id == us.Id || x.Invitado.Empleo.Empresa.Id == us.Id || x.Invitado.Empresa.Id == us.Id || x.Empresa.Id == us.Id) && x.Receptor == "Empresa").OrderByDescending(x => x.FechaRegistro).Take(10).ToList();
+                var noticaciones = db.Notificacion.Where(x => (x.Postulante.Empleo.Empresa.Id == us.Id || x.Invitado.Empleo.Empresa.Id == us.Id || x.Invitado.Empresa.Id == us.Id || x.Empresa.Id == us.Id) && x.Receptor == "Empresa" && x.Estado == "Pendiente").OrderByDescending(x => x.FechaRegistro).Take(10).ToList();
                 lista.Notificacion = lista.CargarLista(noticaciones);
             }
             lista.NotificacionesPendientes = lista.Notificacion.Where(x => x.Estado == "Pendiente").Count();

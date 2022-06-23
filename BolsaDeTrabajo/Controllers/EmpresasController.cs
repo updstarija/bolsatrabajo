@@ -84,7 +84,7 @@ namespace BolsaDeTrabajo.Controllers
                         }
                         if (IdEmpresa == -1)
                         {
-                            perfil.Estado = "Activo";
+                            perfil.Estado = "Activa";
                             perfil.FechaRegistro = DateTime.Now;
                             bd.Perfil.Add(perfil);
                         }
@@ -149,18 +149,32 @@ namespace BolsaDeTrabajo.Controllers
             return Json(s, JsonRequestBehavior.AllowGet);
         }
 
-        [Authorize(Roles = "Empresa,Administrador")]
+        //[Authorize(Roles = "Empresa,Administrador")]
         public ActionResult Editar()
         {
-            var user = db.Usuario.Where(u => u.Correo == User.Identity.Name).SingleOrDefault();
-            //Empresa empresa = db.Empresa.Where(em => em.Id == user.Id).SingleOrDefault();
-            if (user == null)
+            if (User.Identity.IsAuthenticated)
             {
-                return HttpNotFound();
+                if ((db.Usuario.SingleOrDefault(x => x.Correo == User.Identity.Name && x.Rol == "Empresa")) != null)
+                {
+                    var user = db.Usuario.Where(u => u.Correo == User.Identity.Name).SingleOrDefault();
+                    //Empresa empresa = db.Empresa.Where(em => em.Id == user.Id).SingleOrDefault();
+                    if (user == null)
+                    {
+                        return HttpNotFound();
+                    }
+                    ViewBag.IdEmpresa = user.Id;
+                    ViewBag.tDepartamentos = db.DepartamentoBDT.ToList();
+                    return View();
+                }
+                else
+                {
+                    return RedirectToAction("SinAcceso", "Home");
+                }
             }
-            ViewBag.IdEmpresa = user.Id;
-            ViewBag.tDepartamentos = db.DepartamentoBDT.ToList();
-            return View();
+            else
+            {
+                return RedirectToAction("Login", "Home");
+            }
         }
 
         [Authorize(Roles = "Empresa,Administrador")]

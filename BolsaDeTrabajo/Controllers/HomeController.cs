@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using BolsaDeTrabajo.Models;
 
 namespace BolsaDeTrabajo.Controllers
 {
@@ -21,6 +22,26 @@ namespace BolsaDeTrabajo.Controllers
         public ActionResult Login()
         {
             return View();
+        }
+
+        public ActionResult SinAcceso()
+        {
+            if (User.Identity.IsAuthenticated)
+            {
+                UPDS_BDTEntities db = new UPDS_BDTEntities();
+                if (db.Usuario.SingleOrDefault(x=> x.Correo == User.Identity.Name && x.Rol == "Administrador") != null)
+                {
+                    return RedirectToAction("Index", "Administradores");
+                }
+                else
+                {
+                    return View();
+                }
+            }
+            else
+            {
+                return RedirectToAction("Login", "Home");
+            }
         }
 
         public ActionResult About()

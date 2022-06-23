@@ -1,48 +1,8 @@
 ﻿//Validacion de inputs
 $(function () {
-    //datos personales
-    $('#nombreDP').validacion(' abcdefghijklmnñopqrstuvwxyzáéíóú');
-    $('#apellidoDP').validacion(' abcdefghijklmnñopqrstuvwxyzáéíóú');
-    $('#nroDocumentoDP').validacion(' -0123456789abcdefghijklmnñopqrstuvwxyz');
-    $('#correoDP').validacion('.abcdefghijklmnñopqrstuvwxyzáéíóú0123456789@');
-    $('#nacionalidadDP').validacion(' abcdefghijklmnñopqrstuvwxyzáéíóú');
     $('#movilDP').validacion('0123456789');
     $('#telefonoDP').validacion(' -0123456789');
     $('#direccionDP').validacion(' abcdefghijklmnñopqrstuvwxyzáéíóú(")-/.0123456789');
-    //experiencia laboral
-    $('#nombreEmpresaEL').validacion(' abcdefghijklmnñopqrstuvwxyzáéíóú-0123456789()"');
-    $('#cargoEmpresaEL').validacion(' abcdefghijklmnñopqrstuvwxyzáéíóú()-123456789"');
-    $('#industriaEL').validacion(' abcdefghijklmnñopqrstuvwxyzáéíóú()"-');
-    $('#personasAlCargoEL').validacion('0123456789');
-    $('#estadoRegionEL').validacion(' abcdefghijklmnñopqrstuvwxyzáéíóú()"-');
-    $('#ciudadEL').validacion(' abcdefghijklmnñopqrstuvwxyzáéíóú()"-');
-    $('#contactoEL').validacion(' abcdefghijklmnñopqrstuvwxyzáéíóú');
-    $('#descripcionEL').validacion(' .,:;abcdefghijklmnñopqrstuvwxyzáéíóú0123456789""(-)');
-    //habildad
-    $('#nombreH').validacion(' abcdefghijklmnñopqrstuvwxyzáéíóú()-/.0123456789');
-    //informacion adicional
-    $('#tituloIA').validacion(' .:abcdefghijklmnñopqrstuvwxyzáéíóú0123456789-")(');
-    $('#descripcionIA').validacion(' .,:;abcdefghijklmnñopqrstuvwxyzáéíóú0123456789""(-)');
-    //educacion
-    $('#ColegioInstitucionED').validacion(' abcdefghijklmnñopqrstuvwxyzáéíóú-0123456789()"');
-    $('#nivelEstudioED').validacion(' abcdefghijklmnñopqrstuvwxyzáéíóú');
-    $('#paisED').validacion(' abcdefghijklmnñopqrstuvwxyzáéíóú');
-    $('#estadoRegionED').validacion(' abcdefghijklmnñopqrstuvwxyzáéíóú()-"');
-    $('#ciudadED').validacion(' abcdefghijklmnñopqrstuvwxyzáéíóú()-"');
-    //formacion
-    $('#universidadInstitucionES').validacion(' abcdefghijklmnñopqrstuvwxyzáéíóú-0123456789()"');
-    $('#ccsES').validacion(' abcdefghijklmnñopqrstuvwxyzáéíóú-()"0123456789');
-    $('#nivelEstudioES').validacion(' abcdefghijklmnñopqrstuvwxyzáéíóú');
-    $('#paisES').validacion(' abcdefghijklmnñopqrstuvwxyzáéíóú');
-    $('#estadoRegionES').validacion(' abcdefghijklmnñopqrstuvwxyzáéíóú()-"');
-    $('#ciudadES').validacion(' abcdefghijklmnñopqrstuvwxyzáéíóú()-"');
-    //idioma
-    $('#nombreIS').validacion(' abcdefghijklmnñopqrstuvwxyzáéíóú');
-    //informacion general
-    $('#tituloIG').validacion(' abcdefghijklmnñopqrstuvwxyzáéíóú-0123456789()"');
-    $('#paisIG').validacion(' abcdefghijklmnñopqrstuvwxyzáéíóú');
-    $('#estadoRegionED').validacion(' abcdefghijklmnñopqrstuvwxyzáéíóú()-"');
-    $('#presentacionBiografiaIG').validacion(' .,:;abcdefghijklmnñopqrstuvwxyzáéíóú0123456789""(-)');
 });
 
 
@@ -451,7 +411,7 @@ $("#formDP").on('submit', function (e) {
                     if (data.Tipo == 1) {
                         Toast("success", data.Msj);
                         setTimeout(function () {
-                            window.location.href = urlOficial + 'Curriculos';
+                            window.location.href = urlOficial + 'Curriculos/Index';
                         }, 1000);
                     }
                 }

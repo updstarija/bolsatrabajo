@@ -2,21 +2,18 @@
 $(function () {
     $('#Nombre').validacion(' abcdefghijklmnñopqrstuvwxyzáéíóú');
     $('#Apellido').validacion(' abcdefghijklmnñopqrstuvwxyzáéíóú');
-    $('#NroDocumento').validacion(' abcdefghijklmnñopqrstuvwxyz-0123456789');
-    $('#Descripcion').validacion(' abcdefghijklmnñopqrstuvwxyzáéíóú0123456789.:;()""');
     $('#Pais').validacion(' abcdefghijklmnñopqrstuvwxyzáéíóú');
-    $('#EstadoRegion').validacion(' abcdefghijklmnñopqrstuvwxyzáéíóú');
-    $('#Ciudad').validacion(' abcdefghijklmnñopqrstuvwxyzáéíóú()');
+    $('#EstadoRegion').validacion(' abcdefghijklmnñopqrstuvwxyzáéíóú()');
+    $('#Ciudad').validacion(' abcdefghijklmnñopqrstuvwxyzáéíóú()-');
     $('#TelefonoCelular').validacion('0123456789');
-    $('#Direccion').validacion(' abcdefghijklmnñopqrstuvwxyzáéíóú()/.0123456789');
-    $('#Correo').validacion('abcdefghijklmnñopqrstuvwxyzáéíóú0123456789@.');
 });
 
 tabla = $('#tAdministradores').DataTable({
     columns: [
-        { title: "Registro", width: '10%' },
+        { title: "#", width: '5%' },
         { title: "Nombre", width: '20%' },
-        { title: "Documento", width: '15%' },
+        { title: "Registro", width: '8%' },
+        { title: "Documento", width: '12%' },
         { title: "FechaNac", width: '10%' },
         { title: "<i class='fas fa-restroom'></i>", width: '5%' },
         { title: "Correo", width: '15%' },
@@ -54,14 +51,17 @@ function Listar(obj) {
         },
         columns: [
             {
-                data: "atrib2", width: '10%',
-                sortable: false
+                data: "atrib1", width: '5%',
             },
             {
                 data: "atrib3", width: '20%',
             },
             {
-                data: "atrib4", width: '15%',
+                data: "atrib2", width: '8%',
+                sortable: false
+            },
+            {
+                data: "atrib4", width: '13%',
             },
             {
                 data: "atrib5", width: '10%',

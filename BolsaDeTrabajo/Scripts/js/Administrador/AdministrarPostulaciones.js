@@ -2,8 +2,8 @@
 tabla = $('#tPostulacionesC').DataTable({
     columns: [
         { title: "#", width: '5%' },
-        { title: "Registro", width: '10%' },
         { title: "Empleo", width: '25%' },
+        { title: "Registro", width: '10%' },
         { title: "Empresa", width: '20%' },
         { title: "Ciudad", width: '20%' },
         { title: "Estado", width: '10%' },
@@ -45,10 +45,10 @@ function Listar(obj) {
                 data: "atrib1", width: '5%'
             },
             {
-                data: "atrib2", width: '10%'
+                data: "atrib3", width: '25%'
             },
             {
-                data: "atrib3", width: '25%'
+                data: "atrib2", width: '10%'
             },
             {
                 data: "atrib4", width: '20%'

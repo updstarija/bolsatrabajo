@@ -1,7 +1,4 @@
 ﻿
-$(function () {
-
-})
 
 ////const pass_field = document.querySelector('.pass-key');
 ////const showBtn = document.querySelector('.show');

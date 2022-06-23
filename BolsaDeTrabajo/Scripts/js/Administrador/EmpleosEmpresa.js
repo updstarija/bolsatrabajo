@@ -1,22 +1,16 @@
-﻿//Validacion de inputs
-$(function () {
-    $('#Titulo').validacion(' .,abcdefghijklmnñopqrstuvwxyzáéíóú0123456789-()""');
-    $('#Descripcion').validacion(' .,:;abcdefghijklmnñopqrstuvwxyzáéíóú0123456789""()');
-    $('#Ciudad').validacion(' abcdefghijklmnñopqrstuvwxyzáéíóú()');
-    $('#CorreoEnvioPostulaciones').validacion(' .abcdefghijklmnñopqrstuvwxyzáéíóú0123456789@');
-});
+﻿
 
 tabla = $('#tEmpleosIndex').DataTable({
     columns: [
-        { title: "Registro", width: '10%' },
-        { title: "Actualización", width: '10%' },
-        { title: "Titulo", width: '30%' },
+        { title: "#", width: '5%' },
+        { title: "Empleo", width: '31%' },
+        { title: "Registro", width: '7%' },
+        { title: "Actualización", width: '7%' },
         { title: "Contrato", width: '10%' },
-        //{ title: "Correo", width: '10%' },
         { title: "<i class='fas fa-users'></i>", width: '5%' },
         { title: "Expiración", width: '10%' },
         { title: "Estado", width: '15%' },
-        { title: "<div class='d-flex flex-nowrap'><select class='custom-select' id='filtrosEmpleosC' onchange='FiltrarEmpleos()'><option value='Activo'>Activos</option><option value='Inactivo'>Inactivos</option><option value='Vencido'>Vencidos</option><option value='Todos'>Todos</option></select></div>", width: '10%' }
+        { title: "<div class='d-flex flex-nowrap'><select class='custom-select' id='filtrosEmpleosC' onchange='FiltrarEmpleos()'><option value='Activo'>Activos</option><option value='Inactivo'>Inactivos</option><option value='Expirado'>Expirados</option><option value='Todos'>Todos</option></select></div>", width: '10%' }
     ],
 });
 $("#cargandoEmpleos").show();
@@ -48,22 +42,22 @@ function Listar(obj) {
 
         columns: [
             {
-                data: "atrib2", width: '10%',
+                data: "atrib1", width: '5%',
+            },
+            {
+                data: "atrib4", width: '29%'
+            },
+            {
+                data: "atrib2", width: '8%',
                 sortable: false
             },
             {
-                data: "atrib3", width: '10%',
+                data: "atrib3", width: '8%',
                 sortable: false
-            },
-            {
-                data: "atrib4", width: '30%'
             },
             {
                 data: "atrib5", width: '10%'
             },
-            //{
-            //    data: "atrib6", width: '10%'
-            //},
             {
                 data: "atrib7", width: '10%',
                 sortable: false

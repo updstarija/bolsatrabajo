@@ -22,29 +22,57 @@ namespace BolsaDeTrabajo.Controllers
         // GET: Inicio
         private UPDS_BDTEntities db = new UPDS_BDTEntities();
 
-        [Authorize(Roles = "Empresa,Candidato,Administrador")]
+        //[Authorize(Roles = "Empresa,Candidato,Administrador")]
         [OutputCache(NoStore = true, Duration = 0, VaryByParam = "None")]
         public ActionResult Index()
         {
-            //string baseUrl = new Uri(Request.Url, Url.Content("~")).AbsoluteUri;
-            //var url2 = new Uri(Request.Url.AbsoluteUri);
-            //var url1 = url2.Scheme + "://" + url2.Host + "/";
-            EmpleoC emp = new EmpleoC();
-            emp.ActualizarEstadosEmpleos();
-            ViewBag.tCategoria = db.CategoriaBDT.ToList();
-            ViewBag.tDepartamentos = db.DepartamentoBDT.ToList();
-            //ViewBag.tDepartamentos = db..ToList();
-            return View();
+            if (User.Identity.IsAuthenticated)
+            {
+                if ((db.Usuario.SingleOrDefault(x => x.Correo == User.Identity.Name && x.Rol == "Candidato")) != null)
+                {
+                    //string baseUrl = new Uri(Request.Url, Url.Content("~")).AbsoluteUri;
+                    //var url2 = new Uri(Request.Url.AbsoluteUri);
+                    //var url1 = url2.Scheme + "://" + url2.Host + "/";
+                    EmpleoC emp = new EmpleoC();
+                    emp.ActualizarEstadosEmpleos();
+                    ViewBag.tCategoria = db.CategoriaBDT.ToList();
+                    ViewBag.tDepartamentos = db.DepartamentoBDT.ToList();
+                    //ViewBag.tDepartamentos = db..ToList();
+                    return View();
+                }
+                else
+                {
+                    return RedirectToAction("SinAcceso", "Home");
+                }
+            }
+            else
+            {
+                return RedirectToAction("Login", "Home");
+            }
         }
-        [Authorize(Roles = "Empresa,Candidato,Administrador")]
+        //[Authorize(Roles = "Empresa,Candidato,Administrador")]
         [OutputCache(NoStore = true, Duration = 0, VaryByParam = "None")]
         public ActionResult IndexCurriculums()
         {
-            EmpleoC emp = new EmpleoC();
-            emp.ActualizarEstadosEmpleos();
-            ViewBag.tCarreras = db.CarreraBDT.ToList();
-            ViewBag.tDepartamentos = db.DepartamentoBDT.ToList();
-            return View();
+            if (User.Identity.IsAuthenticated)
+            {
+                if ((db.Usuario.SingleOrDefault(x => x.Correo == User.Identity.Name && x.Rol == "Empresa")) != null)
+                {
+                    EmpleoC emp = new EmpleoC();
+                    emp.ActualizarEstadosEmpleos();
+                    ViewBag.tCarreras = db.CarreraBDT.ToList();
+                    ViewBag.tDepartamentos = db.DepartamentoBDT.ToList();
+                    return View();
+                }
+                else
+                {
+                    return RedirectToAction("SinAcceso", "Home");
+                }
+            }
+            else
+            {
+                return RedirectToAction("Login", "Home");
+            }
         }
     }
 }

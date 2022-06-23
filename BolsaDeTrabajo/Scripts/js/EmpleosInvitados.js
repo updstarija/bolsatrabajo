@@ -1,13 +1,13 @@
 ﻿tabla = $('#tInvitadosLista').DataTable({
     columns: [
         { title: "<p class='text-center m-0 p-0'>#</p>", width: '5%' },
+        { title: "Invitado", width: '30%' },
         { title: "Registro", width: '15%' },
-        { title: "Invitado", width: '25%' },
         { title: "Curriculum", width: '15%' },
         { title: "Nacionalidad", width: '15%' },
-        { title: "Sexo", width: '10%' },
+        { title: "Sexo", width: '5%' },
         { title: "Estado", width: '5%' },
-        { title: "<div class='d-flex flex-nowrap'><select class='custom-select' id='filtroinvitacion' onchange='FiltrarInvitacion()'><option value='Aceptado'>Aceptados</option><option value='Pendiente'>Pendientes</option><option value='Todos'>Todos</option></select></div>", width: '10%' }
+        { title: "<div class='d-flex flex-nowrap'><select class='custom-select' id='filtroinvitacion' onchange='FiltrarInvitacion()'><option value='Todos'>Todos</option><option value='Pendiente'>Pendientes</option><option value='Aceptado'>Aceptados</option></select></div>", width: '10%' }
     ],
 });
 var direct = window.location.href.split('/');
@@ -42,10 +42,10 @@ function ListarLI(obj) {
                 data: "atrib1", width: '5%'
             },
             {
-                data: "atrib2", width: '10%'
+                data: "atrib3", width: '30%'
             },
             {
-                data: "atrib3", width: '15%'
+                data: "atrib2", width: '15%'
             },
             {
                 data: "atrib4", width: '15%'
@@ -54,14 +54,14 @@ function ListarLI(obj) {
                 data: "atrib5", width: '15%'
             },
             {
-                data: "atrib6", width: '10%'
+                data: "atrib6", width: '5%'
             },
             {
-                data: "atrib7", width: '10%',
+                data: "atrib7", width: '5%',
                 sortable: false
             },
             {
-                data: "atrib8", width: '5%',
+                data: "atrib8", width: '10%',
                 sortable: false
             },
         ]
